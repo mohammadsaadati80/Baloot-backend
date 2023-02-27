@@ -172,6 +172,20 @@ public class Baloot {
         }
     }
 
+    public void getCommodityById(String data) throws IOException {
+        Integer id = mapper.readTree(data).get("id").asInt();
+        if (id==null)
+            CommandHandler.printOutput(new Response(false, "Invalidcommand"));
+        else {
+            if (!commodities.containsKey(id))
+                CommandHandler.printOutput(new Response(false, "Commodity not found"));
+            else {
+                String outputData = commodities.get(id).getCommodityInfo(mapper);
+                CommandHandler.printOutput(new Response(true, outputData));
+            }
+        }
+    }
+
 
 
 }

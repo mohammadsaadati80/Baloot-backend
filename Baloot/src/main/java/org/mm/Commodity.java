@@ -1,5 +1,6 @@
 package org.mm;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -48,6 +49,19 @@ public class Commodity {
     public void addRate(Rate rate) {
         rates.put(rate.getUsername(), (int) rate.getScore());
         rating = (float) rates.values().stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+    }
+
+    public String getCommodityInfo(ObjectMapper mapper) throws JsonProcessingException {
+        ObjectNode commodity = mapper.createObjectNode();
+        commodity.put("id", id);
+        commodity.put("name", name);
+        commodity.put("providerId", providerId);
+        commodity.put("price", price);
+        ArrayNode categoryArrayNode = mapper.valueToTree(getCategories());
+        commodity.putArray("genres").addAll(categoryArrayNode);
+        commodity.put("rating", rating);
+        String data = mapper.writeValueAsString(commodity);
+        return data;
     }
 
     public Integer getId() { return id; }

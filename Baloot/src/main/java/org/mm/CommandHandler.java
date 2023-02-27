@@ -79,6 +79,10 @@ public class CommandHandler {
                 baloot.removeFromBuyList(data);
                 break;
             }
+            case "getCommodityById": {
+                baloot.getCommodityById(data);
+                break;
+            }
             default: {
                 CommandHandler.printOutput(new Response(false, "Invalid command"));
                 break;
