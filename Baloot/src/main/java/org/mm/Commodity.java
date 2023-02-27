@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.util.*;
+
 public class Commodity {
     private Integer id;
     private String name;
@@ -12,6 +14,8 @@ public class Commodity {
     private String[] categories;
     private float rating;
     private Integer inStock;
+
+    private Map<String, Integer> rates = new HashMap<>();
 
     public void update(Commodity commodity) {
         id = commodity.getId();
@@ -39,6 +43,11 @@ public class Commodity {
         commodity.putArray("genres").addAll(categoryArrayNode);
         commodity.put("rating", rating);
         commodity.put("inStock", inStock);
+    }
+
+    public void addRate(Rate rate) {
+        rates.put(rate.getUsername(), (int) rate.getScore());
+        rating = (float) rates.values().stream().mapToDouble(Integer::doubleValue).average().orElse(0);
     }
 
     public Integer getId() { return id; }

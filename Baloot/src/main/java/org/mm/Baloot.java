@@ -38,7 +38,7 @@ public class Baloot {
         User user = mapper.readValue(data, User.class);
 
         if (!user.isValidCommand())
-            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             if (users.containsKey(user.getUsername())) {
                 users.get(user.getUsername()).update(user);
@@ -57,7 +57,7 @@ public class Baloot {
         Provider provider = mapper.readValue(data, Provider.class);
 
         if (!provider.isValidCommand())
-            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             if (providers.containsKey(provider.getId())) {
                 providers.get(provider.getId()).update(provider);
@@ -74,7 +74,7 @@ public class Baloot {
         Commodity commodity = mapper.readValue(data, Commodity.class);
 
         if (!commodity.isValidCommand())
-            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
         else if (providers.containsKey(commodity.getProviderId())) //TODO
             CommandHandler.printOutput(new Response(false, "Provider not found"));
         else {
@@ -89,9 +89,9 @@ public class Baloot {
         }
     }
 
-    public void getCommoditiesList(String inputData) throws JsonProcessingException {
-        if (inputData.length() > 0)
-            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+    public void getCommoditiesList(String data) throws JsonProcessingException {
+        if (data.length() > 0)
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
 
         List<ObjectNode> objects = new ArrayList<>();
         for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
@@ -102,8 +102,26 @@ public class Baloot {
         ArrayNode arrayNode = mapper.valueToTree(objects);
         ObjectNode commodityList = mapper.createObjectNode();
         commodityList.putArray("commoditiesList").addAll(arrayNode);
-        String data = mapper.writeValueAsString(commodityList); // TODO
-        CommandHandler.printOutput(new Response(true, data));
+        String outputData = mapper.writeValueAsString(commodityList); // TODO
+        CommandHandler.printOutput(new Response(true, outputData));
+    }
+
+    public void rateCommodity(String data) throws IOException {
+        Rate rate = mapper.readValue(data, Rate.class);
+        if (!rate.isValidCommand())
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
+        else {
+            if (!users.containsKey(rate.getUsername()))
+                CommandHandler.printOutput(new Response(false, "Username not found"));
+            else if (!commodities.containsKey(rate.getCommodityId()))
+                CommandHandler.printOutput(new Response(false, "Commodity not found"));
+            else if (rate.isValidScore())
+                CommandHandler.printOutput(new Response(false, "Invalid rate score"));
+            else {
+                commodities.get(rate.getCommodityId()).addRate(rate);
+                CommandHandler.printOutput(new Response(true, "Commodity rated successfully")); //TODO check working sussecfully
+            }
+        }
     }
 
 }

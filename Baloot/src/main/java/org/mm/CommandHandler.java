@@ -34,7 +34,7 @@ public class CommandHandler {
                 commandHandler(command, data);
             }
             catch (Exception exception) {
-                CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+                CommandHandler.printOutput(new Response(false, "Invalid command"));
             }
         }
     }
@@ -67,8 +67,12 @@ public class CommandHandler {
                 baloot.getCommoditiesList(data);
                 break;
             }
+            case "rateCommodity": {
+                baloot.rateCommodity(data);
+                break;
+            }
             default: {
-                CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+                CommandHandler.printOutput(new Response(false, "Invalid command"));
                 break;
             }
         }
