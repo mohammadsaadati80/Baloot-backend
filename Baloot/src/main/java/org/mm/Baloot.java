@@ -22,29 +22,70 @@ public class Baloot {
 
     private ObjectMapper mapper;
     private Map<String, User> users;
-//    private Map<Integer, Provider> providers;
-//    private Map<Integer, Commodity> commodities;
+    private Map<Integer, Provider> providers;
+    private Map<Integer, Commodity> commodities;
 
     public Baloot() {
         mapper = new ObjectMapper();
 //        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //        mapper.setDateFormat(df);
         users = new HashMap<>();
+        providers = new HashMap<>();
+        commodities = new HashMap<>();
     }
 
     public void addUser(String data) throws IOException {
         User user = mapper.readValue(data, User.class);
-        int a = 2;
-        if (! user.isValidCommand())
+
+        if (!user.isValidCommand())
             CommandHandler.printOutput(new Response(false, "InvalidCommand"));
         else {
-            if (users.containsKey(user.getUsername()))
+            if (users.containsKey(user.getUsername())) {
                 users.get(user.getUsername()).update(user);
+                CommandHandler.printOutput(new Response(true, "User updated successfully"));
+            }
             else {
                 user.initialValues();
                 users.put(user.getUsername(), user);
+                CommandHandler.printOutput(new Response(true, "User added successfully"));
             }
-            CommandHandler.printOutput(new Response(true, "User added successfully"));
+
+        }
+    }
+
+    public void addProvider(String data) throws IOException {
+        Provider provider = mapper.readValue(data, Provider.class);
+
+        if (!provider.isValidCommand())
+            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+        else {
+            if (providers.containsKey(provider.getId())) {
+                providers.get(provider.getId()).update(provider);
+                CommandHandler.printOutput(new Response(true, "Provider updated successfully"));
+            }
+            else {
+                providers.put(provider.getId(), provider);
+                CommandHandler.printOutput(new Response(true, "Provider added successfully"));
+            }
+        }
+    }
+
+    public void addCommodity(String data) throws IOException {
+        Commodity commodity = mapper.readValue(data, Commodity.class);
+
+        if (!commodity.isValidCommand())
+            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+        else if (providers.containsKey(commodity.getProviderId()))
+            CommandHandler.printOutput(new Response(false, "Provider not found"));
+        else {
+            if (commodities.containsKey(commodity.getId())) {
+                commodities.get(commodity.getId()).update(commodity);
+                CommandHandler.printOutput(new Response(true, "Commodity updated successfully"));
+            }
+            else {
+                commodities.put(commodity.getId(), commodity);
+                CommandHandler.printOutput(new Response(true, "Commodity added successfully"));
+            }
         }
     }
 

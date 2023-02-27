@@ -55,6 +55,14 @@ public class CommandHandler {
                 baloot.addUser(data);
                 break;
             }
+            case "addProvider": {
+                baloot.addProvider(data);
+                break;
+            }
+            case "addCommodity": {
+                baloot.addCommodity(data);
+                break;
+            }
 
             default: {
                 CommandHandler.printOutput(new Response(false, "InvalidCommand"));

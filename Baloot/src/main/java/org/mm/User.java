@@ -21,7 +21,7 @@ public class User {
     private String address;
     private Integer credit;
 
-    public void initialValues() {
+    public void initialValues() { // TODO
         username = "";
         password = "";
         email = "";
