@@ -75,7 +75,7 @@ public class Baloot {
 
         if (!commodity.isValidCommand())
             CommandHandler.printOutput(new Response(false, "InvalidCommand"));
-        else if (providers.containsKey(commodity.getProviderId()))
+        else if (providers.containsKey(commodity.getProviderId())) //TODO
             CommandHandler.printOutput(new Response(false, "Provider not found"));
         else {
             if (commodities.containsKey(commodity.getId())) {
@@ -87,6 +87,23 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(true, "Commodity added successfully"));
             }
         }
+    }
+
+    public void getCommoditiesList(String inputData) throws JsonProcessingException {
+        if (inputData.length() > 0)
+            CommandHandler.printOutput(new Response(false, "InvalidCommand"));
+
+        List<ObjectNode> objects = new ArrayList<>();
+        for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+            ObjectNode commodity = mapper.createObjectNode();
+            entry.getValue().toJson(mapper, commodity);
+            objects.add(commodity);
+        }
+        ArrayNode arrayNode = mapper.valueToTree(objects);
+        ObjectNode commodityList = mapper.createObjectNode();
+        commodityList.putArray("commoditiesList").addAll(arrayNode);
+        String data = mapper.writeValueAsString(commodityList); // TODO
+        CommandHandler.printOutput(new Response(true, data));
     }
 
 }

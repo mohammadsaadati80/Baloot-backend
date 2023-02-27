@@ -63,7 +63,10 @@ public class CommandHandler {
                 baloot.addCommodity(data);
                 break;
             }
-
+            case "getCommoditiesList": {
+                baloot.getCommoditiesList(data);
+                break;
+            }
             default: {
                 CommandHandler.printOutput(new Response(false, "InvalidCommand"));
                 break;
