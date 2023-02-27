@@ -96,7 +96,7 @@ public class Baloot {
         List<ObjectNode> objects = new ArrayList<>();
         for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
             ObjectNode commodity = mapper.createObjectNode();
-            entry.getValue().toJson(mapper, commodity);
+            entry.getValue().toJson(mapper, commodity, true);
             objects.add(commodity);
         }
         ArrayNode arrayNode = mapper.valueToTree(objects);
@@ -119,7 +119,7 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(false, "Invalid rate score"));
             else {
                 commodities.get(rate.getCommodityId()).addRate(rate);
-                CommandHandler.printOutput(new Response(true, "Commodity rated successfully")); //TODO check working sussecfully
+                CommandHandler.printOutput(new Response(true, "Commodity rated successfully")); //TODO check working successfully
             }
         }
     }
@@ -175,14 +175,38 @@ public class Baloot {
     public void getCommodityById(String data) throws IOException {
         Integer id = mapper.readTree(data).get("id").asInt();
         if (id==null)
-            CommandHandler.printOutput(new Response(false, "Invalidcommand"));
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             if (!commodities.containsKey(id))
                 CommandHandler.printOutput(new Response(false, "Commodity not found"));
             else {
-                String outputData = commodities.get(id).getCommodityInfo(mapper);
+                ObjectNode commodity = mapper.createObjectNode();
+                commodities.get(id).toJson(mapper, commodity, false);
+                String outputData = mapper.writeValueAsString(commodity);
                 CommandHandler.printOutput(new Response(true, outputData));
             }
+        }
+    }
+
+    public void getCommoditiesByCategory(String data) throws IOException {
+        String category = mapper.readTree(data).get("category").asText();
+
+        if (category==null)
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
+        else {
+            List<ObjectNode> moviesObjectNode = new ArrayList<>();
+            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+                if (entry.getValue().isInCategory(category)) {
+                    ObjectNode commodity = mapper.createObjectNode();
+                    entry.getValue().toJson(mapper, commodity, false);
+                    moviesObjectNode.add(commodity);
+                }
+            }
+            ObjectNode commoditiesListByCategory = mapper.createObjectNode();
+            ArrayNode moviesArrayNode = mapper.valueToTree(moviesObjectNode);
+            commoditiesListByCategory.putArray("commoditiesListByCategory").addAll(moviesArrayNode);
+            String outputData = mapper.writeValueAsString(commoditiesListByCategory);
+            CommandHandler.printOutput(new Response(true, outputData));
         }
     }
 

@@ -35,7 +35,7 @@ public class Commodity {
             return true;
     }
 
-    public void toJson(ObjectMapper mapper, ObjectNode commodity) {
+    public void toJson(ObjectMapper mapper, ObjectNode commodity, boolean all) {
         commodity.put("id", id);
         commodity.put("name", name);
         commodity.put("providerId", providerId);
@@ -43,7 +43,8 @@ public class Commodity {
         ArrayNode categoryArrayNode = mapper.valueToTree(getCategories());
         commodity.putArray("genres").addAll(categoryArrayNode);
         commodity.put("rating", rating);
-        commodity.put("inStock", inStock);
+        if (all)
+            commodity.put("inStock", inStock);
     }
 
     public void addRate(Rate rate) {
@@ -51,17 +52,11 @@ public class Commodity {
         rating = (float) rates.values().stream().mapToDouble(Integer::doubleValue).average().orElse(0);
     }
 
-    public String getCommodityInfo(ObjectMapper mapper) throws JsonProcessingException {
-        ObjectNode commodity = mapper.createObjectNode();
-        commodity.put("id", id);
-        commodity.put("name", name);
-        commodity.put("providerId", providerId);
-        commodity.put("price", price);
-        ArrayNode categoryArrayNode = mapper.valueToTree(getCategories());
-        commodity.putArray("genres").addAll(categoryArrayNode);
-        commodity.put("rating", rating);
-        String data = mapper.writeValueAsString(commodity);
-        return data;
+    public boolean isInCategory(String inputCategory) {
+        for (String category: getCategories())
+            if (category.equals(inputCategory))
+                return true;
+        return false;
     }
 
     public Integer getId() { return id; }

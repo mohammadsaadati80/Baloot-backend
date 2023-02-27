@@ -83,6 +83,10 @@ public class CommandHandler {
                 baloot.getCommodityById(data);
                 break;
             }
+            case "getCommoditiesByCategory": {
+                baloot.getCommoditiesByCategory(data);
+                break;
+            }
             default: {
                 CommandHandler.printOutput(new Response(false, "Invalid command"));
                 break;
