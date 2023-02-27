@@ -1,6 +1,7 @@
 package org.mm;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -20,6 +21,8 @@ public class User {
     private String birthDate;
     private String address;
     private Integer credit;
+
+    private Set<Integer> buyList = new HashSet<>();
 
     public void initialValues() { // TODO
         username = "";
@@ -46,6 +49,17 @@ public class User {
             return false;
         else
             return true;
+    }
+
+    public boolean isInBuyList(Integer commodityId)  {
+        if (buyList.contains(commodityId)) {
+            return true;
+        }
+        return false;
+    }
+
+    public void addToBuyList(Integer commodityId) {
+        buyList.add(commodityId);
     }
 
     public Integer getCredit() {

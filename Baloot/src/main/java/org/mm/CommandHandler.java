@@ -71,6 +71,10 @@ public class CommandHandler {
                 baloot.rateCommodity(data);
                 break;
             }
+            case "addToBuyList": {
+                baloot.addToBuyList(data);
+                break;
+            }
             default: {
                 CommandHandler.printOutput(new Response(false, "Invalid command"));
                 break;

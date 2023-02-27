@@ -124,4 +124,29 @@ public class Baloot {
         }
     }
 
+    public void addToBuyList(String data) throws IOException {
+        JsonNode jsonNode = mapper.readTree(data);
+        String username = jsonNode.get("username").asText();
+        Integer commodityId = jsonNode.get("commodityId").asInt();
+
+        if (username==null || commodityId==null)
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
+        else {
+            if (!users.containsKey(username))
+                CommandHandler.printOutput(new Response(false, "Username not found"));
+            else if (!commodities.containsKey(commodityId))
+                CommandHandler.printOutput(new Response(false, "Commodity not found"));
+            else if (commodities.get(commodityId).getInStock() == 0)
+                CommandHandler.printOutput(new Response(false, "Commodity is not available in stock"));
+            else {
+                if (users.get(username).isInBuyList((commodityId)))
+                    CommandHandler.printOutput(new Response(false, "Commodity already in BuyList"));
+                else {
+                    users.get(username).addToBuyList(commodityId);
+                    CommandHandler.printOutput(new Response(true, "Commodity added to Buylist successfully"));
+                }
+            }
+        }
+    }
+
 }
