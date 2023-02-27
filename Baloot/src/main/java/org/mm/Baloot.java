@@ -45,7 +45,7 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(true, "User updated successfully"));
             }
             else {
-                user.initialValues();
+//                user.initialValues();
                 users.put(user.getUsername(), user);
                 CommandHandler.printOutput(new Response(true, "User added successfully"));
             }
@@ -210,6 +210,29 @@ public class Baloot {
         }
     }
 
+    public void getBuyList(String data) throws IOException {
+        String username = mapper.readTree(data).get("username").asText();
+        if (username==null)
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
+        else {
+            if (!users.containsKey(username))
+                CommandHandler.printOutput(new Response(false, "Username not found"));
+            else {
+                Set<Integer> buyList = users.get(username).getBuyList();
+                ObjectNode watchListNode = mapper.createObjectNode();
+                List<ObjectNode> moviesObjectNode = new ArrayList<>();
+                for (Integer commodityId : buyList) {
+                    ObjectNode commodity = mapper.createObjectNode();
+                    commodities.get(commodityId).toJson(mapper, commodity, false);
+                    moviesObjectNode.add(commodity);
+                }
+                ArrayNode arrayNode = mapper.valueToTree(moviesObjectNode);
+                watchListNode.putArray("buyList").addAll(arrayNode);
+                String outputData = mapper.writeValueAsString(watchListNode);
+                CommandHandler.printOutput(new Response(true, outputData));
+            }
 
+        }
+    }
 
 }
