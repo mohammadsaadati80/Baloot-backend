@@ -1,5 +1,6 @@
 package org.mm;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,6 +15,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Baloot {
 
@@ -24,8 +27,8 @@ public class Baloot {
 
     public Baloot() {
         mapper = new ObjectMapper();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        mapper.setDateFormat(df);
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        mapper.setDateFormat(df);
         users = new HashMap<>();
     }
 
@@ -38,7 +41,7 @@ public class Baloot {
             if (users.containsKey(user.getUsername()))
                 users.get(user.getUsername()).update(user);
             else {
-//                user.initialValues();
+                user.initialValues();
                 users.put(user.getUsername(), user);
             }
             CommandHandler.printOutput(new Response(true, "User added successfully"));
