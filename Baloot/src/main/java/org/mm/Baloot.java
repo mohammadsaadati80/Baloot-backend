@@ -149,4 +149,29 @@ public class Baloot {
         }
     }
 
+    public void removeFromBuyList(String data) throws IOException {
+        JsonNode jsonNode = mapper.readTree(data);
+        String username = jsonNode.get("username").asText();
+        Integer commodityId = jsonNode.get("commodityId").asInt();
+
+        if (username==null || commodityId==null)
+            CommandHandler.printOutput(new Response(false, "Invalid command"));
+        else {
+            if (!users.containsKey(username))
+                CommandHandler.printOutput(new Response(false, "Username not found"));
+            else if (!commodities.containsKey(commodityId))
+                CommandHandler.printOutput(new Response(false, "Commodity not found"));
+            else {
+                if (! users.get(username).isInBuyList((commodityId)))
+                    CommandHandler.printOutput(new Response(false, "Commodity is not in BuyList"));
+                else {
+                    users.get(username).removeFromBuyList(commodityId);
+                    CommandHandler.printOutput(new Response(true, "Commodity removed from Buylist successfully"));
+                }
+            }
+        }
+    }
+
+
+
 }

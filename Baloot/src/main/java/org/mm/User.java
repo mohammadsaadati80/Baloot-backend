@@ -62,6 +62,10 @@ public class User {
         buyList.add(commodityId);
     }
 
+    public void removeFromBuyList(Integer commodityId) {
+        buyList.remove(commodityId);
+    }
+
     public Integer getCredit() {
         return credit;
     }

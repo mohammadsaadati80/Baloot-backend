@@ -75,6 +75,10 @@ public class CommandHandler {
                 baloot.addToBuyList(data);
                 break;
             }
+            case "removeFromBuyList": {
+                baloot.removeFromBuyList(data);
+                break;
+            }
             default: {
                 CommandHandler.printOutput(new Response(false, "Invalid command"));
                 break;
