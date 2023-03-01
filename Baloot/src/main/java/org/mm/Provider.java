@@ -13,8 +13,6 @@ public class Provider {
 
     private float averageCommoditiesRates = 0;
 
-    //TODO commodity list and avg rating and updates
-
     public void update(Provider provider) {
         id = provider.getId();
         name = provider.getName();
@@ -30,7 +28,14 @@ public class Provider {
 
     public void addCommodity(Commodity commodity) {
         commodities.put(commodity.getId(), commodity);
-        averageCommoditiesRates = ((commodities.size()-1)*averageCommoditiesRates + commodity.getRating())/commodities.size();
+        updateAverageCommoditiesRates();
+    }
+
+    public void updateAverageCommoditiesRates() {
+        averageCommoditiesRates = 0;
+        for (Map.Entry<Integer, Commodity> set : commodities.entrySet())
+            averageCommoditiesRates += set.getValue().getRating();
+        averageCommoditiesRates /= commodities.size();
     }
 
     public Integer getId() {
@@ -45,7 +50,10 @@ public class Provider {
         return registryDate;
     }
 
-    public float getAverageCommoditiesRates() {return averageCommoditiesRates;}
+    public float getAverageCommoditiesRates() {
+        updateAverageCommoditiesRates();
+        return averageCommoditiesRates;
+    }
 
     public Map<Integer, Commodity> getCommodities() {return commodities;}
 }

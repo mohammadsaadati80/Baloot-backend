@@ -36,6 +36,8 @@ class BalootTest {
         baloot.addCommodity(commodity);
         String commodity2 = "{\"id\": 2, \"name\": \"Mouse\", \"providerId\": 1, \"price\": 6000, \"categories\": [\"Technology\"], \"rating\": 4, \"inStock\": 0}";
         baloot.addCommodity(commodity2);
+        String user2 = "{\"username\": \"user2\", \"password\": \"1234\", \"email\": \"user@gmail.com\", \"birthDate\": \"1977-09-15\", \"address\": \"address1\", \"credit\": 1500}";
+        baloot.addUser(user2);
 
         System.setOut(new PrintStream(out));
         System.setErr(new PrintStream(err));
@@ -61,7 +63,7 @@ class BalootTest {
     @Test
     void rateCommodity_UsernameNotFound() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Username not found\"}" + "\r\n";
-        baloot.rateCommodity("{\"username\": \"user2\", \"commodityId\": 1, \"score\": 7}");
+        baloot.rateCommodity("{\"username\": \"user3\", \"commodityId\": 1, \"score\": 7}");
         assertEquals(expectedOutput, out.toString());
     }
 
@@ -117,8 +119,6 @@ class BalootTest {
 
     @Test
     void rateCommodity_CommodityRate_Average() throws IOException {
-        String user2 = "{\"username\": \"user2\", \"password\": \"1234\", \"email\": \"user@gmail.com\", \"birthDate\": \"1977-09-15\", \"address\": \"address1\", \"credit\": 1500}";
-        baloot.addUser(user2);
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5}");
         baloot.rateCommodity("{\"username\": \"user2\", \"commodityId\": 1, \"score\": 7}");
         float rate = baloot.getCommodities().get(1).getRating();
@@ -127,13 +127,28 @@ class BalootTest {
 
     @Test
     void rateCommodity_CommodityRate_UpdateAverage() throws IOException {
-        String user2 = "{\"username\": \"user2\", \"password\": \"1234\", \"email\": \"user@gmail.com\", \"birthDate\": \"1977-09-15\", \"address\": \"address1\", \"credit\": 1500}";
-        baloot.addUser(user2);
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5}");
         baloot.rateCommodity("{\"username\": \"user2\", \"commodityId\": 1, \"score\": 7}");
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 8}");
         float rate = baloot.getCommodities().get(1).getRating();
         assertEquals(7.5, rate);
+    }
+
+    @Test
+    void rateCommodity_CommodityRate_ProviderAverage() throws IOException {
+        baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5}");
+        baloot.rateCommodity("{\"username\": \"user2\", \"commodityId\": 1, \"score\": 1}");
+        float rate = baloot.getProviders().get(1).getAverageCommoditiesRates();
+        assertEquals(3.5, rate);
+    }
+
+    @Test
+    void rateCommodity_CommodityRate_UpdateProviderAverage() throws IOException {
+        baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5}");
+        baloot.rateCommodity("{\"username\": \"user2\", \"commodityId\": 1, \"score\": 7}");
+        baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 9}");
+        float rate = baloot.getProviders().get(1).getAverageCommoditiesRates();
+        assertEquals(6, rate);
     }
 
     @Test
@@ -146,7 +161,7 @@ class BalootTest {
     @Test
     void addToBuyList_UsernameNotFound() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Username not found\"}" + "\r\n";
-        baloot.addToBuyList("{\"username\": \"user2\", \"commodityId\": 1}");
+        baloot.addToBuyList("{\"username\": \"user3\", \"commodityId\": 1}");
         assertEquals(expectedOutput, out.toString());
     }
 
@@ -229,5 +244,5 @@ class BalootTest {
         baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
         assertEquals(expectedOutput, out.toString());
     }
-    // TODO Combined tests
+
 }
