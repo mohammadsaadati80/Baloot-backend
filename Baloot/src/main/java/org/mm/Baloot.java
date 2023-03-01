@@ -154,7 +154,7 @@ public class Baloot {
                     CommandHandler.printOutput(new Response(false, "Commodity already in BuyList"));
                 else {
                     users.get(username).addToBuyList(commodityId);
-                    CommandHandler.printOutput(new Response(true, "Commodity added to Buylist successfully"));
+                    CommandHandler.printOutput(new Response(true, "Commodity added to BuyList successfully"));
                 }
             }
         }

@@ -27,12 +27,15 @@ class BalootTest {
         commandHandler = new CommandHandler();
         baloot = new Baloot();
         mapper = new ObjectMapper();
+
         String user = "{\"username\": \"user1\", \"password\": \"1234\", \"email\": \"user@gmail.com\", \"birthDate\": \"1977-09-15\", \"address\": \"address1\", \"credit\": 1500}";
-        String provider = "{\"id\": 1, \"name\": \"provider1\", \"registryDate\": \"2023-09-15\"}";
-        String commodity = "{\"id\": 1, \"name\": \"Headphone\", \"providerId\": 1, \"price\": 35000, \"categories\": [\"Technology\", \"Phone\"], \"rating\": 8.8, \"inStock\": 50}";
         baloot.addUser(user);
+        String provider = "{\"id\": 1, \"name\": \"provider1\", \"registryDate\": \"2023-09-15\"}";
         baloot.addProvider(provider);
+        String commodity = "{\"id\": 1, \"name\": \"Headphone\", \"providerId\": 1, \"price\": 35000, \"categories\": [\"Technology\", \"Phone\"], \"rating\": 8.8, \"inStock\": 50}";
         baloot.addCommodity(commodity);
+        String commodity2 = "{\"id\": 2, \"name\": \"Mouse\", \"providerId\": 1, \"price\": 6000, \"categories\": [\"Technology\"], \"rating\": 4, \"inStock\": 0}";
+        baloot.addCommodity(commodity2);
 
         System.setOut(new PrintStream(out));
         System.setErr(new PrintStream(err));
@@ -65,26 +68,26 @@ class BalootTest {
     @Test
     void rateCommodity_CommodityNotFound() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Commodity not found\"}" + "\r\n";
-        baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 2, \"score\": 7}");
+        baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 3, \"score\": 7}");
         assertEquals(expectedOutput, out.toString());
     }
 
     @Test
-    void rateCommodity_InvalidRateScore_1() throws IOException {
+    void rateCommodity_InvalidRateScore_LessThan1() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid rate score\"}" + "\r\n";
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 0.5}");
         assertEquals(expectedOutput, out.toString());
     }
 
     @Test
-    void rateCommodity_InvalidRateScore_2() throws IOException {
+    void rateCommodity_InvalidRateScore_MoreThan10() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid rate score\"}" + "\r\n";
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 11}");
         assertEquals(expectedOutput, out.toString());
     }
 
     @Test
-    void rateCommodity_InvalidRateScore_3() throws IOException {
+    void rateCommodity_InvalidRateScore_NotInteger() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid rate score\"}" + "\r\n";
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5.5}");
         assertEquals(expectedOutput, out.toString());
@@ -113,7 +116,7 @@ class BalootTest {
     }
 
     @Test
-    void rateCommodity_CommodityRate_1() throws IOException {
+    void rateCommodity_CommodityRate_Average() throws IOException {
         String user2 = "{\"username\": \"user2\", \"password\": \"1234\", \"email\": \"user@gmail.com\", \"birthDate\": \"1977-09-15\", \"address\": \"address1\", \"credit\": 1500}";
         baloot.addUser(user2);
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5}");
@@ -123,7 +126,7 @@ class BalootTest {
     }
 
     @Test
-    void rateCommodity_CommodityRate_2() throws IOException {
+    void rateCommodity_CommodityRate_UpdateAverage() throws IOException {
         String user2 = "{\"username\": \"user2\", \"password\": \"1234\", \"email\": \"user@gmail.com\", \"birthDate\": \"1977-09-15\", \"address\": \"address1\", \"credit\": 1500}";
         baloot.addUser(user2);
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5}");
@@ -133,16 +136,50 @@ class BalootTest {
         assertEquals(7.5, rate);
     }
 
+    @Test
+    void addToBuyList_InvalidCommand() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": }"); //TODO
+        assertEquals(expectedOutput, out.toString());
+    }
 
+    @Test
+    void addToBuyList_UsernameNotFound() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Username not found\"}" + "\r\n";
+        baloot.addToBuyList("{\"username\": \"user2\", \"commodityId\": 1}");
+        assertEquals(expectedOutput, out.toString());
+    }
 
+    @Test
+    void addToBuyList_CommodityNotFound() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Commodity not found\"}" + "\r\n";
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": 3}");
+        assertEquals(expectedOutput, out.toString());
+    }
 
+    @Test
+    void addToBuyList_CommodityIsNotAvailableInStock() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Commodity is not available in stock\"}" + "\r\n";
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": 2}");
+        assertEquals(expectedOutput, out.toString());
+    }
 
-//    @Test
-//    void addToBuyList() throws IOException {
-//        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": 1}");
-//
-//    }
-//
+    @Test
+    void addToBuyList_CommodityAddedToBuyListSuccessfully() throws IOException {
+        String expectedOutput = "{\"success\":true,\"data\":\"Commodity added to BuyList successfully\"}" + "\r\n";
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": 1}");
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    void addToBuyList_CommodityAlreadyInBuyList() throws IOException {
+        String expectedOutput = "{\"success\":true,\"data\":\"Commodity added to BuyList successfully\"}" + "\r\n" +
+                "{\"success\":false,\"data\":\"Commodity already in BuyList\"}" + "\r\n";
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": 1}");
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": 1}");
+        assertEquals(expectedOutput, out.toString());
+    }
+
     @Test
     void getCommodityById_InvalidCommand() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
@@ -153,7 +190,7 @@ class BalootTest {
     @Test
     void getCommodityById_CommodityNotFound() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Commodity not found\"}" + "\r\n";
-        baloot.getCommodityById("{\"id\": 2}");
+        baloot.getCommodityById("{\"id\": 3}");
         assertEquals(expectedOutput, out.toString());
     }
 
@@ -181,17 +218,13 @@ class BalootTest {
     @Test
     void getCommoditiesByCategory_SingleResult() throws IOException {
         String expectedOutput = "{\"success\":true,\"data\":\"{\"commoditiesListByCategory\":[{\"id\":1,\"name\":\"Headphone\",\"providerId\":1,\"price\":35000,\"genres\":[\"Technology\",\"Phone\"],\"rating\":8.8}]}\"}" + "\r\n";
-        baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
+        baloot.getCommoditiesByCategory("{\"category\": \"Phone\"}");
         assertEquals(expectedOutput, out.toString());
     }
 
     @Test
     void getCommoditiesByCategory_MultipleResult() throws IOException {
-        String commodity2 = "{\"id\": 2, \"name\": \"Mouse\", \"providerId\": 1, \"price\": 6000, \"categories\": [\"Technology\"], \"rating\": 4, \"inStock\": 6}";
-        baloot.addCommodity(commodity2);
-
-        String expectedOutput = "{\"success\":true,\"data\":\"Commodity added successfully\"}\r\n" +
-                "{\"success\":true,\"data\":\"{\"commoditiesListByCategory\":[{\"id\":1,\"name\":\"Headphone\",\"providerId\":1,\"price\":35000,\"genres\":[\"Technology\",\"Phone\"],\"rating\":8.8}," +
+        String expectedOutput = "{\"success\":true,\"data\":\"{\"commoditiesListByCategory\":[{\"id\":1,\"name\":\"Headphone\",\"providerId\":1,\"price\":35000,\"genres\":[\"Technology\",\"Phone\"],\"rating\":8.8}," +
                 "{\"id\":2,\"name\":\"Mouse\",\"providerId\":1,\"price\":6000,\"genres\":[\"Technology\"],\"rating\":4.0}]}\"}" + "\r\n";
         baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
         assertEquals(expectedOutput, out.toString());
