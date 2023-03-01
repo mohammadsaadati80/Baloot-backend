@@ -143,11 +143,27 @@ class BalootTest {
 //
 //    }
 //
-//    @Test
-//    void getCommodityById() throws IOException {
-//        baloot.getCommodityById("{\"id\": 1}");
-//
-//    }
+    @Test
+    void getCommodityById_InvalidCommand() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
+        baloot.getCommodityById("{\"id\": }"); //TODO
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    void getCommodityById_CommodityNotFound() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Commodity not found\"}" + "\r\n";
+        baloot.getCommodityById("{\"id\": 2}");
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    void getCommodityById_CommodityFoundByIdSuccessfully() throws IOException {
+        String expectedOutput = "{\"success\":true,\"data\":\"{\"id\":1,\"name\":\"Headphone\",\"providerId\":1,\"price\":35000,\"genres\":[\"Technology\",\"Phone\"],\"rating\":8.8}\"}" + "\r\n";
+        baloot.getCommodityById("{\"id\": 1}");
+        assertEquals(expectedOutput, out.toString());
+    }
+
 //
 //    @Test
 //    void getCommoditiesByCategory() throws IOException {
