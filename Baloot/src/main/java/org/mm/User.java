@@ -1,11 +1,5 @@
 package org.mm;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -33,7 +27,6 @@ public class User {
         birthDate = updatedUser.getBirthDate();
         address = updatedUser.getAddress();
         credit = updatedUser.getCredit();
-        
     }
 
     public boolean isValidCommand() {
@@ -43,11 +36,11 @@ public class User {
             return true;
     }
 
-    public boolean isInBuyList(Integer commodityId)  {
-        if (buyList.contains(commodityId)) {
+    public boolean isInBuyList(Integer commodityId) {
+        if (buyList.contains(commodityId))
             return true;
-        }
-        return false;
+        else
+            return false;
     }
 
     public boolean haveSpecialCharacter() {

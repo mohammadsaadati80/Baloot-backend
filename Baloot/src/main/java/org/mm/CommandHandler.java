@@ -1,7 +1,6 @@
 package org.mm;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -26,27 +25,16 @@ public class CommandHandler {
     private void run() throws IOException {
         while (true) {
             try {
-                List<String> inputArr = getInput();
-                String command = inputArr.get(0);
-                String data = "";
-                if (inputArr.size() > 1)
-                    data = inputArr.get(1);
+                String[] commandList = input.nextLine().split(" ", 2);
+                List<String> inputList = new ArrayList<String>(Arrays.asList(commandList));
+                String command = inputList.size() > 0 ? inputList.get(0) : "";
+                String data = inputList.size() > 1 ? inputList.get(1) : "";
                 commandHandler(command, data);
             }
             catch (Exception exception) {
                 CommandHandler.printOutput(new Response(false, "Invalid command"));
             }
         }
-    }
-
-    private List<String> getInput() {
-        List <String> inputCommand = new ArrayList<>();
-        String s = input.nextLine();
-        String[] commandArray = s.split(" ", 2);
-        for (int i=0; i<commandArray.length; i++)
-            inputCommand.add(commandArray[i]);
-
-        return inputCommand;
     }
 
     public void commandHandler(String command,  String data) throws IOException {
@@ -98,10 +86,10 @@ public class CommandHandler {
         }
     }
 
-    public static void printOutput(Response output) throws JsonProcessingException {
-        String print = mapper.writeValueAsString(output);
-        print = print.replace("\\", "");
-        System.out.println(print);
+    public static void printOutput(Response response) throws JsonProcessingException {
+        String output = mapper.writeValueAsString(response);
+        output = output.replace("\\", "");
+        System.out.println(output);
     }
 
 }

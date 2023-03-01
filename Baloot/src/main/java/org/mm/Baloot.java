@@ -1,14 +1,12 @@
 package org.mm;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Baloot {
 
@@ -129,8 +126,10 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(false, "Username not found"));
             else if (!commodities.containsKey(rate.getCommodityId()))
                 CommandHandler.printOutput(new Response(false, "Commodity not found"));
-            else if (!rate.isValidScore())
-                CommandHandler.printOutput(new Response(false, "Invalid rate score"));
+            else if (!rate.isValidScoreRange())
+                CommandHandler.printOutput(new Response(false, "The score must be between 1 and 10"));
+            else if (!rate.isValidScoreType())
+                CommandHandler.printOutput(new Response(false, "The score must be an integer"));
             else {
                 commodities.get(rate.getCommodityId()).addRate(rate);
                 CommandHandler.printOutput(new Response(true, "Commodity rated successfully"));
@@ -143,7 +142,7 @@ public class Baloot {
         String username = jsonNode.get("username").asText();
         Integer commodityId = jsonNode.get("commodityId").asInt();
 
-        if (username==null || commodityId==null)
+        if (username==null || commodityId==null || commodityId==0.0f)
             CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             if (!users.containsKey(username))
@@ -168,7 +167,7 @@ public class Baloot {
         String username = jsonNode.get("username").asText();
         Integer commodityId = jsonNode.get("commodityId").asInt();
 
-        if (username==null || commodityId==null)
+        if (username==null || commodityId==null || commodityId==0.0f)
             CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             if (!users.containsKey(username))
@@ -188,7 +187,7 @@ public class Baloot {
 
     public void getCommodityById(String data) throws IOException {
         Integer id = mapper.readTree(data).get("id").asInt();
-        if (id==null)
+        if (id==null || id==0.0f)
             CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             if (!commodities.containsKey(id))
@@ -205,7 +204,7 @@ public class Baloot {
     public void getCommoditiesByCategory(String data) throws IOException {
         String category = mapper.readTree(data).get("category").asText();
 
-        if (category==null)
+        if (category==null || category=="")
             CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
             List<ObjectNode> moviesObjectNode = new ArrayList<>();

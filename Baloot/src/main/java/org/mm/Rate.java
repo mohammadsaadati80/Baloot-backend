@@ -7,11 +7,18 @@ public class Rate {
     private Integer commodityId;
     private float score;
 
-    public boolean isValidScore() throws JsonProcessingException {
-        if (((int) score != score) || (score < 1 || score > 10)) {
+    public boolean isValidScoreRange() throws JsonProcessingException {
+        if (score < 1 || score > 10)
             return false;
-        }
-        return true;
+        else
+            return true;
+    }
+
+    public boolean isValidScoreType() throws JsonProcessingException {
+        if ((int) score != score)
+            return false;
+        else
+            return true;
     }
 
     public boolean isValidCommand() {

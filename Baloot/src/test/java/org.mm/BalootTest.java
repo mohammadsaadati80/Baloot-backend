@@ -74,21 +74,21 @@ class BalootTest {
 
     @Test
     void rateCommodity_InvalidRateScore_LessThan1() throws IOException {
-        String expectedOutput = "{\"success\":false,\"data\":\"Invalid rate score\"}" + "\r\n";
+        String expectedOutput = "{\"success\":false,\"data\":\"The score must be between 1 and 10\"}" + "\r\n";
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 0.5}");
         assertEquals(expectedOutput, out.toString());
     }
 
     @Test
     void rateCommodity_InvalidRateScore_MoreThan10() throws IOException {
-        String expectedOutput = "{\"success\":false,\"data\":\"Invalid rate score\"}" + "\r\n";
+        String expectedOutput = "{\"success\":false,\"data\":\"The score must be between 1 and 10\"}" + "\r\n";
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 11}");
         assertEquals(expectedOutput, out.toString());
     }
 
     @Test
     void rateCommodity_InvalidRateScore_NotInteger() throws IOException {
-        String expectedOutput = "{\"success\":false,\"data\":\"Invalid rate score\"}" + "\r\n";
+        String expectedOutput = "{\"success\":false,\"data\":\"The score must be an integer\"}" + "\r\n";
         baloot.rateCommodity("{\"username\": \"user1\", \"commodityId\": 1, \"score\": 5.5}");
         assertEquals(expectedOutput, out.toString());
     }
@@ -139,7 +139,7 @@ class BalootTest {
     @Test
     void addToBuyList_InvalidCommand() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
-        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": }"); //TODO
+        baloot.addToBuyList("{\"username\": \"user1\", \"commodityId\": null}");
         assertEquals(expectedOutput, out.toString());
     }
 
@@ -183,7 +183,7 @@ class BalootTest {
     @Test
     void getCommodityById_InvalidCommand() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
-        baloot.getCommodityById("{\"id\": }"); //TODO
+        baloot.getCommodityById("{\"id\": \"\"}");
         assertEquals(expectedOutput, out.toString());
     }
 
@@ -204,7 +204,7 @@ class BalootTest {
     @Test
     void getCommoditiesByCategory_InvalidCommand() throws IOException {
         String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
-        baloot.getCommoditiesByCategory("{\"category\": }"); //TODO
+        baloot.getCommoditiesByCategory("{\"category\": \"\"}");
         assertEquals(expectedOutput, out.toString());
     }
 
