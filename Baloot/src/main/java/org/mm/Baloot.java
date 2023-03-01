@@ -27,7 +27,7 @@ public class Baloot {
 
     public Baloot() {
         mapper = new ObjectMapper();
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); //TODO
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // TODO
 //        mapper.setDateFormat(df);
         users = new HashMap<>();
         providers = new HashMap<>();
@@ -51,6 +51,8 @@ public class Baloot {
 
         if (!user.isValidCommand())
             CommandHandler.printOutput(new Response(false, "Invalid command"));
+        else if (user.haveSpecialCharacter())
+            CommandHandler.printOutput(new Response(false, "Username should not contain special characters"));
         else {
             if (users.containsKey(user.getUsername())) {
                 users.get(user.getUsername()).update(user);
@@ -60,7 +62,6 @@ public class Baloot {
                 users.put(user.getUsername(), user);
                 CommandHandler.printOutput(new Response(true, "User added successfully"));
             }
-
         }
     }
 
@@ -86,15 +87,17 @@ public class Baloot {
 
         if (!commodity.isValidCommand())
             CommandHandler.printOutput(new Response(false, "Invalid command"));
-        else if (!providers.containsKey(commodity.getProviderId())) //TODO
+        else if (!providers.containsKey(commodity.getProviderId()))
             CommandHandler.printOutput(new Response(false, "Provider not found"));
         else {
             if (commodities.containsKey(commodity.getId())) {
                 commodities.get(commodity.getId()).update(commodity);
+                providers.get(commodity.getProviderId()).addCommodity(commodity);
                 CommandHandler.printOutput(new Response(true, "Commodity updated successfully"));
             }
             else {
                 commodities.put(commodity.getId(), commodity);
+                providers.get(commodity.getProviderId()).addCommodity(commodity);
                 CommandHandler.printOutput(new Response(true, "Commodity added successfully"));
             }
         }
@@ -113,7 +116,7 @@ public class Baloot {
         ArrayNode arrayNode = mapper.valueToTree(objects);
         ObjectNode commodityList = mapper.createObjectNode();
         commodityList.putArray("commoditiesList").addAll(arrayNode);
-        String outputData = mapper.writeValueAsString(commodityList); // TODO
+        String outputData = mapper.writeValueAsString(commodityList); //TODO
         CommandHandler.printOutput(new Response(true, outputData));
     }
 
@@ -130,7 +133,7 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(false, "Invalid rate score"));
             else {
                 commodities.get(rate.getCommodityId()).addRate(rate);
-                CommandHandler.printOutput(new Response(true, "Commodity rated successfully")); //TODO check working successfully
+                CommandHandler.printOutput(new Response(true, "Commodity rated successfully"));
             }
         }
     }
@@ -216,7 +219,7 @@ public class Baloot {
             ObjectNode commoditiesListByCategory = mapper.createObjectNode();
             ArrayNode moviesArrayNode = mapper.valueToTree(moviesObjectNode);
             commoditiesListByCategory.putArray("commoditiesListByCategory").addAll(moviesArrayNode);
-            String outputData = mapper.writeValueAsString(commoditiesListByCategory);
+            String outputData = mapper.writeValueAsString(commoditiesListByCategory); //TODO
             CommandHandler.printOutput(new Response(true, outputData));
         }
     }
@@ -239,10 +242,9 @@ public class Baloot {
                 }
                 ArrayNode arrayNode = mapper.valueToTree(moviesObjectNode);
                 watchListNode.putArray("buyList").addAll(arrayNode);
-                String outputData = mapper.writeValueAsString(watchListNode);
+                String outputData = mapper.writeValueAsString(watchListNode); // TODO
                 CommandHandler.printOutput(new Response(true, outputData));
             }
-
         }
     }
 

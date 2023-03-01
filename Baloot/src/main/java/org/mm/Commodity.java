@@ -59,6 +59,10 @@ public class Commodity {
         return false;
     }
 
+    public void buy(Integer number) {
+        inStock -= number;
+    }
+
     public Integer getId() { return id; }
 
     public String getName() { return name; }

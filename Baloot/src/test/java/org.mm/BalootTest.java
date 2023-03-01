@@ -229,5 +229,5 @@ class BalootTest {
         baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
         assertEquals(expectedOutput, out.toString());
     }
-
+    // TODO Combined tests
 }

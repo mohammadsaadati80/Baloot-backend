@@ -10,6 +10,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.*;
 
 //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -46,6 +48,12 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    public boolean haveSpecialCharacter() {
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(username);
+        return m.find();
     }
 
     public void addToBuyList(Integer commodityId) {
