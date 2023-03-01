@@ -164,11 +164,37 @@ class BalootTest {
         assertEquals(expectedOutput, out.toString());
     }
 
-//
-//    @Test
-//    void getCommoditiesByCategory() throws IOException {
-//        baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
-//
-//    }
+    @Test
+    void getCommoditiesByCategory_InvalidCommand() throws IOException {
+        String expectedOutput = "{\"success\":false,\"data\":\"Invalid command\"}" + "\r\n";
+        baloot.getCommoditiesByCategory("{\"category\": }"); //TODO
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    void getCommoditiesByCategory_EmptyResult() throws IOException {
+        String expectedOutput = "{\"success\":true,\"data\":\"{\"commoditiesListByCategory\":[]}\"}" + "\r\n";
+        baloot.getCommoditiesByCategory("{\"category\": \"Vegetables\"}");
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    void getCommoditiesByCategory_SingleResult() throws IOException {
+        String expectedOutput = "{\"success\":true,\"data\":\"{\"commoditiesListByCategory\":[{\"id\":1,\"name\":\"Headphone\",\"providerId\":1,\"price\":35000,\"genres\":[\"Technology\",\"Phone\"],\"rating\":8.8}]}\"}" + "\r\n";
+        baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
+        assertEquals(expectedOutput, out.toString());
+    }
+
+    @Test
+    void getCommoditiesByCategory_MultipleResult() throws IOException {
+        String commodity2 = "{\"id\": 2, \"name\": \"Mouse\", \"providerId\": 1, \"price\": 6000, \"categories\": [\"Technology\"], \"rating\": 4, \"inStock\": 6}";
+        baloot.addCommodity(commodity2);
+
+        String expectedOutput = "{\"success\":true,\"data\":\"Commodity added successfully\"}\r\n" +
+                "{\"success\":true,\"data\":\"{\"commoditiesListByCategory\":[{\"id\":1,\"name\":\"Headphone\",\"providerId\":1,\"price\":35000,\"genres\":[\"Technology\",\"Phone\"],\"rating\":8.8}," +
+                "{\"id\":2,\"name\":\"Mouse\",\"providerId\":1,\"price\":6000,\"genres\":[\"Technology\"],\"rating\":4.0}]}\"}" + "\r\n";
+        baloot.getCommoditiesByCategory("{\"category\": \"Technology\"}");
+        assertEquals(expectedOutput, out.toString());
+    }
 
 }
