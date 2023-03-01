@@ -24,16 +24,6 @@ public class User {
 
     private Set<Integer> buyList = new HashSet<>();
 
-    public void initialValues() { // TODO
-        username = "";
-        password = "";
-        email = "";
-//        birthDate = new Date(1000, 01 , 01);
-        birthDate = "";
-        address = "";
-        credit = 0;
-    }
-
     public void update(User updatedUser) {
         username = updatedUser.getUsername();
         password = updatedUser.getPassword();

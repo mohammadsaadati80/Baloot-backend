@@ -72,4 +72,8 @@ public class Commodity {
     public float getRating() { return rating;}
 
     public Integer getInStock() { return inStock;}
+
+    public Integer getUserRate(String username) {
+        return rates.get(username);
+    }
 }

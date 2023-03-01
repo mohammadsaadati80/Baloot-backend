@@ -27,11 +27,23 @@ public class Baloot {
 
     public Baloot() {
         mapper = new ObjectMapper();
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); //TODO
 //        mapper.setDateFormat(df);
         users = new HashMap<>();
         providers = new HashMap<>();
         commodities = new HashMap<>();
+    }
+
+    public Map<String, User> getUsers() {
+        return users;
+    }
+
+    public Map<Integer, Provider> getProviders() {
+        return providers;
+    }
+
+    public Map<Integer, Commodity> getCommodities() {
+        return commodities;
     }
 
     public void addUser(String data) throws IOException {
@@ -45,7 +57,6 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(true, "User updated successfully"));
             }
             else {
-//                user.initialValues();
                 users.put(user.getUsername(), user);
                 CommandHandler.printOutput(new Response(true, "User added successfully"));
             }
@@ -75,7 +86,7 @@ public class Baloot {
 
         if (!commodity.isValidCommand())
             CommandHandler.printOutput(new Response(false, "Invalid command"));
-        else if (providers.containsKey(commodity.getProviderId())) //TODO
+        else if (!providers.containsKey(commodity.getProviderId())) //TODO
             CommandHandler.printOutput(new Response(false, "Provider not found"));
         else {
             if (commodities.containsKey(commodity.getId())) {
@@ -115,7 +126,7 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(false, "Username not found"));
             else if (!commodities.containsKey(rate.getCommodityId()))
                 CommandHandler.printOutput(new Response(false, "Commodity not found"));
-            else if (rate.isValidScore())
+            else if (!rate.isValidScore())
                 CommandHandler.printOutput(new Response(false, "Invalid rate score"));
             else {
                 commodities.get(rate.getCommodityId()).addRate(rate);

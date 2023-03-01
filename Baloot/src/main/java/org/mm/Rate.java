@@ -9,9 +9,9 @@ public class Rate {
 
     public boolean isValidScore() throws JsonProcessingException {
         if (((int) score != score) || (score < 1 || score > 10)) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean isValidCommand() {
