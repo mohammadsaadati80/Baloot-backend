@@ -9,12 +9,11 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+
 public class Baloot {
 
     private ObjectMapper mapper;
@@ -24,8 +23,8 @@ public class Baloot {
 
     public Baloot() {
         mapper = new ObjectMapper();
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); // TODO
-//        mapper.setDateFormat(df);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        mapper.setDateFormat(df);
         users = new HashMap<>();
         providers = new HashMap<>();
         commodities = new HashMap<>();
@@ -232,7 +231,7 @@ public class Baloot {
                 CommandHandler.printOutput(new Response(false, "Username not found"));
             else {
                 Set<Integer> buyList = users.get(username).getBuyList();
-                ObjectNode watchListNode = mapper.createObjectNode();
+                ObjectNode buyListNode = mapper.createObjectNode();
                 List<ObjectNode> moviesObjectNode = new ArrayList<>();
                 for (Integer commodityId : buyList) {
                     ObjectNode commodity = mapper.createObjectNode();
@@ -240,8 +239,8 @@ public class Baloot {
                     moviesObjectNode.add(commodity);
                 }
                 ArrayNode arrayNode = mapper.valueToTree(moviesObjectNode);
-                watchListNode.putArray("buyList").addAll(arrayNode);
-                String outputData = mapper.writeValueAsString(watchListNode); // TODO
+                buyListNode.putArray("buyList").addAll(arrayNode);
+                String outputData = mapper.writeValueAsString(buyListNode); // TODO
                 CommandHandler.printOutput(new Response(true, outputData));
             }
         }

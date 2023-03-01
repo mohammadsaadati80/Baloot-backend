@@ -1,9 +1,5 @@
 package org.mm;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.*;
@@ -14,7 +10,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String birthDate;
+    private Date birthDate;
     private String address;
     private Integer credit;
 
@@ -69,7 +65,7 @@ public class User {
         return password;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 

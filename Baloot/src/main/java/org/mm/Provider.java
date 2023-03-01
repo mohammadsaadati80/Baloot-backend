@@ -1,5 +1,6 @@
 package org.mm;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ public class Provider {
 
     private Integer id;
     private String name;
-    private String registryDate;
+    private Date registryDate;
 
     private Map<Integer, Commodity> commodities = new HashMap<>();
 
@@ -46,7 +47,7 @@ public class Provider {
         return name;
     }
 
-    public String getRegistryDate() {
+    public Date getRegistryDate() {
         return registryDate;
     }
 
