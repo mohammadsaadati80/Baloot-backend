@@ -206,17 +206,17 @@ public class Baloot {
         if (category==null || category=="")
             CommandHandler.printOutput(new Response(false, "Invalid command"));
         else {
-            List<ObjectNode> moviesObjectNode = new ArrayList<>();
+            List<ObjectNode> commoditiesObjectNode = new ArrayList<>();
             for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
                 if (entry.getValue().isInCategory(category)) {
                     ObjectNode commodity = mapper.createObjectNode();
                     entry.getValue().toJson(mapper, commodity, false);
-                    moviesObjectNode.add(commodity);
+                    commoditiesObjectNode.add(commodity);
                 }
             }
             ObjectNode commoditiesListByCategory = mapper.createObjectNode();
-            ArrayNode moviesArrayNode = mapper.valueToTree(moviesObjectNode);
-            commoditiesListByCategory.putArray("commoditiesListByCategory").addAll(moviesArrayNode);
+            ArrayNode commoditiesArrayNode = mapper.valueToTree(commoditiesObjectNode);
+            commoditiesListByCategory.putArray("commoditiesListByCategory").addAll(commoditiesArrayNode);
             String outputData = mapper.writeValueAsString(commoditiesListByCategory); //TODO
             CommandHandler.printOutput(new Response(true, outputData));
         }
@@ -232,13 +232,13 @@ public class Baloot {
             else {
                 Set<Integer> buyList = users.get(username).getBuyList();
                 ObjectNode buyListNode = mapper.createObjectNode();
-                List<ObjectNode> moviesObjectNode = new ArrayList<>();
+                List<ObjectNode> buyListObjectNode = new ArrayList<>();
                 for (Integer commodityId : buyList) {
                     ObjectNode commodity = mapper.createObjectNode();
                     commodities.get(commodityId).toJson(mapper, commodity, false);
-                    moviesObjectNode.add(commodity);
+                    buyListObjectNode.add(commodity);
                 }
-                ArrayNode arrayNode = mapper.valueToTree(moviesObjectNode);
+                ArrayNode arrayNode = mapper.valueToTree(buyListObjectNode);
                 buyListNode.putArray("buyList").addAll(arrayNode);
                 String outputData = mapper.writeValueAsString(buyListNode); // TODO
                 CommandHandler.printOutput(new Response(true, outputData));
