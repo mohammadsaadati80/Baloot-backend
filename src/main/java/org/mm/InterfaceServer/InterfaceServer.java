@@ -43,6 +43,42 @@ public class InterfaceServer {
     }
 
     private void runServer(int port) {
+        app = Javalin.create().start(port);
+//        app.get("/", ctx -> ctx.html(readResourceFile("homePage.html")));
+//        app.get("/hello/:name", ctx -> {
+//            ctx.result("Hello: " + ctx.pathParam("name"));
+//        });
+
+        app.get("commodities", ctx -> {
+            try {
+                ctx.html(generateCommodities());
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502);
+            }
+        });
+
+        app.get("restaurants/:restaurantId", ctx -> {
+            try {
+                ctx.html(generateGetNearRestaurantPage(ctx.pathParam("restaurantId")));
+            }catch (RestaurantNotFoundException e) {
+                ctx.status(404).result("Not Found");
+            }catch (RestaurantIsNotNearUserException e){
+                ctx.status(403).result("Unauthorized");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
+
+        app.get("profile/:email", ctx -> {
+            try {
+                ctx.html(generateGetUserProfile());
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(502).result(":| " + e.getMessage());
+            }
+        });
     }
 
     private void importUsersFromWeb(String usersUrl) throws Exception{
@@ -96,6 +132,23 @@ public class InterfaceServer {
 //            }
 //        }
 //    }
+public String generateCommodities() throws Exception{
+    String nearRestaurantsHTML = readResourceFile("restaurantsBefore.html");
+    List<Restaurant> nearRestaurants = mzFoodDelivery.getNearRestaurants();
+    String restaurantItemHTML = readResourceFile("restaurantsItem.html");
+    int counter = 1;
+    for(Restaurant restaurant: nearRestaurants){
+        HashMap<String, String> context = new HashMap<>();
+        context.put("id", restaurant.getId());
+        context.put("logo", restaurant.getLogo());
+        context.put("name", restaurant.getName());
+        context.put("distance", Double.toString(restaurant.getDistanceFromLocation(new Location(0,0))));
+        context.put("description", restaurant.getPropertyOrDefaultValue("description", "nothing to show"));
+        nearRestaurantsHTML += HTMLHandler.fillTemplate(restaurantItemHTML, context);
+    }
+    nearRestaurantsHTML += readResourceFile("restaurantsAfter.html");
+    return nearRestaurantsHTML;
+}
 
     private String readTemplateFile(String fileName) throws Exception{
         File file = new File(Resources.getResource("templates/" + fileName).toURI());

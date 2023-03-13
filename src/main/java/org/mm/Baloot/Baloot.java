@@ -88,21 +88,26 @@ public class Baloot {
         }
     }
 
-    public void getCommoditiesList(String data) throws JsonProcessingException {
+    public List<Commodity> getCommoditiesList(String data) throws JsonProcessingException {
         if (data.length() > 0)
-            CommandHandler.printOutput(new Response(false, "Invalid command"));
+            throw new InvalidCommandError;
 
-        List<ObjectNode> objects = new ArrayList<>();
+        List<Commodity> objects = new ArrayList<>();
         for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-            ObjectNode commodity = mapper.createObjectNode();
-            entry.getValue().toJson(mapper, commodity, true);
-            objects.add(commodity);
+            objects.add(entry.getValue());
         }
-        ArrayNode arrayNode = mapper.valueToTree(objects);
-        ObjectNode commodityList = mapper.createObjectNode();
-        commodityList.putArray("commoditiesList").addAll(arrayNode);
-        String outputData = mapper.writeValueAsString(commodityList); //TODO
-        CommandHandler.printOutput(new Response(true, outputData));
+        return objects;
+//        for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+//            ObjectNode commodity = mapper.createObjectNode();
+//            entry.getValue().toJson(mapper, commodity, true);
+//            objects.add(commodity);
+//        }
+//        ArrayNode arrayNode = mapper.valueToTree(objects);
+//        ObjectNode commodityList = mapper.createObjectNode();
+//        commodityList.putArray("commoditiesList").addAll(arrayNode);
+//        String outputData = mapper.writeValueAsString(commodityList); //TODO
+//        CommandHandler.printOutput(new Response(true, outputData));
+
     }
 
     public void rateCommodity(String data) throws IOException {
