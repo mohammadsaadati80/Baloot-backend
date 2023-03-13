@@ -92,152 +92,112 @@ public class Baloot {
         if (data.length() > 0)
             throw new InvalidCommandError();
 
-        List<Commodity> objects = new ArrayList<>();
+        List<Commodity> commodityList = new ArrayList<>();
         for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-            objects.add(entry.getValue());
+            commodityList.add(entry.getValue());
         }
-        return objects;
-//        for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-//            ObjectNode commodity = mapper.createObjectNode();
-//            entry.getValue().toJson(mapper, commodity, true);
-//            objects.add(commodity);
-//        }
-//        ArrayNode arrayNode = mapper.valueToTree(objects);
-//        ObjectNode commodityList = mapper.createObjectNode();
-//        commodityList.putArray("commoditiesList").addAll(arrayNode);
-//        String outputData = mapper.writeValueAsString(commodityList); //TODO
-//        CommandHandler.printOutput(new Response(true, outputData));
-
+        return commodityList;
     }
 
-//    public void rateCommodity(String data) throws IOException {
-//        Rate rate = mapper.readValue(data, Rate.class);
-//        if (!rate.isValidCommand())
-//            CommandHandler.printOutput(new Response(false, "Invalid command"));
-//        else {
-//            if (!users.containsKey(rate.getUsername()))
-//                CommandHandler.printOutput(new Response(false, "Username not found"));
-//            else if (!commodities.containsKey(rate.getCommodityId()))
-//                CommandHandler.printOutput(new Response(false, "Commodity not found"));
-//            else if (!rate.isValidScoreRange())
-//                CommandHandler.printOutput(new Response(false, "The score must be between 1 and 10"));
-//            else if (!rate.isValidScoreType())
-//                CommandHandler.printOutput(new Response(false, "The score must be an integer"));
-//            else {
-//                commodities.get(rate.getCommodityId()).addRate(rate);
-//                CommandHandler.printOutput(new Response(true, "Commodity rated successfully"));
-//            }
-//        }
-//    }
-//
-//    public void addToBuyList(String data) throws IOException {
-//        JsonNode jsonNode = mapper.readTree(data);
-//        String username = jsonNode.get("username").asText();
-//        Integer commodityId = jsonNode.get("commodityId").asInt();
-//
-//        if (username==null || commodityId==null || commodityId==0.0f)
-//            CommandHandler.printOutput(new Response(false, "Invalid command"));
-//        else {
-//            if (!users.containsKey(username))
-//                CommandHandler.printOutput(new Response(false, "Username not found"));
-//            else if (!commodities.containsKey(commodityId))
-//                CommandHandler.printOutput(new Response(false, "Commodity not found"));
-//            else if (commodities.get(commodityId).getInStock() == 0)
-//                CommandHandler.printOutput(new Response(false, "Commodity is not available in stock"));
-//            else {
-//                if (users.get(username).isInBuyList((commodityId)))
-//                    CommandHandler.printOutput(new Response(false, "Commodity already in BuyList"));
-//                else {
-//                    users.get(username).addToBuyList(commodityId);
-//                    CommandHandler.printOutput(new Response(true, "Commodity added to BuyList successfully"));
-//                }
-//            }
-//        }
-//    }
-//
-//    public void removeFromBuyList(String data) throws IOException {
-//        JsonNode jsonNode = mapper.readTree(data);
-//        String username = jsonNode.get("username").asText();
-//        Integer commodityId = jsonNode.get("commodityId").asInt();
-//
-//        if (username==null || commodityId==null || commodityId==0.0f)
-//            CommandHandler.printOutput(new Response(false, "Invalid command"));
-//        else {
-//            if (!users.containsKey(username))
-//                CommandHandler.printOutput(new Response(false, "Username not found"));
-//            else if (!commodities.containsKey(commodityId))
-//                CommandHandler.printOutput(new Response(false, "Commodity not found"));
-//            else {
-//                if (! users.get(username).isInBuyList((commodityId)))
-//                    CommandHandler.printOutput(new Response(false, "Commodity is not in BuyList"));
-//                else {
-//                    users.get(username).removeFromBuyList(commodityId);
-//                    CommandHandler.printOutput(new Response(true, "Commodity removed from Buylist successfully"));
-//                }
-//            }
-//        }
-//    }
-//
-//    public void getCommodityById(String data) throws IOException {
-//        Integer id = mapper.readTree(data).get("id").asInt();
-//        if (id==null || id==0.0f)
-//            CommandHandler.printOutput(new Response(false, "Invalid command"));
-//        else {
-//            if (!commodities.containsKey(id))
-//                CommandHandler.printOutput(new Response(false, "Commodity not found"));
-//            else {
-//                ObjectNode commodity = mapper.createObjectNode();
-//                commodities.get(id).toJson(mapper, commodity, false);
-//                String outputData = mapper.writeValueAsString(commodity);
-//                CommandHandler.printOutput(new Response(true, outputData));
-//            }
-//        }
-//    }
-//
-//    public void getCommoditiesByCategory(String data) throws IOException {
-//        String category = mapper.readTree(data).get("category").asText();
-//
-//        if (category==null || category=="")
-//            CommandHandler.printOutput(new Response(false, "Invalid command"));
-//        else {
-//            List<ObjectNode> commoditiesObjectNode = new ArrayList<>();
-//            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-//                if (entry.getValue().isInCategory(category)) {
-//                    ObjectNode commodity = mapper.createObjectNode();
-//                    entry.getValue().toJson(mapper, commodity, false);
-//                    commoditiesObjectNode.add(commodity);
-//                }
-//            }
-//            ObjectNode commoditiesListByCategory = mapper.createObjectNode();
-//            ArrayNode commoditiesArrayNode = mapper.valueToTree(commoditiesObjectNode);
-//            commoditiesListByCategory.putArray("commoditiesListByCategory").addAll(commoditiesArrayNode);
-//            String outputData = mapper.writeValueAsString(commoditiesListByCategory); //TODO
-//            CommandHandler.printOutput(new Response(true, outputData));
-//        }
-//    }
-//
-//    public void getBuyList(String data) throws IOException {
-//        String username = mapper.readTree(data).get("username").asText();
-//        if (username==null)
-//            CommandHandler.printOutput(new Response(false, "Invalid command"));
-//        else {
-//            if (!users.containsKey(username))
-//                CommandHandler.printOutput(new Response(false, "Username not found"));
-//            else {
-//                Set<Integer> buyList = users.get(username).getBuyList();
-//                ObjectNode buyListNode = mapper.createObjectNode();
-//                List<ObjectNode> buyListObjectNode = new ArrayList<>();
-//                for (Integer commodityId : buyList) {
-//                    ObjectNode commodity = mapper.createObjectNode();
-//                    commodities.get(commodityId).toJson(mapper, commodity, false);
-//                    buyListObjectNode.add(commodity);
-//                }
-//                ArrayNode arrayNode = mapper.valueToTree(buyListObjectNode);
-//                buyListNode.putArray("buyList").addAll(arrayNode);
-//                String outputData = mapper.writeValueAsString(buyListNode); // TODO
-//                CommandHandler.printOutput(new Response(true, outputData));
-//            }
-//        }
-//    }
+    public void rateCommodity(Rate rate) throws Exception {
+        if (!rate.isValidCommand())
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(rate.getUsername()))
+                throw new UserNotFoundError();
+            else if (!commodities.containsKey(rate.getCommodityId()))
+                throw new CommodityNotFoundError();
+            else if (!rate.isValidScoreRange())
+                throw new InvalidRateScoreError();
+            else if (!rate.isValidScoreType())
+                throw new InvalidRateScoreError();
+            else {
+                commodities.get(rate.getCommodityId()).addRate(rate);
+            }
+        }
+    }
+
+    public void addToBuyList(String username, Integer commodityId) throws Exception {
+        if (username==null || commodityId==null || commodityId==0.0f)
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else if (!commodities.containsKey(commodityId))
+                throw new CommodityNotFoundError();
+            else if (commodities.get(commodityId).getInStock() == 0)
+                throw new CommodityNotInStuckError();
+            else {
+                if (users.get(username).isInBuyList((commodityId)))
+                    throw new CommodityAlreadyInBuyListError();
+                else {
+                    users.get(username).addToBuyList(commodityId);
+                }
+            }
+        }
+    }
+
+    public void removeFromBuyList(String username, Integer commodityId) throws Exception {
+        if (username==null || commodityId==null || commodityId==0.0f)
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else if (!commodities.containsKey(commodityId))
+                throw new CommodityNotFoundError();
+            else {
+                if (! users.get(username).isInBuyList((commodityId)))
+                    throw new CommodityIsNotInBuyListError();
+                else {
+                    users.get(username).removeFromBuyList(commodityId);
+                }
+            }
+        }
+    }
+
+    public Commodity getCommodityById(Integer id) throws Exception {
+        if (id==null || id==0.0f)
+            throw new InvalidCommandError();
+        else {
+            if (!commodities.containsKey(id))
+                throw new CommodityNotFoundError();
+            else {
+                return commodities.get(id);
+            }
+        }
+    }
+
+    public List<Commodity> getCommoditiesByCategory(String category) throws Exception {
+        if (category==null || category=="")
+            throw new InvalidCommandError();
+        else {
+            List<Commodity> commoditiesList = new ArrayList<>();
+            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+                if (entry.getValue().isInCategory(category)) {
+                    commoditiesList.add(entry.getValue());
+                }
+            }
+            return commoditiesList;
+        }
+    }
+
+    public List<Commodity> getBuyList(String username) throws Exception {
+        if (username==null)
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else {
+                Set<Integer> userBuyList = users.get(username).getBuyList();
+                List<Commodity> buyList = new ArrayList<>();
+                for (Integer commodityId : userBuyList) {
+                    buyList.add(commodities.get(commodityId));
+                }
+                return buyList;
+            }
+        }
+    }
+
+
 
 }
