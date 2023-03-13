@@ -1,4 +1,4 @@
-package org.mm;
+package org.mm.Baloot;
 
 public class Response {
     private boolean success;

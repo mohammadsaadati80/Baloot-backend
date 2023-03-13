@@ -1,4 +1,4 @@
-package org.mm;
+package org.mm.Baloot;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

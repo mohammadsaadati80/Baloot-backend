@@ -1,4 +1,4 @@
-package org.mm;
+package org.mm.Baloot;
 
 import java.util.Date;
 import java.util.HashMap;
