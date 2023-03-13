@@ -1,5 +1,7 @@
 package org.mm.Baloot;
 
+import org.mm.Baloot.Exceptions.*;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -41,59 +43,47 @@ public class Baloot {
         return commodities;
     }
 
-    public void addUser(String data) throws IOException {
-        User user = mapper.readValue(data, User.class);
-
+    public void addUser(User user) throws Exception {
         if (!user.isValidCommand())
-            CommandHandler.printOutput(new Response(false, "Invalid command"));
+            throw new InvalidCommandError();
         else if (user.haveSpecialCharacter())
-            CommandHandler.printOutput(new Response(false, "Username should not contain special characters"));
+            throw new UsernameShouldNotContainSpecialCharactersError();
         else {
             if (users.containsKey(user.getUsername())) {
                 users.get(user.getUsername()).update(user);
-                CommandHandler.printOutput(new Response(true, "User updated successfully"));
             }
             else {
                 users.put(user.getUsername(), user);
-                CommandHandler.printOutput(new Response(true, "User added successfully"));
             }
         }
     }
 
-    public void addProvider(String data) throws IOException {
-        Provider provider = mapper.readValue(data, Provider.class);
-
+    public void addProvider(Provider provider) throws Exception {
         if (!provider.isValidCommand())
-            CommandHandler.printOutput(new Response(false, "Invalid command"));
+            throw new InvalidCommandError();
         else {
             if (providers.containsKey(provider.getId())) {
                 providers.get(provider.getId()).update(provider);
-                CommandHandler.printOutput(new Response(true, "Provider updated successfully"));
             }
             else {
                 providers.put(provider.getId(), provider);
-                CommandHandler.printOutput(new Response(true, "Provider added successfully"));
             }
         }
     }
 
-    public void addCommodity(String data) throws IOException {
-        Commodity commodity = mapper.readValue(data, Commodity.class);
-
+    public void addCommodity(Commodity commodity) throws Exception {
         if (!commodity.isValidCommand())
-            CommandHandler.printOutput(new Response(false, "Invalid command"));
+            throw new InvalidCommandError();
         else if (!providers.containsKey(commodity.getProviderId()))
-            CommandHandler.printOutput(new Response(false, "Provider not found"));
+            throw new ProviderNotFoundError();
         else {
             if (commodities.containsKey(commodity.getId())) {
                 commodities.get(commodity.getId()).update(commodity);
                 providers.get(commodity.getProviderId()).addCommodity(commodity);
-                CommandHandler.printOutput(new Response(true, "Commodity updated successfully"));
             }
             else {
                 commodities.put(commodity.getId(), commodity);
                 providers.get(commodity.getProviderId()).addCommodity(commodity);
-                CommandHandler.printOutput(new Response(true, "Commodity added successfully"));
             }
         }
     }
