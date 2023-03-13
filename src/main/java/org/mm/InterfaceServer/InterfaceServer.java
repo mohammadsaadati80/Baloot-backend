@@ -30,10 +30,10 @@ public class InterfaceServer {
         try {
             System.out.println("Importing Users...");
             importUsersFromWeb(USERS_URL);
-            System.out.println("Importing Commodities...");
-            importCommoditiesFromWeb(COMMODITIES_URL);
             System.out.println("Importing Providers...");
             importProvidersFromWeb(PROVIDERS_URL);
+            System.out.println("Importing Commodities...");
+            importCommoditiesFromWeb(COMMODITIES_URL);
 //            System.out.println("Importing Comments...");
 //            importCommentsFromWeb(COMMENTS_URL);
             runServer(port);
@@ -81,6 +81,24 @@ public class InterfaceServer {
         });
     }
 
+    public String generateCommodities() throws Exception{
+        String nearRestaurantsHTML = readResourceFile("restaurantsBefore.html");
+        List<Restaurant> nearRestaurants = mzFoodDelivery.getNearRestaurants();
+        String restaurantItemHTML = readResourceFile("restaurantsItem.html");
+        int counter = 1;
+        for(Restaurant restaurant: nearRestaurants){
+            HashMap<String, String> context = new HashMap<>();
+            context.put("id", restaurant.getId());
+            context.put("logo", restaurant.getLogo());
+            context.put("name", restaurant.getName());
+            context.put("distance", Double.toString(restaurant.getDistanceFromLocation(new Location(0,0))));
+            context.put("description", restaurant.getPropertyOrDefaultValue("description", "nothing to show"));
+            nearRestaurantsHTML += HTMLHandler.fillTemplate(restaurantItemHTML, context);
+        }
+        nearRestaurantsHTML += readResourceFile("restaurantsAfter.html");
+        return nearRestaurantsHTML;
+    }
+
     private void importUsersFromWeb(String usersUrl) throws Exception{
         String UsersJsonString = HTTPRequestHandler.getRequest(usersUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -110,7 +128,7 @@ public class InterfaceServer {
     private void importProvidersFromWeb(String providersUrl) throws Exception{
         String ProvidersJsonString = HTTPRequestHandler.getRequest(providersUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Provider> providers = gson.fromJson(ProvidersJsonString, new TypeToken<List<Commodity>>() {}.getType());
+        List<Provider> providers = gson.fromJson(ProvidersJsonString, new TypeToken<List<Provider>>() {}.getType());
         for (Provider provider : providers) {
             try {
                 baloot.addProvider(provider);
@@ -132,23 +150,6 @@ public class InterfaceServer {
 //            }
 //        }
 //    }
-public String generateCommodities() throws Exception{
-    String nearRestaurantsHTML = readResourceFile("restaurantsBefore.html");
-    List<Restaurant> nearRestaurants = mzFoodDelivery.getNearRestaurants();
-    String restaurantItemHTML = readResourceFile("restaurantsItem.html");
-    int counter = 1;
-    for(Restaurant restaurant: nearRestaurants){
-        HashMap<String, String> context = new HashMap<>();
-        context.put("id", restaurant.getId());
-        context.put("logo", restaurant.getLogo());
-        context.put("name", restaurant.getName());
-        context.put("distance", Double.toString(restaurant.getDistanceFromLocation(new Location(0,0))));
-        context.put("description", restaurant.getPropertyOrDefaultValue("description", "nothing to show"));
-        nearRestaurantsHTML += HTMLHandler.fillTemplate(restaurantItemHTML, context);
-    }
-    nearRestaurantsHTML += readResourceFile("restaurantsAfter.html");
-    return nearRestaurantsHTML;
-}
 
     private String readTemplateFile(String fileName) throws Exception{
         File file = new File(Resources.getResource("templates/" + fileName).toURI());

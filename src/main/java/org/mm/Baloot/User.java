@@ -26,7 +26,7 @@ public class User {
     }
 
     public boolean isValidCommand() {
-        if (username==null || password==null || email==null || birthDate==null || address==null || credit==0)
+        if (username==null || password==null || email==null || birthDate==null || address==null || credit==null)
             return false;
         else
             return true;
