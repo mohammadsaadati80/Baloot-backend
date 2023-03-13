@@ -112,10 +112,7 @@ public class Baloot {
             throw new UserNotFoundError();
     }
 
-    public List<Commodity> getCommoditiesList(String data) throws Exception {
-        if (data.length() > 0)
-            throw new InvalidCommandError();
-
+    public List<Commodity> getCommoditiesList() throws Exception {
         List<Commodity> commodityList = new ArrayList<>();
         for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
             commodityList.add(entry.getValue());

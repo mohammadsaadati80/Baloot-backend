@@ -1,6 +1,7 @@
 package org.mm.InterfaceServer;
 
 import org.mm.Baloot.*;
+import org.mm.Baloot.Exceptions.CommodityNotFoundError;
 import org.mm.HTTPRequestHandler.HTTPRequestHandler;
 
 import com.google.common.io.Resources;
@@ -46,7 +47,7 @@ public class InterfaceServer {
 //            ctx.result("Hello: " + ctx.pathParam("name"));
 //        });
 
-        app.get("commodities", ctx -> {
+        app.get("/commodities", ctx -> {
             try {
                 ctx.html(generateCommodities());
             }catch (Exception e){
@@ -55,45 +56,78 @@ public class InterfaceServer {
             }
         });
 
-        app.get("restaurants/:restaurantId", ctx -> {
+        app.get("/commodities/:commodity_id", ctx -> {
+            String commodity_id = ctx.pathParam("commodity_id");
             try {
-                ctx.html(generateGetNearRestaurantPage(ctx.pathParam("restaurantId")));
-            }catch (RestaurantNotFoundException e) {
-                ctx.status(404).result("Not Found");
-            }catch (RestaurantIsNotNearUserException e){
-                ctx.status(403).result("Unauthorized");
-            }catch (Exception e){
+                ctx.html(generateCommoditiesById(commodity_id));
+            } catch (CommodityNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
+            } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.status(502).result(":| " + e.getMessage());
             }
         });
+
 
         app.get("profile/:email", ctx -> {
             try {
                 ctx.html(generateGetUserProfile());
             }catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502).result(":| " + e.getMessage());
+                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
             }
         });
     }
 
+    private Integer id;
+    private String name;
+    private Integer providerId;
+    private Integer price;
+    private String[] categories;
+    private float rating;
+    private Integer inStock;
     public String generateCommodities() throws Exception{
-        String nearRestaurantsHTML = readResourceFile("restaurantsBefore.html");
-        List<Restaurant> nearRestaurants = mzFoodDelivery.getNearRestaurants();
-        String restaurantItemHTML = readResourceFile("restaurantsItem.html");
+        String nearRestaurantsHTML = readTemplateFile("Commodities.html");
+        List<Commodity> CommodityList = baloot.getCommoditiesList();
+        String commodityItem = readTemplateFile("Commodity.html");
         int counter = 1;
-        for(Restaurant restaurant: nearRestaurants){
-            HashMap<String, String> context = new HashMap<>();
-            context.put("id", restaurant.getId());
-            context.put("logo", restaurant.getLogo());
-            context.put("name", restaurant.getName());
-            context.put("distance", Double.toString(restaurant.getDistanceFromLocation(new Location(0,0))));
-            context.put("description", restaurant.getPropertyOrDefaultValue("description", "nothing to show"));
+        for(Commodity commodity: CommodityList){
+            HashMap<String, String> result = new HashMap<>();
+            result.put("id", Integer.toString(commodity.getId()) );
+            result.put("name", commodity.getName());
+            result.put("providerId", Integer.toString(commodity.getProviderId()) );
+            result.put("price", Integer.toString(commodity.getPrice()) );
+            result.put("categories", String.join(",", commodity.getCategories()));
+            result.put("rating", Float.toString(commodity.getRating()) );
+            result.put("inStock", Integer.toString(commodity.getInStock()) );
+
             nearRestaurantsHTML += HTMLHandler.fillTemplate(restaurantItemHTML, context);
         }
         nearRestaurantsHTML += readResourceFile("restaurantsAfter.html");
         return nearRestaurantsHTML;
+    }
+
+    private String generateCommoditiesById(String commodity_id) throws Exception {
+        Student student = bolbolestan.getStudentById(studentId);
+        String profileHTML = readHTMLPage("profile_start.html");
+
+        HashMap<String, String> studentProfile = new HashMap<>();
+        studentProfile.put("id", student.getId());
+        studentProfile.put("name", student.getName());
+        studentProfile.put("secondName", student.getSecondName());
+        studentProfile.put("birthDate", student.getBirthDate());
+        studentProfile.put("GPA", Float.toString(student.getGPA()));
+        studentProfile.put("totalUnits", Integer.toString(bolbolestan.getUnitsPassed(studentId)));
+
+        profileHTML = HTMLHandler.fillTemplate(profileHTML, studentProfile);
+        String profileItem = readHTMLPage("profile_item.html");
+        for (Grade grade : student.getGrades()) {
+            studentProfile = new HashMap<>();
+            studentProfile.put("code", grade.getCode());
+            studentProfile.put("grade", Integer.toString(grade.getGrade()));
+            profileHTML += HTMLHandler.fillTemplate(profileItem, studentProfile);
+        }
+        return profileHTML + readHTMLPage("profile_end.html");
     }
 
     private void importUsersFromWeb(String usersUrl) throws Exception{
