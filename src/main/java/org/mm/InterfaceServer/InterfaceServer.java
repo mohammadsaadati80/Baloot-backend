@@ -1,6 +1,7 @@
 package org.mm.InterfaceServer;
 
 import org.mm.Baloot.Baloot;
+import org.mm.HTTPRequestHandler.HTTPRequestHandler;
 
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
@@ -45,7 +46,7 @@ public class InterfaceServer {
     }
 
     private void importUsersFromWeb(String usersUrl) throws Exception{
-        String UsersJsonString = HTTPRequestHandler.getRequest(usersURL);
+        String UsersJsonString = HTTPRequestHandler.getRequest(usersUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<User> users = gson.fromJson(UsersJsonString, new TypeToken<List<User>>() {}.getType());
         for (User user : users) {
@@ -58,7 +59,7 @@ public class InterfaceServer {
     }
 
     private void importCommoditiesFromWeb(String commoditiesUrl) throws Exception{
-        String CommoditiesJsonString = HTTPRequestHandler.getRequest(commoditiesURL);
+        String CommoditiesJsonString = HTTPRequestHandler.getRequest(commoditiesUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Commodity> commodities = gson.fromJson(CommoditiesJsonString, new TypeToken<List<Commodity>>() {}.getType());
         for (Commodity commodity : commodities) {
@@ -71,7 +72,7 @@ public class InterfaceServer {
     }
 
     private void importProvidersFromWeb(String providersUrl) throws Exception{
-        String ProvidersJsonString = HTTPRequestHandler.getRequest(providersURL);
+        String ProvidersJsonString = HTTPRequestHandler.getRequest(providersUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Provider> providers = gson.fromJson(ProvidersJsonString, new TypeToken<List<Commodity>>() {}.getType());
         for (Provider provider : providers) {
@@ -83,8 +84,8 @@ public class InterfaceServer {
         }
     }
 
-//    private void importCommentsFromWeb(String commentsURL) throws Exception{
-//        String CommentsJsonString = HTTPRequestHandler.getRequest(commentsURL);
+//    private void importCommentsFromWeb(String commentsUrl) throws Exception{
+//        String CommentsJsonString = HTTPRequestHandler.getRequest(commentsUrl);
 //        Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //        List<Comment> comments = gson.fromJson(CommentsJsonString, new TypeToken<List<Commodity>>() {}.getType());
 //        for (Comment comment : comments) {

@@ -1,6 +1,6 @@
 package org.mm;
 
-import InterfaceServer.InterfaceServer;
+import org.mm.InterfaceServer.InterfaceServer;
 
 public class Main {
     public static void main(String[] args) {
