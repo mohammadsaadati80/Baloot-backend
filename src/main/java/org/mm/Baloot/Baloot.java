@@ -253,7 +253,18 @@ public class Baloot {
     }
 
     public void voteCommodity(String username, Integer commentId, Integer vote) throws Exception {
-
+        if (username==null || commentId==null || commentId==0.0f)
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else if (!comments.containsKey(commentId))
+                throw new CommentNotFound();
+            else if (!(vote==-1 || vote==0 || vote==1))
+                throw new InvalidVoteScoreError();
+            else
+                comments.get(commentId).addVote(username, vote);
+        }
     }
 
 }

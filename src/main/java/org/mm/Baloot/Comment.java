@@ -1,12 +1,13 @@
 package org.mm.Baloot;
 
-import java.util.Date;
+import java.util.*;
 
 public class Comment {
     private String userEmail;
     private Integer commodityId;
     private String text;
     private Date date;
+    private Map<String, Integer> usersVote = new HashMap<>();
 
     public void update(Comment updatedComment) {
         userEmail = updatedComment.getUserEmail();
@@ -20,6 +21,14 @@ public class Comment {
             return false;
         else
             return true;
+    }
+    
+    public void addVote(String username, Integer vote) {
+        if (usersVote.containsKey(username)) {
+            usersVote.replace(username, vote);
+        } else {
+            usersVote.put(username, vote);
+        }
     }
 
     public String getUserEmail() { return userEmail;}
