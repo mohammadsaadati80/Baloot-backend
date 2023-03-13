@@ -10,6 +10,7 @@ import io.javalin.Javalin;
 import org.apache.commons.io.FileUtils;
 import org.mm.Baloot.Commodity;
 import org.mm.Baloot.Provider;
+import org.mm.Baloot.User;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
