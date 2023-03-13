@@ -199,14 +199,36 @@ public class Baloot {
     }
 
     public void addCredit(String username, Integer credit) throws Exception {
-
-    }
-
-    public void voteCommodity(String username, Integer commentId, Integer vote) throws Exception {
-
+        if (username==null || credit==null || credit==0.0f)
+            throw new InvalidCommandError();
+        else if (credit < 0)
+            throw new InvalidCreditValue();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else {
+                users.get(username).addCredit(credit);
+            }
+        }
     }
 
     public List<Commodity> getCommoditiesByPrice(Integer startPrice, Integer endPrice) throws Exception {
+        if (startPrice==null || startPrice==0.0f || endPrice==null || endPrice==0.0f)
+            throw new InvalidCommandError();
+        else if (endPrice < startPrice)
+            throw new InvalidPriceRangeError();
+        else {
+            List<Commodity> commoditiesList = new ArrayList<>();
+            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+                if (entry.getValue().isPriceInRange(startPrice, endPrice)) {
+                    commoditiesList.add(entry.getValue());
+                }
+            }
+            return commoditiesList;
+        }
+    }
+
+    public void voteCommodity(String username, Integer commentId, Integer vote) throws Exception {
 
     }
 

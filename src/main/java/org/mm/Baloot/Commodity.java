@@ -58,6 +58,10 @@ public class Commodity {
         return false;
     }
 
+    public boolean isPriceInRange(Integer startPrice, Integer endPrice) {
+        return ((startPrice <= price) && (price <= endPrice));
+    }
+
     public void buy(Integer number) {
         inStock -= number;
     }

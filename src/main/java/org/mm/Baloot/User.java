@@ -49,6 +49,8 @@ public class User {
         buyList.add(commodityId);
     }
 
+    public void addCredit(Integer newCredit) { credit += newCredit;}
+
     public Set<Integer> getBuyList() {
         return buyList;
     }
