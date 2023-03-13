@@ -1,6 +1,6 @@
 package org.mm.InterfaceServer;
 
-import org.mm.Baloot.Baloot;
+import org.mm.Baloot.*;
 import org.mm.HTTPRequestHandler.HTTPRequestHandler;
 
 import com.google.common.io.Resources;
@@ -9,9 +9,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.javalin.Javalin;
 import org.apache.commons.io.FileUtils;
-import org.mm.Baloot.Commodity;
-import org.mm.Baloot.Provider;
-import org.mm.Baloot.User;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -34,8 +31,8 @@ public class InterfaceServer {
             importProvidersFromWeb(PROVIDERS_URL);
             System.out.println("Importing Commodities...");
             importCommoditiesFromWeb(COMMODITIES_URL);
-//            System.out.println("Importing Comments...");
-//            importCommentsFromWeb(COMMENTS_URL);
+            System.out.println("Importing Comments...");
+            importCommentsFromWeb(COMMENTS_URL);
             runServer(port);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -138,18 +135,18 @@ public class InterfaceServer {
         }
     }
 
-//    private void importCommentsFromWeb(String commentsUrl) throws Exception{
-//        String CommentsJsonString = HTTPRequestHandler.getRequest(commentsUrl);
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        List<Comment> comments = gson.fromJson(CommentsJsonString, new TypeToken<List<Commodity>>() {}.getType());
-//        for (Comment comment : comments) {
-//            try {
-//                baloot.addComment(comment);
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//    }
+    private void importCommentsFromWeb(String commentsUrl) throws Exception{
+        String CommentsJsonString = HTTPRequestHandler.getRequest(commentsUrl);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Comment> comments = gson.fromJson(CommentsJsonString, new TypeToken<List<Comment>>() {}.getType());
+        for (Comment comment : comments) {
+            try {
+                baloot.addComment(comment);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
     private String readTemplateFile(String fileName) throws Exception{
         File file = new File(Resources.getResource("templates/" + fileName).toURI());

@@ -21,6 +21,7 @@ public class Baloot {
     private Map<String, User> users;
     private Map<Integer, Provider> providers;
     private Map<Integer, Commodity> commodities;
+    private Map<Integer, Comment> comments;
 
     public Baloot() {
         mapper = new ObjectMapper();
@@ -29,6 +30,7 @@ public class Baloot {
         users = new HashMap<>();
         providers = new HashMap<>();
         commodities = new HashMap<>();
+        comments = new HashMap<>();
     }
 
     public Map<String, User> getUsers() {
@@ -86,6 +88,28 @@ public class Baloot {
                 providers.get(commodity.getProviderId()).addCommodity(commodity);
             }
         }
+    }
+
+    public void addComment(Comment comment) throws Exception {
+        boolean isUserFound = false;
+        if (!comment.isValidCommand())
+            throw new InvalidCommandError();
+        else if (!commodities.containsKey(comment.getCommodityId()))
+            throw new CommodityNotFoundError();
+        else {
+            for (Map.Entry<String, User> entry : users.entrySet()) {
+                if (entry.getValue().getEmail().equals(comment.getUserEmail())) {
+                    isUserFound = true;
+                    break;
+                }
+            }
+        }
+        if (isUserFound) {
+            Integer key = comments.size();
+            comments.put(key, comment);
+        }
+        else
+            throw new UserNotFoundError();
     }
 
     public List<Commodity> getCommoditiesList(String data) throws Exception {
