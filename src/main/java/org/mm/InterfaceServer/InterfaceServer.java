@@ -1,6 +1,6 @@
 package org.mm.InterfaceServer;
 
-import Baloot.Baloot;
+import org.mm.Baloot.Baloot;
 
 import com.google.common.io.Resources;
 import com.google.gson.Gson;
