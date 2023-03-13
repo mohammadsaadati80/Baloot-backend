@@ -198,6 +198,16 @@ public class Baloot {
         }
     }
 
+    public void addCredit(String username, Integer credit) throws Exception {
 
+    }
+
+    public void voteCommodity(String username, Integer commentId, Integer vote) throws Exception {
+
+    }
+
+    public List<Commodity> getCommoditiesByPrice(Integer startPrice, Integer endPrice) throws Exception {
+
+    }
 
 }
