@@ -51,4 +51,8 @@ public class Comment {
 
     public Date getDate() { return date;}
 
+    public Integer getLike() { return like;}
+
+    public Integer getDislike() {return dislike;}
+
 }
