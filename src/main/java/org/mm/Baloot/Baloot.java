@@ -293,4 +293,28 @@ public class Baloot {
         }
     }
 
+    public User getUserById(String username) throws Exception {
+        if (username==null)
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else {
+                return users.get(username);
+            }
+        }
+    }
+
+    public Provider getProviderById(Integer id) throws Exception {
+        if (id==null || id==0.0f)
+            throw new InvalidCommandError();
+        else {
+            if (!providers.containsKey(id))
+                throw new ProviderNotFoundError();
+            else {
+                return providers.get(id);
+            }
+        }
+    }
+
 }
