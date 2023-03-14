@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InterfaceServer {
     private Javalin app;
@@ -167,40 +168,40 @@ public class InterfaceServer {
             commodityHTML += HTMLHandler.fillTemplate(commentItem, result_comment);
         }
 
-        commodityHTML += readTemplateFile("commodityCommentAfter");
+        commodityHTML += readTemplateFile("commodityCommentAfter.html");
 
         return commodityHTML;
     }
 
     public String generateProviderById(Integer provider_id) throws Exception{
-        String providerHTML = readTemplateFile("commodityIdPage.html");
-        Commodity commodity = baloot.getCommodityById(commodity_id);
-        List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
-        String commentItem = readTemplateFile("commodityCommentItem.html");
+        String providerHTML = readTemplateFile("ProviderBefore.html");
+        Provider provider = baloot.getProviderById(provider_id);
+        Map<Integer, Commodity> commodityList = provider.getCommodities();
+        String commodityItem = readTemplateFile("ProviderCommodityItem.html");
 
         HashMap<String, String> result = new HashMap<>();
-        result.put("id", Integer.toString(commodity.getId()) );
-        result.put("name", commodity.getName());
-        result.put("providerId", Integer.toString(commodity.getProviderId()) );
-        result.put("price", Integer.toString(commodity.getPrice()) );
-        result.put("categories", String.join(",", commodity.getCategories()));
-        result.put("rating", Float.toString(commodity.getRating()) );
-        result.put("inStock", Integer.toString(commodity.getInStock()) );
+        result.put("id", Integer.toString(provider.getId()) );
+        result.put("name", provider.getName());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        result.put("registryDate",dateFormat.format(provider.getRegistryDate()));
 
 
-        HashMap<String, String> result_comment = new HashMap<>();
-        for (Comment comment: commentList) {
-            result_comment.put("userEmail",comment.getUserEmail());
-            result_comment.put("text",comment.getText());
+        HashMap<String, String> result_commodity = new HashMap<>();
+        for (Map.Entry<Integer, Commodity> entry : commodityList.entrySet()) {
+            Commodity commodity = entry.getValue();
+            result_commodity.put("id", Integer.toString(commodity.getId()) );
+            result_commodity.put("name", commodity.getName());
+            result_commodity.put("price", Integer.toString(commodity.getPrice()) );
+            result_commodity.put("categories", String.join(",", commodity.getCategories()));
+            result_commodity.put("rating", Float.toString(commodity.getRating()) );
+            result_commodity.put("inStock", Integer.toString(commodity.getInStock()) );
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            result_comment.put("date",dateFormat.format(comment.getDate()));
-            commodityHTML += HTMLHandler.fillTemplate(commentItem, result_comment);
+            providerHTML += HTMLHandler.fillTemplate(commodityItem, result_commodity);
         }
 
-        commodityHTML += readTemplateFile("commodityCommentAfter");
+        providerHTML += readTemplateFile("providerAfter.html");
 
-        return commodityHTML;
+        return providerHTML;
     }
 //    private String generateCommoditiesById(String commodity_id) throws Exception {
 //        Student student = bolbolestan.getStudentById(studentId);
