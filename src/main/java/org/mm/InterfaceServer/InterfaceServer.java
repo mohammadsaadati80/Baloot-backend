@@ -13,6 +13,8 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,15 +69,31 @@ public class InterfaceServer {
             }
         });
 
+        app.get("/commodities/:commodity_id", ctx -> {
+            String commodity_id = ctx.pathParam("commodity_id");
+            try {
+                ctx.html(generateCommodityById(Integer.valueOf(commodity_id)));
+            } catch (CommodityNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(404).result(":| " + e.getMessage());
+            }
+        });
 
-//        app.get("profile/:email", ctx -> {
-//            try {
-//                ctx.html(generateGetUserProfile());
-//            }catch (Exception e){
-//                System.out.println(e.getMessage());
-//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
-//            }
-//        });
+        app.get("/providers/:provider_id", ctx -> {
+            String provider_id = ctx.pathParam("provider_id");
+            try {
+                ctx.html(generateProviderById(Integer.valueOf(provider_id)));
+            } catch (CommodityNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(404).result(":| " + e.getMessage());
+            }
+        });
+
+
 
         app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
             try {
@@ -89,9 +107,9 @@ public class InterfaceServer {
 
             } catch (UserNotFoundError e) {
                 ctx.html(readTemplateFile("404.html"));
-            } catch (CommentNotFound e) {
+            } catch (CommodityNotFoundError e) {
                 ctx.html(readTemplateFile("404.html"));
-            } catch (InvalidVoteScoreError e) {
+            } catch (InvalidRateScoreError e) {
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
 //                System.out.println(e.getMessage());
@@ -126,6 +144,9 @@ public class InterfaceServer {
     public String generateCommodityById(Integer commodity_id) throws Exception{
         String commodityHTML = readTemplateFile("commodityIdPage.html");
         Commodity commodity = baloot.getCommodityById(commodity_id);
+        List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
+        String commentItem = readTemplateFile("commodityCommentItem.html");
+
         HashMap<String, String> result = new HashMap<>();
         result.put("id", Integer.toString(commodity.getId()) );
         result.put("name", commodity.getName());
@@ -135,11 +156,52 @@ public class InterfaceServer {
         result.put("rating", Float.toString(commodity.getRating()) );
         result.put("inStock", Integer.toString(commodity.getInStock()) );
 
-        String commodityHTMLPage = HTMLHandler.fillTemplate(commodityHTML, result);
 
-        return commodityHTMLPage;
+        HashMap<String, String> result_comment = new HashMap<>();
+        for (Comment comment: commentList) {
+            result_comment.put("userEmail",comment.getUserEmail());
+            result_comment.put("text",comment.getText());
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            result_comment.put("date",dateFormat.format(comment.getDate()));
+            commodityHTML += HTMLHandler.fillTemplate(commentItem, result_comment);
+        }
+
+        commodityHTML += readTemplateFile("commodityCommentAfter");
+
+        return commodityHTML;
     }
 
+    public String generateProviderById(Integer provider_id) throws Exception{
+        String providerHTML = readTemplateFile("commodityIdPage.html");
+        Commodity commodity = baloot.getCommodityById(commodity_id);
+        List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
+        String commentItem = readTemplateFile("commodityCommentItem.html");
+
+        HashMap<String, String> result = new HashMap<>();
+        result.put("id", Integer.toString(commodity.getId()) );
+        result.put("name", commodity.getName());
+        result.put("providerId", Integer.toString(commodity.getProviderId()) );
+        result.put("price", Integer.toString(commodity.getPrice()) );
+        result.put("categories", String.join(",", commodity.getCategories()));
+        result.put("rating", Float.toString(commodity.getRating()) );
+        result.put("inStock", Integer.toString(commodity.getInStock()) );
+
+
+        HashMap<String, String> result_comment = new HashMap<>();
+        for (Comment comment: commentList) {
+            result_comment.put("userEmail",comment.getUserEmail());
+            result_comment.put("text",comment.getText());
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            result_comment.put("date",dateFormat.format(comment.getDate()));
+            commodityHTML += HTMLHandler.fillTemplate(commentItem, result_comment);
+        }
+
+        commodityHTML += readTemplateFile("commodityCommentAfter");
+
+        return commodityHTML;
+    }
 //    private String generateCommoditiesById(String commodity_id) throws Exception {
 //        Student student = bolbolestan.getStudentById(studentId);
 //        String profileHTML = readHTMLPage("profile_start.html");
