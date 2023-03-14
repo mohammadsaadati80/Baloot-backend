@@ -15,12 +15,12 @@ public class Provider {
 
     private float averageCommoditiesRates = 0;
 
-    public Provider(Integer _id, String _name, Date _registryDate, String _text) {
-        id = _id;
-        name = _name;
-        registryDate = _registryDate;
-        text = _text;
-    }
+//    public Provider(Integer _id, String _name, Date _registryDate, String _text) {
+//        id = _id;
+//        name = _name;
+//        registryDate = _registryDate;
+//        text = _text;
+//    }
 
     public void update(Provider provider) {
         id = provider.getId();

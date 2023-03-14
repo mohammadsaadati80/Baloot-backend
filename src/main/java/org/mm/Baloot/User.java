@@ -18,14 +18,14 @@ public class User {
 
     private HashMap<Integer, Commodity> purchasedList = new HashMap<>();
 
-    public User(String _username, String _password, String _email, Date _birthDate, String _address, Integer _credit) {
-        username = _username;
-        password = _password;
-        email = _email;
-        birthDate = _birthDate;
-        address = _address;
-        credit = _credit;
-    }
+//    public User(String _username, String _password, String _email, Date _birthDate, String _address, Integer _credit) {
+//        username = _username;
+//        password = _password;
+//        email = _email;
+//        birthDate = _birthDate;
+//        address = _address;
+//        credit = _credit;
+//    }
 
     public void update(User updatedUser) {
         username = updatedUser.getUsername();
