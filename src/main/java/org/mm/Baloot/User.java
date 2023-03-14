@@ -14,7 +14,9 @@ public class User {
     private String address;
     private Integer credit;
 
-    private Set<Integer> buyList = new HashSet<>();
+    private HashMap<Integer, Commodity> buyList = new HashMap<>();
+
+    private HashMap<Integer, Commodity> purchasedList = new HashMap<>();
 
     public void update(User updatedUser) {
         username = updatedUser.getUsername();
@@ -33,10 +35,9 @@ public class User {
     }
 
     public boolean isInBuyList(Integer commodityId) {
-        if (buyList.contains(commodityId))
+        if (buyList.containsKey(commodityId))
             return true;
-        else
-            return false;
+        return false;
     }
 
     public boolean haveSpecialCharacter() {
@@ -45,14 +46,27 @@ public class User {
         return m.find();
     }
 
-    public void addToBuyList(Integer commodityId) {
-        buyList.add(commodityId);
+    public void buyListPayment() {
+        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
+            purchasedList.put(entry.getKey(), entry.getValue());
+            credit -= entry.getValue().getPrice();
+        }
+        buyList.clear();
+        buyList = new HashMap<>();
+    }
+
+    public void addToBuyList(Commodity commodity) {
+        buyList.put(commodity.getId(), commodity);
     }
 
     public void addCredit(Integer newCredit) { credit += newCredit;}
 
-    public Set<Integer> getBuyList() {
+    public HashMap<Integer, Commodity> getBuyList() {
         return buyList;
+    }
+
+    public HashMap<Integer, Commodity> getPurchasedListList() {
+        return purchasedList;
     }
 
     public void removeFromBuyList(Integer commodityId) {
