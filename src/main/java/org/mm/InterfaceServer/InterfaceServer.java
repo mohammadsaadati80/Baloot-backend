@@ -84,7 +84,7 @@ public class InterfaceServer {
         String commoditiesHTML = readTemplateFile("commoditiesBefore.html");
         List<Commodity> CommodityList = baloot.getCommoditiesList();
         String commodityItem = readTemplateFile("commodityItem.html");
-        int counter = 1;
+
         for(Commodity commodity: CommodityList){
             HashMap<String, String> result = new HashMap<>();
             result.put("id", Integer.toString(commodity.getId()) );
