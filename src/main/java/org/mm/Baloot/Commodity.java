@@ -17,15 +17,15 @@ public class Commodity {
 
     private Map<String, Integer> rates = new HashMap<>();
 
-    public Commodity(Integer _id, String _name, Integer _providerId, Integer _price, String[] _categories, float _rating, Integer _inStock) {
-        id = _id;
-        name = _name;
-        providerId = _providerId;
-        price = _price;
-        categories = _categories;
-        rating = _rating;
-        inStock = _inStock;
-    }
+//    public Commodity(Integer _id, String _name, Integer _providerId, Integer _price, String[] _categories, float _rating, Integer _inStock) {
+//        id = _id;
+//        name = _name;
+//        providerId = _providerId;
+//        price = _price;
+//        categories = _categories;
+//        rating = _rating;
+//        inStock = _inStock;
+//    }
 
     public void update(Commodity commodity) {
         id = commodity.getId();
