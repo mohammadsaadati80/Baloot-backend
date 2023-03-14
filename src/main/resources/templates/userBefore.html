@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style>
+        li {
+        	padding: 5px
+        }
+        table{
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li id="username">%username%</li>
+    <li id="email">%email%</li>
+    <li id="birthDate">%birthDate%</li>
+    <li id="address">%address%</li>
+    <li id="credit">%credit%</li>
+    <li>
+        <form action="" method="POST" >
+            <label>Buy List Payment</label>
+            <input id="form_payment" type="hidden" name="userId" value="Farhad">
+            <button type="submit">Payment</button>
+        </form>
+    </li>
+</ul>
+<table>
+    <caption>
+        <h2>Buy List</h2>
+    </caption>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Provider Id</th>
+        <th>Price</th>
+        <th>Categories</th>
+        <th>Rating</th>
+        <th>In Stock</th>
+        <th></th>
+        <th></th>
+    </tr>
