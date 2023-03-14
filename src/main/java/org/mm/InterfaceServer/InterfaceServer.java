@@ -70,27 +70,16 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/commodities/:commodity_id", ctx -> {
-            String commodity_id = ctx.pathParam("commodity_id");
-            try {
-                ctx.html(generateCommodityById(Integer.valueOf(commodity_id)));
-            } catch (CommodityNotFoundError e) {
-                ctx.html(readTemplateFile("404.html"));
-            } catch (Exception e){
-                System.out.println(e.getMessage());
-                ctx.status(404).result(":| " + e.getMessage());
-            }
-        });
 
         app.get("/providers/:provider_id", ctx -> {
             String provider_id = ctx.pathParam("provider_id");
             try {
                 ctx.html(generateProviderById(Integer.valueOf(provider_id)));
             } catch (CommodityNotFoundError e) {
-                ctx.html(readTemplateFile("404.html"));
+                ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(404).result(":| " + e.getMessage());
+                ctx.status(403).result(":| " + e.getMessage());
             }
         });
 
@@ -143,7 +132,7 @@ public class InterfaceServer {
     }
 
     public String generateCommodityById(Integer commodity_id) throws Exception{
-        String commodityHTML = readTemplateFile("commodityIdPage.html");
+        String commodityHTML ;
         Commodity commodity = baloot.getCommodityById(commodity_id);
         List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
         String commentItem = readTemplateFile("commodityCommentItem.html");
@@ -156,6 +145,7 @@ public class InterfaceServer {
         result.put("categories", String.join(",", commodity.getCategories()));
         result.put("rating", Float.toString(commodity.getRating()) );
         result.put("inStock", Integer.toString(commodity.getInStock()) );
+        commodityHTML = HTMLHandler.fillTemplate(readTemplateFile("commodityIdPage.html"), result);
 
 
         HashMap<String, String> result_comment = new HashMap<>();
