@@ -15,9 +15,6 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Arrays;
 
 public class InterfaceServer {
     private Javalin app;
@@ -52,21 +49,23 @@ public class InterfaceServer {
                 ctx.html(generateCommodities());
             }catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(502);
+                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404);
             }
         });
 
-//        app.get("/commodities/:commodity_id", ctx -> {
-//            String commodity_id = ctx.pathParam("commodity_id");
-//            try {
-//                ctx.html(generateCommoditiesById(commodity_id));
-//            } catch (CommodityNotFoundError e) {
-//                ctx.html(readTemplateFile("404.html"));
-//            } catch (Exception e){
-//                System.out.println(e.getMessage());
-//                ctx.status(502).result(":| " + e.getMessage());
-//            }
-//        });
+
+        app.get("/commodities/:commodity_id", ctx -> {
+            String commodity_id = ctx.pathParam("commodity_id");
+            try {
+                ctx.html(generateCommodityById(Integer.valueOf(commodity_id)));
+            } catch (CommodityNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(404).result(":| " + e.getMessage());
+            }
+        });
 
 
 //        app.get("profile/:email", ctx -> {
@@ -77,6 +76,29 @@ public class InterfaceServer {
 //                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
 //            }
 //        });
+
+        app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                String commodityId = ctx.pathParam("commodityId");
+                String rate = ctx.pathParam("rate");
+                Rate userRate = new Rate(username, Integer.valueOf(commodityId), Float.valueOf(rate));
+                baloot.rateCommodity(userRate);
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+
+            } catch (UserNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
+            } catch (CommentNotFound e) {
+                ctx.html(readTemplateFile("404.html"));
+            } catch (InvalidVoteScoreError e) {
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+//                System.out.println(e.getMessage());
+//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            }
+        });
     }
 
 
@@ -99,6 +121,23 @@ public class InterfaceServer {
         }
         commoditiesHTML += readTemplateFile("commoditiesAfter.html");
         return commoditiesHTML;
+    }
+
+    public String generateCommodityById(Integer commodity_id) throws Exception{
+        String commodityHTML = readTemplateFile("commodityIdPage.html");
+        Commodity commodity = baloot.getCommodityById(commodity_id);
+        HashMap<String, String> result = new HashMap<>();
+        result.put("id", Integer.toString(commodity.getId()) );
+        result.put("name", commodity.getName());
+        result.put("providerId", Integer.toString(commodity.getProviderId()) );
+        result.put("price", Integer.toString(commodity.getPrice()) );
+        result.put("categories", String.join(",", commodity.getCategories()));
+        result.put("rating", Float.toString(commodity.getRating()) );
+        result.put("inStock", Integer.toString(commodity.getInStock()) );
+
+        String commodityHTMLPage = HTMLHandler.fillTemplate(commodityHTML, result);
+
+        return commodityHTMLPage;
     }
 
 //    private String generateCommoditiesById(String commodity_id) throws Exception {

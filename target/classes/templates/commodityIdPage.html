@@ -34,13 +34,8 @@
             <label>Your ID:</label>
             <input type="text" name="username" value="" />
             <br><br>
-            <form action="/rateCommodity/%username%/%id%/%quantity%" method="POST">
-                <label>Rate(between 1 and 10):</label>
-                <input type="number" id="quantity" name="quantity" min="1" max="10">
-                <button type="submit">Rate</button>
-            </form>
             <br>
-            <form action="/addToButList/%username%/%id%" method="POST">
+            <form action="/addToButList/%username%/%id" method="POST">
                 <button type="submit">Add to BuyList</button>
             </form>
             <br />

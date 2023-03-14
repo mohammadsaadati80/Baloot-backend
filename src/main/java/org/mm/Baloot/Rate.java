@@ -7,6 +7,12 @@ public class Rate {
     private Integer commodityId;
     private float score;
 
+     public Rate (String _username, Integer _commodityId, float _score) {
+         username = _username;
+         commodityId = _commodityId;
+         score = _score;
+     }
+
     public boolean isValidScoreRange() throws JsonProcessingException {
         if (score < 1 || score > 10)
             return false;
