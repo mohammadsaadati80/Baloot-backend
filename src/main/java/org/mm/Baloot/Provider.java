@@ -9,15 +9,24 @@ public class Provider {
     private Integer id;
     private String name;
     private Date registryDate;
+    private String text;
 
     private Map<Integer, Commodity> commodities = new HashMap<>();
 
     private float averageCommoditiesRates = 0;
 
+    public Provider(Integer _id, String _name, Date _registryDate, String _text) {
+        id = _id;
+        name = _name;
+        registryDate = _registryDate;
+        text = _text;
+    }
+
     public void update(Provider provider) {
         id = provider.getId();
         name = provider.getName();
         registryDate = provider.getRegistryDate();
+        text = provider.getText();;
     }
 
     public boolean isValidCommand() {
@@ -50,6 +59,8 @@ public class Provider {
     public Date getRegistryDate() {
         return registryDate;
     }
+
+    public String getText() { return text;}
 
     public float getAverageCommoditiesRates() {
         updateAverageCommoditiesRates();
