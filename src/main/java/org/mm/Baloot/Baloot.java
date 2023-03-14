@@ -265,4 +265,16 @@ public class Baloot {
         }
     }
 
+    public List<Comment> getCommentByCommodity(Integer commodityId) throws Exception {
+        if (commodityId==null || commodityId==0.0f)
+            throw new InvalidCommandError();
+        else {
+            List<Comment> commentList = new ArrayList<>();
+            for (Map.Entry<Integer, Comment> entry : comments.entrySet())
+                if (entry.getValue().getCommodityId().equals(commodityId))
+                    commentList.add(entry.getValue());
+            return commentList;
+        }
+    }
+
 }

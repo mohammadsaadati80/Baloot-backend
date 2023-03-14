@@ -9,6 +9,9 @@ public class Comment {
     private Date date;
     private Map<String, Integer> usersVote = new HashMap<>();
 
+    private Integer like=0;
+    private Integer dislike=0;
+
     public void update(Comment updatedComment) {
         userEmail = updatedComment.getUserEmail();
         date = updatedComment.getDate();
@@ -28,6 +31,15 @@ public class Comment {
             usersVote.replace(username, vote);
         } else {
             usersVote.put(username, vote);
+        }
+
+        like = 0;
+        dislike = 0;
+        for (Map.Entry<String, Integer> entry : usersVote.entrySet()) {
+            if (entry.getValue() > 0)
+                like +=1;
+            else if (entry.getValue() < 0)
+                dislike += 1;
         }
     }
 
