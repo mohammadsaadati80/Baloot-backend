@@ -152,7 +152,7 @@ public class Baloot {
                 if (users.get(username).isInBuyList((commodityId)))
                     throw new CommodityAlreadyInBuyListError();
                 else {
-                    users.get(username).addToBuyList(commodityId);
+                    users.get(username).addToBuyList(commodities.get(commodityId));
                 }
             }
         }
@@ -209,10 +209,10 @@ public class Baloot {
             if (!users.containsKey(username))
                 throw new UserNotFoundError();
             else {
-                Set<Integer> userBuyList = users.get(username).getBuyList();
+                HashMap<Integer, Commodity> userBuyList = users.get(username).getBuyList();
                 List<Commodity> buyList = new ArrayList<>();
-                for (Integer commodityId : userBuyList) {
-                    buyList.add(commodities.get(commodityId));
+                for (Map.Entry<Integer, Commodity> entry : userBuyList.entrySet()) {
+                    buyList.add(entry.getValue());
                 }
                 return buyList;
             }
@@ -274,6 +274,22 @@ public class Baloot {
                 if (entry.getValue().getCommodityId().equals(commodityId))
                     commentList.add(entry.getValue());
             return commentList;
+        }
+    }
+
+    public void buyListPayment(String username) throws Exception {
+        if (username==null)
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else {
+                HashMap<Integer, Commodity> userBuyList = users.get(username).getBuyList();
+                users.get(username).buyListPayment();
+                for (Map.Entry<Integer, Commodity> entry : userBuyList.entrySet()) {
+                    commodities.get(entry.getValue().getId()).buy(1);
+                }
+            }
         }
     }
 
