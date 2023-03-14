@@ -250,7 +250,7 @@ public class Baloot {
         }
     }
 
-    public void voteCommodity(String username, Integer commentId, Integer vote) throws Exception {
+    public void voteComment(String username, Integer commentId, Integer vote) throws Exception {
         if (username==null || commentId==null || commentId==0.0f)
             throw new InvalidCommandError();
         else {
