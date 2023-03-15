@@ -92,7 +92,13 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/addCredit/:username/:credit", ctx -> { // TODO post
+        app.post("/addCredit" , ctx -> {
+            String redirection_path = "/addCredit/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("credit");
+            ctx.redirect(redirection_path);
+        });
+
+        app.get("/addCredit/:username/:credit", ctx -> {
             try {
                 String username = ctx.pathParam("username");
                 String credit = ctx.pathParam("credit");
@@ -136,7 +142,7 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/removeFromBuyList/:username/:commodityId", ctx -> { // TODO post
+        app.get("/removeFromBuyList/:username/:commodityId", ctx -> {
             try {
                 String username = ctx.pathParam("username");
                 String commodityId = ctx.pathParam("commodityId");
@@ -153,6 +159,12 @@ public class InterfaceServer {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
             }
+        });
+
+        app.post("/removeFromBuyList" , ctx -> {
+            String redirection_path = "/removeFromBuyList/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commodityId");
+            ctx.redirect(redirection_path);
         });
 
         app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
@@ -238,6 +250,11 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
                 ctx.status(403);
             }
+        });
+
+        app.post("/buyListPayment" , ctx -> {
+            String redirection_path = "/buyListPayment/" + ctx.formParam("username");
+            ctx.redirect(redirection_path);
         });
 
         app.get("/buyListPayment/:username", ctx -> { // TODO post
@@ -359,6 +376,7 @@ public class InterfaceServer {
         HashMap<String, String> result_1 = new HashMap<>();
         for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
             Commodity commodity = entry.getValue();
+            result_1.put("username", user.getUsername());
             result_1.put("id", Integer.toString(commodity.getId()) );
             result_1.put("name", commodity.getName());
             result_1.put("providerId", Integer.toString(commodity.getProviderId()));

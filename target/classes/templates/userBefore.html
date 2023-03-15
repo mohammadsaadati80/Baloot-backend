@@ -21,13 +21,21 @@
     <li id="address">%address%</li>
     <li id="credit">Credit: %credit%</li>
     <li>
-        <form action="" method="POST" >
+        <form action="/buyListPayment" method="POST" >
             <label>Buy List Payment</label>
-            <input id="form_payment" type="hidden" name="userId" value="Farhad">
+            <input id="form_payment" type="hidden" name="username" value=%username% >
             <button type="submit">Payment</button>
         </form>
     </li>
 </ul>
+<br><br>
+<h3>Add To Your Credit:</h3>
+<form action="/addCredit" method="POST">
+    <input type="hidden" name="username" value=%username% id="from_username"/>
+    <label>New Credit:</label>
+    <input type="number" id="for_credit" name="credit" min="0" required>
+    <button type="submit">Add Credit</button>
+</form>
 <table>
     <caption>
         <h2>Buy List</h2>

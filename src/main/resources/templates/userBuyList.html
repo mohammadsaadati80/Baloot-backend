@@ -8,8 +8,9 @@
     <th>%inStock%</th>
     <td><a href="/commodities/%id%">Link</a></td>
     <td>
-        <form action="" method="POST" >
-            <input id="form_commodity_id" type="hidden" name="commodityId" value="2341">
+        <form action="/removeFromBuyList" method="POST" >
+            <input id="username" type="hidden" name="username" value=%username% >
+            <input id="commodityId" type="hidden" name="commodityId" value=%id% >
             <button type="submit">Remove</button>
         </form>
     </td>
