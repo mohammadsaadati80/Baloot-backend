@@ -8,7 +8,7 @@
             padding: 5px;
         }
         table {
-            width: 50%;
+            width: 75%;
             text-align: center;
         }
     </style>
@@ -24,22 +24,29 @@
     <li inStock="inStock">In Stock: %inStock%</li>
 </ul>
 
-            <label>Your ID:</label>
-            <input type="text" name="username" value="" />
             <br><br>
-            <form action="/rateCommodity/%username%/%id%/%quantity%" method="POST">
+            <h3>Rate This Commodity:</h3>
+            <form action="/rateCommodity" method="POST">
+                <label>Your ID:</label>
+                <input type="text" name="username" value="" required/>
+                <input type="hidden" name="commodityId" value=%id% id="commodityId"/>
                 <label>Rate(between 1 and 10):</label>
-                <input type="number" id="quantity" name="quantity" min="1" max="10">
+                <input type="number" id="rate" name="rate" min="1" max="10" required>
                 <button type="submit">Rate</button>
             </form>
             <br>
-            <form action="/addToButList/%username%/%id%" method="POST">
+            <h3>Add This Commodity To Your BuyList:</h3>
+            <form action="/addToBuyList" method="POST">
+                <label>Your ID:</label>
+                <input type="text" name="username" value="" required/>
+                <input type="hidden" name="commodityId" value=%id% />
                 <button type="submit">Add to BuyList</button>
             </form>
             <br />
 
     <table>
         <tr>
+            <th>commentId</th>
             <th>username</th>
             <th>comment</th>
             <th>date</th>

@@ -106,7 +106,8 @@ public class Baloot {
         }
         if (isUserFound) {
             Integer key = comments.size();
-            comments.put(key, comment);
+            comment.addId(key+1);
+            comments.put(comment.getId(), comment);
         }
         else
             throw new UserNotFoundError();

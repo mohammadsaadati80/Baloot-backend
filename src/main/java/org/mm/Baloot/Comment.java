@@ -3,6 +3,7 @@ package org.mm.Baloot;
 import java.util.*;
 
 public class Comment {
+    private Integer id;
     private String userEmail;
     private Integer commodityId;
     private String text;
@@ -32,6 +33,8 @@ public class Comment {
         else
             return true;
     }
+
+    public void addId(Integer _id) { id = _id;}
     
     public void addVote(String username, Integer vote) {
         if (usersVote.containsKey(username)) {
@@ -49,6 +52,8 @@ public class Comment {
                 dislike += 1;
         }
     }
+
+    public Integer getId() { return id;}
 
     public String getUserEmail() { return userEmail;}
 

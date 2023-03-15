@@ -111,7 +111,13 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/addToBuyList/:username/:commodityId", ctx -> { // TODO post
+        app.post("/addToBuyList" , ctx -> {
+            String redirection_path = "/addToBuyList/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commodityId");
+            ctx.redirect(redirection_path);
+        });
+
+        app.get("/addToBuyList/:username/:commodityId", ctx -> {
             try {
                 String username = ctx.pathParam("username");
                 String commodityId = ctx.pathParam("commodityId");
@@ -149,7 +155,7 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> { // TODO post
+        app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
             try {
                 String username = ctx.pathParam("username");
                 String commodityId = ctx.pathParam("commodityId");
@@ -170,7 +176,13 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/voteComment/:username/:commentId/:vote", ctx -> { // TODO post
+        app.post("/rateCommodity" , ctx -> {
+            String redirection_path = "/rateCommodity/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commodityId") + "/" + ctx.formParam("rate");
+            ctx.redirect(redirection_path);
+        });
+
+        app.get("/voteComment/:username/:commentId/:vote", ctx -> {
             try {
                 String username = ctx.pathParam("username");
                 String commentId = ctx.pathParam("commentId");
@@ -188,6 +200,18 @@ public class InterfaceServer {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
             }
+        });
+
+        app.post("/voteComment/like" , ctx -> {
+            String redirection_path = "/voteComment/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commentId") + "/" + ctx.formParam("vote");
+            ctx.redirect(redirection_path);
+        });
+
+        app.post("/voteComment/dislike" , ctx -> {
+            String redirection_path = "/voteComment/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commentId") + "/" + ctx.formParam("vote");
+            ctx.redirect(redirection_path);
         });
 
         app.get("/commodities/search/:start_price/:end_price", ctx -> {
@@ -275,6 +299,7 @@ public class InterfaceServer {
         List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
         HashMap<String, String> result_comment = new HashMap<>();
         for (Comment comment: commentList) {
+            result_comment.put("commentId", Integer.toString(comment.getId()));
             result_comment.put("userEmail",comment.getUserEmail());
             result_comment.put("text",comment.getText());
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
