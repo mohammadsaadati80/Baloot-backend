@@ -75,11 +75,11 @@ public class InterfaceServer {
             String provider_id = ctx.pathParam("provider_id");
             try {
                 ctx.html(generateProviderById(Integer.valueOf(provider_id)));
-            } catch (CommodityNotFoundError e) {
-                ctx.html(readTemplateFile("403.html"));
+            } catch (ProviderNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(403).result(":| " + e.getMessage());
+                ctx.status(404).result(":| " + e.getMessage());
             }
         });
 
@@ -87,11 +87,11 @@ public class InterfaceServer {
             String user_id = ctx.pathParam("user_id");
             try {
                 ctx.html(generateUserById(user_id));
-            } catch (CommodityNotFoundError e) {
-                ctx.html(readTemplateFile("403.html"));
+            } catch (UserNotFoundError e) {
+                ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(403).result(":| " + e.getMessage());
+                ctx.status(404).result(":| " + e.getMessage());
             }
         });
 
@@ -176,7 +176,7 @@ public class InterfaceServer {
     }
 
     public String generateProviderById(Integer provider_id) throws Exception{
-        String providerHTML = readTemplateFile("ProviderBefore.html");
+        String providerHTML;
         Provider provider = baloot.getProviderById(provider_id);
         Map<Integer, Commodity> commodityList = provider.getCommodities();
         String commodityItem = readTemplateFile("ProviderCommodityItem.html");
@@ -186,7 +186,7 @@ public class InterfaceServer {
         result.put("name", provider.getName());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         result.put("registryDate",dateFormat.format(provider.getRegistryDate()));
-
+        providerHTML = HTMLHandler.fillTemplate(readTemplateFile("ProviderBefore.html"), result);
 
         HashMap<String, String> result_commodity = new HashMap<>();
         for (Map.Entry<Integer, Commodity> entry : commodityList.entrySet()) {
@@ -237,7 +237,7 @@ public class InterfaceServer {
 
         providerHTML += readTemplateFile("providerAfter.html");
 
-        return providerHTML;
+        return userHTML;
     }
 
     private void importUsersFromWeb(String usersUrl) throws Exception{
