@@ -59,7 +59,8 @@ public class InterfaceServer {
                 ctx.html(generateCommodityById(Integer.valueOf(commodity_id)));
             } catch (CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.status(403).result(" : " + e.getMessage());
@@ -72,7 +73,8 @@ public class InterfaceServer {
                 ctx.html(generateProviderById(Integer.valueOf(provider_id)));
             } catch (ProviderNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.status(403).result(" : " + e.getMessage());
@@ -85,7 +87,8 @@ public class InterfaceServer {
                 ctx.html(generateUserById(user_id));
             } catch (UserNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.status(403).result(" : " + e.getMessage());
@@ -107,10 +110,12 @@ public class InterfaceServer {
                 ctx.status(200);
             } catch (UserNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (InvalidCreditValue e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
@@ -132,14 +137,22 @@ public class InterfaceServer {
                 ctx.status(200);
             } catch (UserNotFoundError | CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (CommodityNotInStuckError | CommodityAlreadyInBuyListError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
             }
+        });
+
+        app.post("/removeFromBuyList" , ctx -> {
+            String redirection_path = "/removeFromBuyList/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commodityId");
+            ctx.redirect(redirection_path);
         });
 
         app.get("/removeFromBuyList/:username/:commodityId", ctx -> {
@@ -151,19 +164,21 @@ public class InterfaceServer {
                 ctx.status(200);
             } catch (UserNotFoundError | CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (CommodityIsNotInBuyListError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
             }
         });
 
-        app.post("/removeFromBuyList" , ctx -> {
-            String redirection_path = "/removeFromBuyList/" + ctx.formParam("username") + "/" +
-                    ctx.formParam("commodityId");
+        app.post("/rateCommodity" , ctx -> {
+            String redirection_path = "/rateCommodity/" + ctx.formParam("username") + "/" +
+                    ctx.formParam("commodityId") + "/" + ctx.formParam("rate");
             ctx.redirect(redirection_path);
         });
 
@@ -178,36 +193,12 @@ public class InterfaceServer {
                 ctx.status(200);
             } catch (UserNotFoundError | CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
             } catch (InvalidRateScoreError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
-            } catch (Exception e){
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
-            }
-        });
-
-        app.post("/rateCommodity" , ctx -> {
-            String redirection_path = "/rateCommodity/" + ctx.formParam("username") + "/" +
-                    ctx.formParam("commodityId") + "/" + ctx.formParam("rate");
-            ctx.redirect(redirection_path);
-        });
-
-        app.get("/voteComment/:username/:commentId/:vote", ctx -> {
-            try {
-                String username = ctx.pathParam("username");
-                String commentId = ctx.pathParam("commentId");
-                String vote = ctx.pathParam("vote");
-                baloot.voteComment(username, Integer.valueOf(commentId), Integer.valueOf(vote));
-                ctx.html(readTemplateFile("200.html"));
-                ctx.status(200);
-            } catch (UserNotFoundError | CommentNotFound e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-            } catch (InvalidVoteScoreError e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
@@ -226,6 +217,28 @@ public class InterfaceServer {
             ctx.redirect(redirection_path);
         });
 
+        app.get("/voteComment/:username/:commentId/:vote", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                String commentId = ctx.pathParam("commentId");
+                String vote = ctx.pathParam("vote");
+                baloot.voteComment(username, Integer.valueOf(commentId), Integer.valueOf(vote));
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+            } catch (UserNotFoundError | CommentNotFound e) {
+                System.out.println(e.getMessage());
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
+            } catch (InvalidVoteScoreError e) {
+                System.out.println(e.getMessage());
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            }
+        });
+
         app.get("/commodities/search/:start_price/:end_price", ctx -> {
             try {
                 String start_price = ctx.pathParam("start_price");
@@ -233,7 +246,8 @@ public class InterfaceServer {
                 ctx.html(generateCommodityByPriceOrCategory(Integer.valueOf(start_price), Integer.valueOf(end_price), ""));
             } catch (InvalidPriceRangeError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
             }catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
@@ -248,7 +262,6 @@ public class InterfaceServer {
             }catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
-                ctx.status(403);
             }
         });
 
@@ -257,7 +270,7 @@ public class InterfaceServer {
             ctx.redirect(redirection_path);
         });
 
-        app.get("/buyListPayment/:username", ctx -> { // TODO post
+        app.get("/buyListPayment/:username", ctx -> {
             try {
                 String username = ctx.pathParam("username");
                 baloot.userBuyListPayment(username);
@@ -265,10 +278,12 @@ public class InterfaceServer {
                 ctx.status(200);
             } catch (UserNotFoundError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-            } catch (UserBuyListIsEmptyError e) {
+//                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404).result("404\n" + e.getMessage());
+            } catch (UserBuyListIsEmptyError | UserNotHaveEnoughCreditError e) {
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
+//                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403).result("403\n" + e.getMessage());
             } catch (Exception e){
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
