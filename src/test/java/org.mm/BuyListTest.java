@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BuyListTest { // TODO
+public class BuyListTest {
     private InterfaceServer interfaceServer;
     private Baloot baloot;
 
