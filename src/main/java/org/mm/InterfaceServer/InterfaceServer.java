@@ -92,7 +92,7 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/addCredit/:username/:credit", ctx -> {
+        app.get("/addCredit/:username/:credit", ctx -> { // TODO post
             try {
                 String username = ctx.pathParam("username");
                 String credit = ctx.pathParam("credit");
@@ -111,23 +111,17 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/addToBuyList/:username/:commodityId", ctx -> {
+        app.get("/addToBuyList/:username/:commodityId", ctx -> { // TODO post
             try {
                 String username = ctx.pathParam("username");
                 String commodityId = ctx.pathParam("commodityId");
                 baloot.addToBuyList(username, Integer.valueOf(commodityId));
                 ctx.html(readTemplateFile("200.html"));
                 ctx.status(200);
-            } catch (UserNotFoundError e) {
+            } catch (UserNotFoundError | CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
-            } catch (CommodityNotFoundError e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-            } catch (CommodityNotInStuckError e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("403.html"));
-            } catch (CommodityAlreadyInBuyListError e) {
+            } catch (CommodityNotInStuckError | CommodityAlreadyInBuyListError e) {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
@@ -136,17 +130,14 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/removeFromBuyList/:username/:commodityId", ctx -> {
+        app.get("/removeFromBuyList/:username/:commodityId", ctx -> { // TODO post
             try {
                 String username = ctx.pathParam("username");
                 String commodityId = ctx.pathParam("commodityId");
                 baloot.removeFromBuyList(username, Integer.valueOf(commodityId));
                 ctx.html(readTemplateFile("200.html"));
                 ctx.status(200);
-            } catch (UserNotFoundError e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-            } catch (CommodityNotFoundError e) {
+            } catch (UserNotFoundError | CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (CommodityIsNotInBuyListError e) {
@@ -158,7 +149,7 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
+        app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> { // TODO post
             try {
                 String username = ctx.pathParam("username");
                 String commodityId = ctx.pathParam("commodityId");
@@ -167,10 +158,7 @@ public class InterfaceServer {
                 baloot.rateCommodity(userRate);
                 ctx.html(readTemplateFile("200.html"));
                 ctx.status(200);
-            } catch (UserNotFoundError e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-            } catch (CommodityNotFoundError e) {
+            } catch (UserNotFoundError | CommodityNotFoundError e) {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (InvalidRateScoreError e) {
@@ -182,7 +170,7 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/voteComment/:username/:commentId/:vote", ctx -> {
+        app.get("/voteComment/:username/:commentId/:vote", ctx -> { // TODO post
             try {
                 String username = ctx.pathParam("username");
                 String commentId = ctx.pathParam("commentId");
@@ -190,10 +178,7 @@ public class InterfaceServer {
                 baloot.voteComment(username, Integer.valueOf(commentId), Integer.valueOf(vote));
                 ctx.html(readTemplateFile("200.html"));
                 ctx.status(200);
-            } catch (UserNotFoundError e) {
-                System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-            } catch (CommentNotFound e) {
+            } catch (UserNotFoundError | CommentNotFound e) {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (InvalidVoteScoreError e) {
@@ -231,7 +216,7 @@ public class InterfaceServer {
             }
         });
 
-        app.get("/buyListPayment/:username", ctx -> {
+        app.get("/buyListPayment/:username", ctx -> { // TODO post
             try {
                 String username = ctx.pathParam("username");
                 baloot.userBuyListPayment(username);
