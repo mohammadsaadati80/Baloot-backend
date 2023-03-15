@@ -57,6 +57,8 @@ public class Commodity {
     }
 
     public void addRate(Rate rate) {
+        if (rates.size() == 0)
+            rates.put("", (int) rating);
         rates.put(rate.getUsername(), (int) rate.getScore());
         rating = (float) rates.values().stream().mapToDouble(Integer::doubleValue).average().orElse(0);
     }

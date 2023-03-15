@@ -96,7 +96,7 @@ public class RateCommodityTest {
     @Test
     void rateCommodity_CommodityRatedSuccessfully() throws Exception {
         baloot.rateCommodity(new Rate("amir", 1, 5));
-        assertEquals(5, baloot.getCommodityById(1).getRating());
+        assertEquals(6, baloot.getCommodityById(1).getRating());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class RateCommodityTest {
     @Test
     void rateCommodity_CommodityRate_Average() throws Exception {
         baloot.rateCommodity(new Rate("amir", 1, 5));
-        baloot.rateCommodity(new Rate("hamid", 1, 7));
+        baloot.rateCommodity(new Rate("hamid", 1, 6));
         float rate = baloot.getCommodities().get(1).getRating();
         assertEquals(6, rate);
     }
@@ -126,23 +126,23 @@ public class RateCommodityTest {
     void rateCommodity_CommodityRate_UpdateAverage() throws Exception {
         baloot.rateCommodity(new Rate("amir", 1, 5));
         baloot.rateCommodity(new Rate("hamid", 1, 7));
-        baloot.rateCommodity(new Rate("amir", 1, 8));
+        baloot.rateCommodity(new Rate("amir", 1, 1));
         float rate = baloot.getCommodities().get(1).getRating();
-        assertEquals(7.5, rate);
+        assertEquals(5, rate);
     }
 
     @Test
     void rateCommodity_CommodityRate_ProviderAverage() throws Exception {
         baloot.rateCommodity(new Rate("amir", 1, 5));
-        baloot.rateCommodity(new Rate("hamid", 1, 1));
+        baloot.rateCommodity(new Rate("hamid", 1, 3));
         float rate = baloot.getProviders().get(1).getAverageCommoditiesRates();
-        assertEquals(6.4375, rate);
+        assertEquals(6.6875, rate);
     }
 
     @Test
     void rateCommodity_CommodityRate_UpdateProviderAverage() throws Exception {
         baloot.rateCommodity(new Rate("amir", 1, 5));
-        baloot.rateCommodity(new Rate("hamid", 1, 7));
+        baloot.rateCommodity(new Rate("hamid", 1, 8));
         baloot.rateCommodity(new Rate("amir", 1, 9));
         float rate = baloot.getProviders().get(1).getAverageCommoditiesRates();
         assertEquals(7.0625, rate);
