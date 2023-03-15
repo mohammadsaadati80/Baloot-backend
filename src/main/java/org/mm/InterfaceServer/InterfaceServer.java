@@ -83,6 +83,18 @@ public class InterfaceServer {
             }
         });
 
+        app.get("/users/:user_id", ctx -> {
+            String user_id = ctx.pathParam("user_id");
+            try {
+                ctx.html(generateUserById(user_id));
+            } catch (CommodityNotFoundError e) {
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.status(403).result(":| " + e.getMessage());
+            }
+        });
+
 
 
         app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
@@ -193,28 +205,40 @@ public class InterfaceServer {
 
         return providerHTML;
     }
-//    private String generateCommoditiesById(String commodity_id) throws Exception {
-//        Student student = bolbolestan.getStudentById(studentId);
-//        String profileHTML = readHTMLPage("profile_start.html");
-//
-//        HashMap<String, String> studentProfile = new HashMap<>();
-//        studentProfile.put("id", student.getId());
-//        studentProfile.put("name", student.getName());
-//        studentProfile.put("secondName", student.getSecondName());
-//        studentProfile.put("birthDate", student.getBirthDate());
-//        studentProfile.put("GPA", Float.toString(student.getGPA()));
-//        studentProfile.put("totalUnits", Integer.toString(bolbolestan.getUnitsPassed(studentId)));
-//
-//        profileHTML = HTMLHandler.fillTemplate(profileHTML, studentProfile);
-//        String profileItem = readHTMLPage("profile_item.html");
-//        for (Grade grade : student.getGrades()) {
-//            studentProfile = new HashMap<>();
-//            studentProfile.put("code", grade.getCode());
-//            studentProfile.put("grade", Integer.toString(grade.getGrade()));
-//            profileHTML += HTMLHandler.fillTemplate(profileItem, studentProfile);
-//        }
-//        return profileHTML + readHTMLPage("profile_end.html");
-//    }
+    public String generateUserById(String user_id) throws Exception{
+        String userHTML = readTemplateFile("userBefore.html");
+        User user = baloot.getUserById(user_id);
+        Map<Integer, Commodity> buyList = user.getBuyList();
+        Map<Integer, Commodity> purchaseList = user.getPurchasedListList();
+        String userBuyItem = readTemplateFile("userBuyList.html");
+        String userPurchaseItem = readTemplateFile("userPurchaseListItem.html");
+
+        // azinja be bad 2 ta for bezan avali butlist va briz to result1, tamom ke shod purchaselist briz to result 2 mamad eyne ghabli//
+
+        HashMap<String, String> result = new HashMap<>();
+        result.put("id", Integer.toString(provider.getId()) );
+        result.put("name", provider.getName());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        result.put("registryDate",dateFormat.format(provider.getRegistryDate()));
+
+
+        HashMap<String, String> result_commodity = new HashMap<>();
+        for (Map.Entry<Integer, Commodity> entry : commodityList.entrySet()) {
+            Commodity commodity = entry.getValue();
+            result_commodity.put("id", Integer.toString(commodity.getId()) );
+            result_commodity.put("name", commodity.getName());
+            result_commodity.put("price", Integer.toString(commodity.getPrice()) );
+            result_commodity.put("categories", String.join(",", commodity.getCategories()));
+            result_commodity.put("rating", Float.toString(commodity.getRating()) );
+            result_commodity.put("inStock", Integer.toString(commodity.getInStock()) );
+
+            providerHTML += HTMLHandler.fillTemplate(commodityItem, result_commodity);
+        }
+
+        providerHTML += readTemplateFile("providerAfter.html");
+
+        return providerHTML;
+    }
 
     private void importUsersFromWeb(String usersUrl) throws Exception{
         String UsersJsonString = HTTPRequestHandler.getRequest(usersUrl);
