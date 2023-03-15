@@ -57,12 +57,12 @@ public class InterfaceServer {
             }
         });
 
-
         app.get("/commodities/:commodity_id", ctx -> {
             String commodity_id = ctx.pathParam("commodity_id");
             try {
                 ctx.html(generateCommodityById(Integer.valueOf(commodity_id)));
             } catch (CommodityNotFoundError e) {
+                System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
@@ -70,12 +70,12 @@ public class InterfaceServer {
             }
         });
 
-
         app.get("/providers/:provider_id", ctx -> {
             String provider_id = ctx.pathParam("provider_id");
             try {
                 ctx.html(generateProviderById(Integer.valueOf(provider_id)));
             } catch (ProviderNotFoundError e) {
+                System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
@@ -88,6 +88,7 @@ public class InterfaceServer {
             try {
                 ctx.html(generateUserById(user_id));
             } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
@@ -95,7 +96,74 @@ public class InterfaceServer {
             }
         });
 
+        app.get("/addCredit/:username/:credit", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                String credit = ctx.pathParam("credit");
+                baloot.addCredit(username, Integer.valueOf(credit));
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+            } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (InvalidCreditValue e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            }
+        });
 
+        app.get("/addToBuyList/:username/:commodityId", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                String commodityId = ctx.pathParam("commodityId");
+                baloot.addToBuyList(username, Integer.valueOf(commodityId));
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+            } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (CommodityNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (CommodityNotInStuckError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            } catch (CommodityAlreadyInBuyListError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            }
+        });
+
+        app.get("/removeFromBuyList/:username/:commodityId", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                String commodityId = ctx.pathParam("commodityId");
+                baloot.removeFromBuyList(username, Integer.valueOf(commodityId));
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+            } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (CommodityNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (CommodityIsNotInBuyListError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            }
+        });
 
         app.get("/rateCommodity/:username/:commodityId/:rate", ctx -> {
             try {
@@ -106,19 +174,73 @@ public class InterfaceServer {
                 baloot.rateCommodity(userRate);
                 ctx.html(readTemplateFile("200.html"));
                 ctx.status(200);
-
             } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (CommodityNotFoundError e) {
+                System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             } catch (InvalidRateScoreError e) {
+                System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
-//                System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
 //                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
                 ctx.html(readTemplateFile("404.html"));
             }
         });
+
+        app.get("/voteComment/:username/:commentId/:vote", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                String commentId = ctx.pathParam("commentId");
+                String vote = ctx.pathParam("vote");
+                baloot.voteComment(username, Integer.valueOf(commentId), Integer.valueOf(vote));
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+            } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (CommentNotFound e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (InvalidVoteScoreError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            }
+        });
+
+        app.get("/commodities/search/:start_price/:end_price", ctx -> {
+            try {
+                String start_price = ctx.pathParam("start_price");
+                String end_price = ctx.pathParam("end_price");
+                ctx.html(generateCommodityByPriceOrCategory(Integer.valueOf(start_price), Integer.valueOf(end_price), ""));
+            } catch (InvalidPriceRangeError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404);
+            }
+        });
+
+        app.get("/commodities/search/:categories", ctx -> {
+            try {
+                String categories = ctx.pathParam("categories");
+                ctx.html(generateCommodityByPriceOrCategory(-1, -1, categories));
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+                ctx.status(404);
+            }
+        });
+
+
     }
 
 
@@ -164,9 +286,10 @@ public class InterfaceServer {
         for (Comment comment: commentList) {
             result_comment.put("userEmail",comment.getUserEmail());
             result_comment.put("text",comment.getText());
-
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             result_comment.put("date",dateFormat.format(comment.getDate()));
+            result_comment.put("like", Integer.toString(comment.getLike()));
+            result_comment.put("dislike", Integer.toString(comment.getDislike()));
             commodityHTML += HTMLHandler.fillTemplate(commentItem, result_comment);
         }
 
@@ -227,6 +350,7 @@ public class InterfaceServer {
             Commodity commodity = entry.getValue();
             result_1.put("id", Integer.toString(commodity.getId()) );
             result_1.put("name", commodity.getName());
+            result_1.put("providerId", Integer.toString(commodity.getProviderId()));
             result_1.put("price", Integer.toString(commodity.getPrice()) );
             result_1.put("categories", String.join(",", commodity.getCategories()));
             result_1.put("rating", Float.toString(commodity.getRating()) );
@@ -237,10 +361,11 @@ public class InterfaceServer {
         userHTML += readTemplateFile("userPurchaseList.html");
 
         HashMap<String, String> result_2 = new HashMap<>();
-        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
+        for (Map.Entry<Integer, Commodity> entry : purchaseList.entrySet()) {
             Commodity commodity = entry.getValue();
             result_2.put("id", Integer.toString(commodity.getId()) );
             result_2.put("name", commodity.getName());
+            result_2.put("providerId", Integer.toString(commodity.getProviderId()));
             result_2.put("price", Integer.toString(commodity.getPrice()) );
             result_2.put("categories", String.join(",", commodity.getCategories()));
             result_2.put("rating", Float.toString(commodity.getRating()) );
@@ -251,6 +376,31 @@ public class InterfaceServer {
         userHTML += readTemplateFile("userAfter.html");
 
         return userHTML;
+    }
+
+    public String generateCommodityByPriceOrCategory(Integer startPrice, Integer endPrice, String category) throws Exception{
+        String commoditiesHTML = readTemplateFile("commoditiesBefore.html");
+        List<Commodity> CommodityList = baloot.getCommoditiesList();
+        if (startPrice != -1 && endPrice != -1)
+            CommodityList = baloot.getCommoditiesByPrice(startPrice, endPrice);
+        else if (!category.equals(""))
+            CommodityList = baloot.getCommoditiesByCategory(category);
+        String commodityItem = readTemplateFile("commodityItem.html");
+
+        for(Commodity commodity: CommodityList){
+            HashMap<String, String> result = new HashMap<>();
+            result.put("id", Integer.toString(commodity.getId()) );
+            result.put("name", commodity.getName());
+            result.put("providerId", Integer.toString(commodity.getProviderId()) );
+            result.put("price", Integer.toString(commodity.getPrice()) );
+            result.put("categories", String.join(",", commodity.getCategories()));
+            result.put("rating", Float.toString(commodity.getRating()) );
+            result.put("inStock", Integer.toString(commodity.getInStock()) );
+
+            commoditiesHTML += HTMLHandler.fillTemplate(commodityItem, result);
+        }
+        commoditiesHTML += readTemplateFile("commoditiesAfter.html");
+        return commoditiesHTML;
     }
 
     private void importUsersFromWeb(String usersUrl) throws Exception{
