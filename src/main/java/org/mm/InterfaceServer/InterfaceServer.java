@@ -405,7 +405,7 @@ public class InterfaceServer {
 
         userHTML += readTemplateFile("userPurchaseList.html");
 
-        Map<Integer, Commodity> purchaseList = user.getPurchasedListList();
+        Map<Integer, Commodity> purchaseList = user.getPurchasedList();
         HashMap<String, String> result_2 = new HashMap<>();
         for (Map.Entry<Integer, Commodity> entry : purchaseList.entrySet()) {
             Commodity commodity = entry.getValue();

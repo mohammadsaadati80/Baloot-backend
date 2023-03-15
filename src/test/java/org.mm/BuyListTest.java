@@ -3,15 +3,11 @@ package org.mm;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mm.Baloot.Baloot;
 import org.mm.Baloot.Exceptions.*;
-import org.mm.Baloot.Rate;
 import org.mm.InterfaceServer.InterfaceServer;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -211,9 +207,11 @@ public class BuyListTest { // TODO
     void userBuyListPayment_UserBuyListPaymentSuccessfully() throws Exception {
         baloot.addToBuyList("amir", 1);
         assertEquals(1, baloot.getBuyList("amir").size());
+        assertEquals(0, baloot.getUserById("amir").getPurchasedList().size());
         baloot.userBuyListPayment("amir");
         assertEquals(0, baloot.getBuyList("amir").size());
         assertEquals(49, baloot.getCommodityById(1).getInStock());
+        assertEquals(1, baloot.getUserById("amir").getPurchasedList().size());
     }
 
 }

@@ -81,7 +81,7 @@ public class User {
         return buyList;
     }
 
-    public HashMap<Integer, Commodity> getPurchasedListList() {
+    public HashMap<Integer, Commodity> getPurchasedList() {
         return purchasedList;
     }
 
