@@ -42,10 +42,6 @@ public class InterfaceServer {
 
     private void runServer(int port) {
         app = Javalin.create().start(port);
-//        app.get("/", ctx -> ctx.html(readResourceFile("homePage.html")));
-//        app.get("/hello/:name", ctx -> {
-//            ctx.result("Hello: " + ctx.pathParam("name"));
-//        });
 
         app.get("/commodities", ctx -> {
             try {
@@ -232,6 +228,24 @@ public class InterfaceServer {
                 System.out.println(e.getMessage());
                 ctx.html(readTemplateFile("403.html"));
                 ctx.status(403);
+            }
+        });
+
+        app.get("/buyListPayment/:username", ctx -> {
+            try {
+                String username = ctx.pathParam("username");
+                baloot.userBuyListPayment(username);
+                ctx.html(readTemplateFile("200.html"));
+                ctx.status(200);
+            } catch (UserNotFoundError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("404.html"));
+            } catch (UserBuyListIsEmptyError e) {
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+                ctx.html(readTemplateFile("403.html"));
             }
         });
 

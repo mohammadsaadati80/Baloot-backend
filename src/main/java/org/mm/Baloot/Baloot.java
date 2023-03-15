@@ -277,18 +277,21 @@ public class Baloot {
         }
     }
 
-    public void buyListPayment(String username) throws Exception {
+    public void userBuyListPayment(String username) throws Exception {
         if (username==null)
             throw new InvalidCommandError();
         else {
             if (!users.containsKey(username))
                 throw new UserNotFoundError();
+            else if (users.get(username).getBuyList().size() == 0)
+                throw new UserBuyListIsEmptyError();
+            else if (!users.get(username).haveEnoughCredit())
+                throw new UserNotHaveEnoughCreditError();
             else {
                 HashMap<Integer, Commodity> userBuyList = users.get(username).getBuyList();
-                users.get(username).buyListPayment();
-                for (Map.Entry<Integer, Commodity> entry : userBuyList.entrySet()) {
+                for (Map.Entry<Integer, Commodity> entry : userBuyList.entrySet())
                     commodities.get(entry.getValue().getId()).buy(1);
-                }
+                users.get(username).buyListPayment();
             }
         }
     }

@@ -55,6 +55,13 @@ public class User {
         return m.find();
     }
 
+    public boolean haveEnoughCredit() {
+        Integer totalPrice = 0;
+        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet())
+            totalPrice += entry.getValue().getPrice();
+        return (credit >= totalPrice);
+    }
+
     public void buyListPayment() {
         for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
             purchasedList.put(entry.getKey(), entry.getValue());
