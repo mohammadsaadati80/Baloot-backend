@@ -213,29 +213,42 @@ public class InterfaceServer {
         String userBuyItem = readTemplateFile("userBuyList.html");
         String userPurchaseItem = readTemplateFile("userPurchaseListItem.html");
 
-        // azinja be bad 2 ta for bezan avali butlist va briz to result1, tamom ke shod purchaselist briz to result 2 mamad eyne ghabli//
-
         HashMap<String, String> result = new HashMap<>();
-        result.put("id", Integer.toString(provider.getId()) );
-        result.put("name", provider.getName());
+        result.put("username", user.getUsername());
+        result.put("email", user.getEmail());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        result.put("registryDate",dateFormat.format(provider.getRegistryDate()));
+        result.put("birthDate",dateFormat.format(user.getBirthDate()));
+        result.put("address", user.getAddress());
+        result.put("credit", Integer.toString(user.getCredit()));
+        userHTML = HTMLHandler.fillTemplate(readTemplateFile("UserBefore.html"), result);
 
-
-        HashMap<String, String> result_commodity = new HashMap<>();
-        for (Map.Entry<Integer, Commodity> entry : commodityList.entrySet()) {
+        HashMap<String, String> result_1 = new HashMap<>();
+        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
             Commodity commodity = entry.getValue();
-            result_commodity.put("id", Integer.toString(commodity.getId()) );
-            result_commodity.put("name", commodity.getName());
-            result_commodity.put("price", Integer.toString(commodity.getPrice()) );
-            result_commodity.put("categories", String.join(",", commodity.getCategories()));
-            result_commodity.put("rating", Float.toString(commodity.getRating()) );
-            result_commodity.put("inStock", Integer.toString(commodity.getInStock()) );
-
-            providerHTML += HTMLHandler.fillTemplate(commodityItem, result_commodity);
+            result_1.put("id", Integer.toString(commodity.getId()) );
+            result_1.put("name", commodity.getName());
+            result_1.put("price", Integer.toString(commodity.getPrice()) );
+            result_1.put("categories", String.join(",", commodity.getCategories()));
+            result_1.put("rating", Float.toString(commodity.getRating()) );
+            result_1.put("inStock", Integer.toString(commodity.getInStock()) );
+            userHTML += HTMLHandler.fillTemplate(userBuyItem, result_1);
         }
 
-        providerHTML += readTemplateFile("providerAfter.html");
+        userHTML += readTemplateFile("userPurchaseList.html");
+
+        HashMap<String, String> result_2 = new HashMap<>();
+        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
+            Commodity commodity = entry.getValue();
+            result_2.put("id", Integer.toString(commodity.getId()) );
+            result_2.put("name", commodity.getName());
+            result_2.put("price", Integer.toString(commodity.getPrice()) );
+            result_2.put("categories", String.join(",", commodity.getCategories()));
+            result_2.put("rating", Float.toString(commodity.getRating()) );
+            result_2.put("inStock", Integer.toString(commodity.getInStock()) );
+            userHTML += HTMLHandler.fillTemplate(userPurchaseItem, result_2);
+        }
+//
+        userHTML += readTemplateFile("userAfter.html");
 
         return userHTML;
     }
