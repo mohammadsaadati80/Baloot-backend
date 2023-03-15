@@ -1,19 +1,12 @@
 package org.mm.InterfaceServer;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 public class HTMLHandler {
     public static String fillTemplate(String htmlFileString, HashMap<String, String> context, String delimiter) throws Exception {
-        for(Map.Entry<String, String> entry : context.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            htmlFileString = htmlFileString.replaceAll(delimiter + key + delimiter, value);
-        }
+        for(Map.Entry<String, String> entry : context.entrySet())
+            htmlFileString = htmlFileString.replaceAll(delimiter + entry.getKey() + delimiter, entry.getValue());
         return htmlFileString;
     }
 

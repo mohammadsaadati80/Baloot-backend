@@ -1,6 +1,5 @@
 package org.mm.HTTPRequestHandler;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -10,27 +9,15 @@ import org.apache.http.util.EntityUtils;
 
 public class HTTPRequestHandler {
 
-    public static int getStatusCode(String uri) throws Exception {
+    public static String getRequest(String url) throws Exception {
+        String result = "";
+        HttpGet request = new HttpGet(url);
         final CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = new HttpGet(uri);
-
-        try (CloseableHttpResponse response = httpClient.execute(request)) {
-            return response.getStatusLine().getStatusCode();
-        }
-    }
-
-    public static String getRequest(String uri) throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = new HttpGet(uri);
-
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpEntity entity = response.getEntity();
-
-            String result = "";
-            if (entity != null) {
+            if (response.getEntity() != null)
                 result = EntityUtils.toString(entity);
-            }
-            return result;
         }
+        return result;
     }
 }

@@ -66,7 +66,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(404).result(":| " + e.getMessage());
+                ctx.status(403).result(" : " + e.getMessage());
             }
         });
 
@@ -79,7 +79,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(404).result(":| " + e.getMessage());
+                ctx.status(403).result(" : " + e.getMessage());
             }
         });
 
@@ -92,7 +92,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("404.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.status(404).result(":| " + e.getMessage());
+                ctx.status(403).result(" : " + e.getMessage());
             }
         });
 
@@ -111,8 +111,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+                ctx.html(readTemplateFile("403.html"));
             }
         });
 
@@ -137,8 +136,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+                ctx.html(readTemplateFile("403.html"));
             }
         });
 
@@ -160,8 +158,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+                ctx.html(readTemplateFile("403.html"));
             }
         });
 
@@ -185,8 +182,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+                ctx.html(readTemplateFile("403.html"));
             }
         });
 
@@ -209,8 +205,7 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
             } catch (Exception e){
                 System.out.println(e.getMessage());
-//                ctx.status(502).result(Integer.toString(ctx.status()) + ":| " + e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
+                ctx.html(readTemplateFile("403.html"));
             }
         });
 
@@ -224,8 +219,8 @@ public class InterfaceServer {
                 ctx.html(readTemplateFile("403.html"));
             }catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-                ctx.status(404);
+                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403);
             }
         });
 
@@ -235,20 +230,18 @@ public class InterfaceServer {
                 ctx.html(generateCommodityByPriceOrCategory(-1, -1, categories));
             }catch (Exception e){
                 System.out.println(e.getMessage());
-                ctx.html(readTemplateFile("404.html"));
-                ctx.status(404);
+                ctx.html(readTemplateFile("403.html"));
+                ctx.status(403);
             }
         });
 
-
     }
-
 
     public String generateCommodities() throws Exception{
         String commoditiesHTML = readTemplateFile("commoditiesBefore.html");
-        List<Commodity> CommodityList = baloot.getCommoditiesList();
         String commodityItem = readTemplateFile("commodityItem.html");
 
+        List<Commodity> CommodityList = baloot.getCommoditiesList();
         for(Commodity commodity: CommodityList){
             HashMap<String, String> result = new HashMap<>();
             result.put("id", Integer.toString(commodity.getId()) );
@@ -261,16 +254,15 @@ public class InterfaceServer {
 
             commoditiesHTML += HTMLHandler.fillTemplate(commodityItem, result);
         }
+
         commoditiesHTML += readTemplateFile("commoditiesAfter.html");
         return commoditiesHTML;
     }
 
     public String generateCommodityById(Integer commodity_id) throws Exception{
-        String commodityHTML ;
-        Commodity commodity = baloot.getCommodityById(commodity_id);
-        List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
         String commentItem = readTemplateFile("commodityCommentItem.html");
 
+        Commodity commodity = baloot.getCommodityById(commodity_id);
         HashMap<String, String> result = new HashMap<>();
         result.put("id", Integer.toString(commodity.getId()) );
         result.put("name", commodity.getName());
@@ -279,9 +271,9 @@ public class InterfaceServer {
         result.put("categories", String.join(",", commodity.getCategories()));
         result.put("rating", Float.toString(commodity.getRating()) );
         result.put("inStock", Integer.toString(commodity.getInStock()) );
-        commodityHTML = HTMLHandler.fillTemplate(readTemplateFile("commodityIdPage.html"), result);
+        String commodityHTML = HTMLHandler.fillTemplate(readTemplateFile("commodityIdPage.html"), result);
 
-
+        List<Comment> commentList = baloot.getCommentByCommodity(commodity_id);
         HashMap<String, String> result_comment = new HashMap<>();
         for (Comment comment: commentList) {
             result_comment.put("userEmail",comment.getUserEmail());
@@ -294,23 +286,21 @@ public class InterfaceServer {
         }
 
         commodityHTML += readTemplateFile("commodityCommentAfter.html");
-
         return commodityHTML;
     }
 
     public String generateProviderById(Integer provider_id) throws Exception{
-        String providerHTML;
-        Provider provider = baloot.getProviderById(provider_id);
-        Map<Integer, Commodity> commodityList = provider.getCommodities();
         String commodityItem = readTemplateFile("ProviderCommodityItem.html");
 
+        Provider provider = baloot.getProviderById(provider_id);
         HashMap<String, String> result = new HashMap<>();
         result.put("id", Integer.toString(provider.getId()) );
         result.put("name", provider.getName());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         result.put("registryDate",dateFormat.format(provider.getRegistryDate()));
-        providerHTML = HTMLHandler.fillTemplate(readTemplateFile("ProviderBefore.html"), result);
+        String providerHTML = HTMLHandler.fillTemplate(readTemplateFile("ProviderBefore.html"), result);
 
+        Map<Integer, Commodity> commodityList = provider.getCommodities();
         HashMap<String, String> result_commodity = new HashMap<>();
         for (Map.Entry<Integer, Commodity> entry : commodityList.entrySet()) {
             Commodity commodity = entry.getValue();
@@ -325,17 +315,13 @@ public class InterfaceServer {
         }
 
         providerHTML += readTemplateFile("providerAfter.html");
-
         return providerHTML;
     }
     public String generateUserById(String user_id) throws Exception{
-        String userHTML = readTemplateFile("userBefore.html");
-        User user = baloot.getUserById(user_id);
-        Map<Integer, Commodity> buyList = user.getBuyList();
-        Map<Integer, Commodity> purchaseList = user.getPurchasedListList();
         String userBuyItem = readTemplateFile("userBuyList.html");
         String userPurchaseItem = readTemplateFile("userPurchaseListItem.html");
 
+        User user = baloot.getUserById(user_id);
         HashMap<String, String> result = new HashMap<>();
         result.put("username", user.getUsername());
         result.put("email", user.getEmail());
@@ -343,8 +329,9 @@ public class InterfaceServer {
         result.put("birthDate",dateFormat.format(user.getBirthDate()));
         result.put("address", user.getAddress());
         result.put("credit", Integer.toString(user.getCredit()));
-        userHTML = HTMLHandler.fillTemplate(readTemplateFile("UserBefore.html"), result);
+        String userHTML = HTMLHandler.fillTemplate(readTemplateFile("UserBefore.html"), result);
 
+        Map<Integer, Commodity> buyList = user.getBuyList();
         HashMap<String, String> result_1 = new HashMap<>();
         for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
             Commodity commodity = entry.getValue();
@@ -355,11 +342,13 @@ public class InterfaceServer {
             result_1.put("categories", String.join(",", commodity.getCategories()));
             result_1.put("rating", Float.toString(commodity.getRating()) );
             result_1.put("inStock", Integer.toString(commodity.getInStock()) );
+
             userHTML += HTMLHandler.fillTemplate(userBuyItem, result_1);
         }
 
         userHTML += readTemplateFile("userPurchaseList.html");
 
+        Map<Integer, Commodity> purchaseList = user.getPurchasedListList();
         HashMap<String, String> result_2 = new HashMap<>();
         for (Map.Entry<Integer, Commodity> entry : purchaseList.entrySet()) {
             Commodity commodity = entry.getValue();
@@ -370,22 +359,23 @@ public class InterfaceServer {
             result_2.put("categories", String.join(",", commodity.getCategories()));
             result_2.put("rating", Float.toString(commodity.getRating()) );
             result_2.put("inStock", Integer.toString(commodity.getInStock()) );
+
             userHTML += HTMLHandler.fillTemplate(userPurchaseItem, result_2);
         }
-//
-        userHTML += readTemplateFile("userAfter.html");
 
+        userHTML += readTemplateFile("userAfter.html");
         return userHTML;
     }
 
     public String generateCommodityByPriceOrCategory(Integer startPrice, Integer endPrice, String category) throws Exception{
         String commoditiesHTML = readTemplateFile("commoditiesBefore.html");
+        String commodityItem = readTemplateFile("commodityItem.html");
+
         List<Commodity> CommodityList = baloot.getCommoditiesList();
         if (startPrice != -1 && endPrice != -1)
             CommodityList = baloot.getCommoditiesByPrice(startPrice, endPrice);
         else if (!category.equals(""))
             CommodityList = baloot.getCommoditiesByCategory(category);
-        String commodityItem = readTemplateFile("commodityItem.html");
 
         for(Commodity commodity: CommodityList){
             HashMap<String, String> result = new HashMap<>();
@@ -399,6 +389,7 @@ public class InterfaceServer {
 
             commoditiesHTML += HTMLHandler.fillTemplate(commodityItem, result);
         }
+
         commoditiesHTML += readTemplateFile("commoditiesAfter.html");
         return commoditiesHTML;
     }
