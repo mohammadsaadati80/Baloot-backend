@@ -122,7 +122,7 @@ public class Baloot {
     }
 
     public void rateCommodity(Rate rate) throws Exception {
-        if (!rate.isValidCommand())
+        if (rate==null || !rate.isValidCommand())
             throw new InvalidCommandError();
         else {
             if (!users.containsKey(rate.getUsername()))

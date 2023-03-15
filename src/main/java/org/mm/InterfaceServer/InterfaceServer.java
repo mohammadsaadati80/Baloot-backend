@@ -508,6 +508,8 @@ public class InterfaceServer {
         return FileUtils.readFileToString(file, StandardCharsets.UTF_8);
     }
 
+    public Baloot getBaloot() { return baloot;}
+
     public void stop() {
         app.stop();
     }
