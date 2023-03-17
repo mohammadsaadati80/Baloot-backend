@@ -354,6 +354,7 @@ public class InterfaceServer {
         result.put("name", provider.getName());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         result.put("registryDate",dateFormat.format(provider.getRegistryDate()));
+        result.put("acr", Float.toString(provider.getAverageCommoditiesRates()) );
         String providerHTML = HTMLHandler.fillTemplate(readTemplateFile("ProviderBefore.html"), result);
 
         Map<Integer, Commodity> commodityList = provider.getCommodities();
