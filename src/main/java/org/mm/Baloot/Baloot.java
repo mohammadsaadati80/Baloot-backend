@@ -437,4 +437,8 @@ public class Baloot {
         return loginUsername;
     }
 
+    public void logout() {
+        loginUsername = "";
+    }
+
 }
