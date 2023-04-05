@@ -1,5 +1,8 @@
 package org.mm.Baloot;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.mm.Baloot.Exceptions.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,7 +11,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.mm.HTTPRequestHandler.HTTPRequestHandler;
 
+import javax.swing.text.StyledEditorKit;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,11 +22,18 @@ import java.util.*;
 
 public class Baloot {
 
+    private static Baloot instance = null;
+    static final String USERS_URL = "http://5.253.25.110:5000/api/users";
+    static final String COMMODITIES_URL = "http://5.253.25.110:5000/api/commodities";
+    static final String PROVIDERS_URL = "http://5.253.25.110:5000/api/providers";
+    static final String COMMENTS_URL = "http://5.253.25.110:5000/api/comments";
+    final String DISCOUNT_URL = "http://5.253.25.110:5000/api/discount";
     private ObjectMapper mapper;
     private Map<String, User> users;
     private Map<Integer, Provider> providers;
     private Map<Integer, Commodity> commodities;
     private Map<Integer, Comment> comments;
+    private String loginUsername;
 
     public Baloot() {
         mapper = new ObjectMapper();
@@ -31,7 +43,94 @@ public class Baloot {
         providers = new HashMap<>();
         commodities = new HashMap<>();
         comments = new HashMap<>();
+        loginUsername = "";
     }
+
+    public static Baloot getInstance() {
+        if (instance == null) {
+            instance = new Baloot();
+            try {
+                System.out.println("Importing Users...");
+                importUsersFromWeb(USERS_URL);
+                System.out.println("Importing Providers...");
+                importProvidersFromWeb(PROVIDERS_URL);
+                System.out.println("Importing Commodities...");
+                importCommoditiesFromWeb(COMMODITIES_URL);
+                System.out.println("Importing Comments...");
+                importCommentsFromWeb(COMMENTS_URL);
+//                System.out.println("Importing Discounts..."); // TODO
+//                importDiscountsFromWeb(COMMENTS_URL);
+            } catch(Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return instance;
+    }
+
+    private static void importUsersFromWeb(String usersUrl) throws Exception{
+        String UsersJsonString = HTTPRequestHandler.getRequest(usersUrl);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<User> users = gson.fromJson(UsersJsonString, new TypeToken<List<User>>() {}.getType());
+        for (User user : users) {
+            try {
+                instance.addUser(user);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void importCommoditiesFromWeb(String commoditiesUrl) throws Exception{
+        String CommoditiesJsonString = HTTPRequestHandler.getRequest(commoditiesUrl);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Commodity> commodities = gson.fromJson(CommoditiesJsonString, new TypeToken<List<Commodity>>() {}.getType());
+        for (Commodity commodity : commodities) {
+            try {
+                instance.addCommodity(commodity);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void importProvidersFromWeb(String providersUrl) throws Exception{
+        String ProvidersJsonString = HTTPRequestHandler.getRequest(providersUrl);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Provider> providers = gson.fromJson(ProvidersJsonString, new TypeToken<List<Provider>>() {}.getType());
+        for (Provider provider : providers) {
+            try {
+                instance.addProvider(provider);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static void importCommentsFromWeb(String commentsUrl) throws Exception{
+        String CommentsJsonString = HTTPRequestHandler.getRequest(commentsUrl);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Comment> comments = gson.fromJson(CommentsJsonString, new TypeToken<List<Comment>>() {}.getType());
+        for (Comment comment : comments) {
+            try {
+                instance.addComment(comment);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+//    private static void importDiscountsFromWeb(String discountsUrl) throws Exception{ // TODO
+//        String DiscountsJsonString = HTTPRequestHandler.getRequest(discountsUrl);
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        List<Discount> discounts = gson.fromJson(DiscountsJsonString, new TypeToken<List<Discount>>() {}.getType());
+//        for (Discount discount : discounts) {
+//            try {
+//                instance.addDiscount(discount);
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
 
     public Map<String, User> getUsers() {
         return users;
@@ -319,6 +418,23 @@ public class Baloot {
                 return providers.get(id);
             }
         }
+    }
+
+    public boolean isLogin() {
+        return (loginUsername != null && loginUsername != "");
+    }
+
+    public void login(String username, String password) throws Exception{
+        if (!users.containsKey(username))
+            throw new UserNotFoundError();
+        else if (!users.get(username).getPassword().equals(password))
+            throw new UserPasswordIncorrect();
+        else
+            loginUsername = username;
+    }
+
+    public String getLoginUsername() {
+        return loginUsername;
     }
 
 }
