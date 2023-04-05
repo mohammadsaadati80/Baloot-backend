@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.mm.Baloot.Baloot" %>
-<html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
