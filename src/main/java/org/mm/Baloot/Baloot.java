@@ -441,4 +441,27 @@ public class Baloot {
         loginUsername = "";
     }
 
+    public List<Commodity> getCommoditiesByName(String name) throws Exception {
+        if (name==null || name=="")
+            throw new InvalidCommandError();
+        else {
+            List<Commodity> commoditiesList = new ArrayList<>();
+            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+                if (entry.getValue().getName().contains(name)) {
+                    commoditiesList.add(entry.getValue());
+                }
+            }
+            return commoditiesList;
+        }
+    }
+
+    public String convertListOfStringsToString(ArrayList<String> listOfItems) {
+        StringBuilder itemsStr = new StringBuilder();
+        for (String item: listOfItems)
+            itemsStr.append(item).append(", ");
+        if(itemsStr.length() > 0)
+            itemsStr = new StringBuilder(itemsStr.substring(0, itemsStr.length() - 2));
+        return itemsStr.toString();
+    }
+
 }
