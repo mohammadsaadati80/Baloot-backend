@@ -17,6 +17,8 @@ public class Commodity {
 
     private Map<String, Integer> rates = new HashMap<>();
 
+    private float score;
+
 //    public Commodity(Integer _id, String _name, Integer _providerId, Integer _price, String[] _categories, float _rating, Integer _inStock) {
 //        id = _id;
 //        name = _name;
@@ -74,6 +76,18 @@ public class Commodity {
         return ((startPrice <= price) && (price <= endPrice));
     }
 
+    public void updateScore(String[] similarCategories) {
+        score = 0;
+        ArrayList<String> tempCategories = new ArrayList<>(Arrays.asList(categories));
+        Integer is_in_similar_category = 0;
+        for(String category : similarCategories)
+            if (tempCategories.contains(category)) {
+                is_in_similar_category = 1;
+                break;
+            }
+        score = 11 * is_in_similar_category + rating;
+    }
+
     public void buy(Integer number) {
         inStock -= number;
     }
@@ -95,4 +109,6 @@ public class Commodity {
     public Integer getUserRate(String username) {
         return rates.get(username);
     }
+
+    public float getScore() { return score;}
 }

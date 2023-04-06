@@ -455,13 +455,25 @@ public class Baloot {
         }
     }
 
-    public String convertListOfStringsToString(ArrayList<String> listOfItems) {
+    public String convertListOfStringsToString(String[] listOfItems) {
         StringBuilder itemsStr = new StringBuilder();
         for (String item: listOfItems)
             itemsStr.append(item).append(", ");
         if(itemsStr.length() > 0)
             itemsStr = new StringBuilder(itemsStr.substring(0, itemsStr.length() - 2));
         return itemsStr.toString();
+    }
+
+    public List<Commodity> getSuggestedCommodities(Commodity currentCommodity) throws Exception {
+        List<Commodity> commoditiesList = new ArrayList<>();
+        for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
+            if (!Objects.equals(entry.getValue().getId(), currentCommodity.getId())) {
+                entry.getValue().updateScore(currentCommodity.getCategories());
+                commoditiesList.add(entry.getValue());
+            }
+        }
+        commoditiesList = commoditiesList.stream().sorted(Comparator.comparing(Commodity::getScore).reversed()).toList();
+        return commoditiesList.stream().limit(5).toList();
     }
 
 }

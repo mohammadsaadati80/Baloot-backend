@@ -13,12 +13,11 @@ public class Comment {
     private Integer like=0;
     private Integer dislike=0;
 
-//    public Comment(String _userEmail, Integer _commodityId, String _text, Date _date) {
-//        userEmail = _userEmail;
-//        commodityId = _commodityId;
-//        text = _text;
-//        date = _date;
-//    }
+    public Comment(String _userEmail, Integer _commodityId, String _text) {
+        userEmail = _userEmail;
+        commodityId = _commodityId;
+        text = _text;
+    }
 
     public void update(Comment updatedComment) {
         userEmail = updatedComment.getUserEmail();
