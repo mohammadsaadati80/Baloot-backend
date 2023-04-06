@@ -89,6 +89,13 @@ public class User {
         buyList.remove(commodityId);
     }
 
+    public Integer getCurrentBuyListPrice() {
+        Integer totalPrice = 0;
+        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet())
+            totalPrice += entry.getValue().getPrice();
+        return totalPrice;
+    }
+
     public Integer getCredit() {
         return credit;
     }
