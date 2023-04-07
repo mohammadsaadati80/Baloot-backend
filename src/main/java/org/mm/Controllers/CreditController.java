@@ -15,11 +15,11 @@ public class CreditController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Baloot baloot = Baloot.getInstance();
-        if(!baloot.isLogin()){
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if(baloot.isLogin()){
+            request.getRequestDispatcher("credit.jsp").forward(request, response);
         }
         else {
-            response.sendRedirect("/credit");
+            response.sendRedirect("/login");
         }
     }
 

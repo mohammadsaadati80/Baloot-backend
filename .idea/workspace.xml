@@ -10,37 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/DiscountCodeNotFoundError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/DiscountCodeUsedError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Discount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/buylist.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/buylist.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/InterfaceServer/HTMLHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/InterfaceServer/InterfaceServer$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/InterfaceServer/InterfaceServer$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/InterfaceServer/InterfaceServer$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/InterfaceServer/InterfaceServer$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/InterfaceServer/InterfaceServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,23 +57,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/mamadi80/IdeaProjects/Baloot-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15722656",
-    "project.structure.side.proportion": "0.26334107",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mamadi80/IdeaProjects/Baloot-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15722656&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26334107&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
@@ -212,7 +190,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Smart Tomcat.Unnamed" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.73" />
     </list>
   </component>

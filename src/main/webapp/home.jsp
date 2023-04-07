@@ -19,7 +19,7 @@
             <a href="/commodities">Commodities</a>
         </li>
         <li>
-            <a href="/buyList">Buy List</a>
+            <a href="/buylist">Buy List</a>
         </li>
         <li>
             <a href="/credit">Add Credit</a>
