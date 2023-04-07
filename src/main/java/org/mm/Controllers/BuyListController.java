@@ -30,6 +30,7 @@ public class BuyListController extends HttpServlet {
             String submit_button = request.getParameter("action");
             String username = request.getParameter("user_id");
             Integer commodity_id = Integer.parseInt(request.getParameter("commodity_id"));
+            String discount = request.getParameter("discount");
 
             try {
                 request.setAttribute("commodity", baloot.getCommodityById(commodity_id));
@@ -38,12 +39,23 @@ public class BuyListController extends HttpServlet {
                 session.setAttribute("errorText", e.getMessage());
                 response.sendRedirect("/error");
             } catch (Exception e) {
-//                throw new RuntimeException(e);
+                HttpSession session = request.getSession(false);
+                session.setAttribute("errorText", e.getMessage());
+                response.sendRedirect("/error");
             }
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/buylist.jsp");
 
             if (submit_button != null) {
                 switch (submit_button) {
+                    case "discount":
+                        try {
+                            baloot.applyDiscountCode(username, discount);
+                            requestDispatcher.forward(request, response);
+                        } catch (Exception e) {
+                            HttpSession session = request.getSession(false);
+                            session.setAttribute("errorText", e.getMessage());
+                            response.sendRedirect("/error");
+                        }
                     case "payment":
                         try {
                             baloot.userBuyListPayment(username);

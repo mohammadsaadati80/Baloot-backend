@@ -51,7 +51,9 @@ public class CommodityController extends HttpServlet {
                 session.setAttribute("errorText", e.getMessage());
                 response.sendRedirect("/error");
             } catch (Exception e) {
-//                throw new RuntimeException(e);
+                HttpSession session = request.getSession(false);
+                session.setAttribute("errorText", e.getMessage());
+                response.sendRedirect("/error");
             }
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/commodity.jsp");
 
@@ -108,7 +110,9 @@ public class CommodityController extends HttpServlet {
                             session.setAttribute("errorText", e.getMessage());
                             response.sendRedirect("/error");
                         } catch (Exception e) {
-//                            throw new RuntimeException(e);
+                            HttpSession session = request.getSession(false);
+                            session.setAttribute("errorText", e.getMessage());
+                            response.sendRedirect("/error");
                         }
                         break;
                 }

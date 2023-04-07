@@ -7,10 +7,22 @@ public class Discount {
         discountCode = _discountCode;
         discount = _discount;
     }
+
+    public boolean isValidCommand() {
+        if (discountCode==null || discount==null)
+            return false;
+        else
+            return true;
+    }
+    public void update(Discount _discount) {
+        discountCode = _discount.getDiscountCode();
+        discount = _discount.getDiscount();
+    }
     public  boolean isValidDiscount() {
         if (discount > 0 && discount <= 100)
             return true;
-        else return false;
+        else
+            return false;
     }
     public Integer getDiscount() {
         return discount;

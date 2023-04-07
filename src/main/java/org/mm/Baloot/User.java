@@ -18,6 +18,10 @@ public class User {
 
     private HashMap<Integer, Commodity> purchasedList = new HashMap<>();
 
+    private Map<String, Discount> usedDiscounts = new HashMap<>();
+
+    private Discount currentDiscount = null;
+
 //    public User(String _username, String _password, String _email, Date _birthDate, String _address, Integer _credit) {
 //        username = _username;
 //        password = _password;
@@ -63,9 +67,14 @@ public class User {
     }
 
     public void buyListPayment() {
+        Integer totalPrice = applyDiscountOnBuyListPrice();
         for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
             purchasedList.put(entry.getKey(), entry.getValue());
-            credit -= entry.getValue().getPrice();
+        }
+        credit -= totalPrice;
+        if(currentDiscount != null) {
+            usedDiscounts.put(currentDiscount.getDiscountCode(), currentDiscount);
+            currentDiscount = null;
         }
         buyList.clear();
         buyList = new HashMap<>();
@@ -76,6 +85,8 @@ public class User {
     }
 
     public void addCredit(Integer newCredit) { credit += newCredit;}
+
+    public void addDiscountCode(Discount discount) {currentDiscount = discount;}
 
     public HashMap<Integer, Commodity> getBuyList() {
         return buyList;
@@ -94,6 +105,27 @@ public class User {
         for (Map.Entry<Integer, Commodity> entry : buyList.entrySet())
             totalPrice += entry.getValue().getPrice();
         return totalPrice;
+    }
+
+    public Integer applyDiscountOnBuyListPrice() {
+        Integer totalPrice = getCurrentBuyListPrice();
+        if(currentDiscount != null) {
+            totalPrice *= (100 - currentDiscount.getDiscount())/100;
+        }
+        return totalPrice;
+    }
+
+    public boolean isUsedDiscountCode(String discountCode) {
+        if (usedDiscounts.containsKey(discountCode))
+            return true;
+        return false;
+    }
+
+    public Integer getDiscount() {
+        if(currentDiscount != null)
+            return currentDiscount.getDiscount();
+        else
+            return 0;
     }
 
     public Integer getCredit() {

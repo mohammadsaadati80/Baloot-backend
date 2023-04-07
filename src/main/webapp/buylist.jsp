@@ -38,6 +38,8 @@
     <li id="address">Address: <%= logged_in_user.getAddress() %></li>
     <li id="credit">Credit: <%= logged_in_user.getCredit() %></li>
     <li>Current Buy List Price: <%= logged_in_user.getCurrentBuyListPrice() %></li>
+    <li>Discount Percent: <%= logged_in_user.getDiscount() %></li>
+    <li>Buy List Price After Discount: <%= logged_in_user.applyDiscountOnBuyListPrice() %></li>
     <li>
         <a href="/credit">Add Credit</a>
     </li>
@@ -50,7 +52,15 @@
         </form>
     </li>
 </ul>
-
+<br><br>
+<form action="<%= "/buylist/"%>" method="POST">
+    <label>Add Discount Code:</label>
+    <input type="text" name="discount" value="">
+    <input type="hidden" name="action" value="discount">
+    <input type="hidden" name="user_id" value="<%= logged_in_user.getUsername() %>">
+    <button type="submit">submit</button>
+</form>
+<br><br>
 <table>
     <caption>
         <h2>Buy List</h2>

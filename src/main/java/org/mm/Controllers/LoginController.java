@@ -37,7 +37,9 @@ public class LoginController extends HttpServlet {
             session.setAttribute("errorText", e.getMessage());
             response.sendRedirect("/error");
         } catch (Exception e) {
-//            throw new RuntimeException(e);
+            HttpSession session = request.getSession(false);
+            session.setAttribute("errorText", e.getMessage());
+            response.sendRedirect("/error");
         }
     }
 }

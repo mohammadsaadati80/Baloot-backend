@@ -148,11 +148,6 @@ public class Baloot {
 
     public Map<String, Discount> getDiscounts() { return discounts; }
 
-    public void addDiscount(Discount discount) throws Exception {
-//        if (!Discount.isValidDiscount()) throw new InvalidDiscount();
-        discounts.put(discount.getDiscountCode(), discount);
-    }
-
     public void addUser(User user) throws Exception {
         if (!user.isValidCommand())
             throw new InvalidCommandError();
@@ -219,6 +214,19 @@ public class Baloot {
         }
         else
             throw new UserNotFoundError();
+    }
+
+    public void addDiscount(Discount discount) throws Exception {
+        if (!discount.isValidCommand())
+            throw new InvalidCommandError();
+        else if (!discount.isValidDiscount())
+            throw new InvalidDiscount();
+        else {
+            if (discounts.containsKey(discount.getDiscountCode()))
+                discounts.get(discount.getDiscountCode()).update(discount);
+            else
+                discounts.put(discount.getDiscountCode(), discount);
+        }
     }
 
     public List<Commodity> getCommoditiesList() throws Exception {
@@ -485,4 +493,19 @@ public class Baloot {
         return commoditiesList.stream().limit(5).toList();
     }
 
+    public void applyDiscountCode(String username, String discountCode) throws Exception {
+        if (username==null || discountCode==null || username=="" || discountCode=="")
+            throw new InvalidCommandError();
+        else {
+            if (!users.containsKey(username))
+                throw new UserNotFoundError();
+            else if (discounts.containsKey(discountCode))
+                throw new DiscountCodeNotFoundError();
+            else if (users.get(username).isUsedDiscountCode(discountCode))
+                throw new DiscountCodeUsedError();
+            else {
+                users.get(username).addDiscountCode(discounts.get(discountCode));
+            }
+        }
+    }
 }
