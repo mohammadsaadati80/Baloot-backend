@@ -27,7 +27,7 @@ public class Baloot {
     static final String COMMODITIES_URL = "http://5.253.25.110:5000/api/commodities";
     static final String PROVIDERS_URL = "http://5.253.25.110:5000/api/providers";
     static final String COMMENTS_URL = "http://5.253.25.110:5000/api/comments";
-    final String DISCOUNT_URL = "http://5.253.25.110:5000/api/discount";
+    static final String DISCOUNT_URL = "http://5.253.25.110:5000/api/discount";
     private ObjectMapper mapper;
     private Map<String, User> users;
     private Map<Integer, Provider> providers;
@@ -61,7 +61,7 @@ public class Baloot {
                 System.out.println("Importing Comments...");
                 importCommentsFromWeb(COMMENTS_URL);
                 System.out.println("Importing Discounts..."); // TODO
-                importDiscountsFromWeb(COMMENTS_URL);
+                importDiscountsFromWeb(DISCOUNT_URL);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
