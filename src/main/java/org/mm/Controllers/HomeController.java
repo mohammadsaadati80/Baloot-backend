@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.mm.Baloot.*;
 
-@WebServlet(name = "HomePage", value = "", urlPatterns = "")
+@WebServlet(name = "HomePage", value = "")
 public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

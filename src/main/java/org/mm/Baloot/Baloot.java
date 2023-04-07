@@ -33,6 +33,7 @@ public class Baloot {
     private Map<Integer, Provider> providers;
     private Map<Integer, Commodity> commodities;
     private Map<Integer, Comment> comments;
+    private Map<String, Discount> discounts;
     private String loginUsername;
 
     public Baloot() {
@@ -43,6 +44,7 @@ public class Baloot {
         providers = new HashMap<>();
         commodities = new HashMap<>();
         comments = new HashMap<>();
+        discounts = new HashMap<>();
         loginUsername = "";
     }
 
@@ -58,8 +60,8 @@ public class Baloot {
                 importCommoditiesFromWeb(COMMODITIES_URL);
                 System.out.println("Importing Comments...");
                 importCommentsFromWeb(COMMENTS_URL);
-//                System.out.println("Importing Discounts..."); // TODO
-//                importDiscountsFromWeb(COMMENTS_URL);
+                System.out.println("Importing Discounts..."); // TODO
+                importDiscountsFromWeb(COMMENTS_URL);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -119,18 +121,18 @@ public class Baloot {
         }
     }
 
-//    private static void importDiscountsFromWeb(String discountsUrl) throws Exception{ // TODO
-//        String DiscountsJsonString = HTTPRequestHandler.getRequest(discountsUrl);
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        List<Discount> discounts = gson.fromJson(DiscountsJsonString, new TypeToken<List<Discount>>() {}.getType());
-//        for (Discount discount : discounts) {
-//            try {
-//                instance.addDiscount(discount);
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//    }
+    private static void importDiscountsFromWeb(String discountsUrl) throws Exception{ // TODO
+        String DiscountsJsonString = HTTPRequestHandler.getRequest(discountsUrl);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Discount> discounts = gson.fromJson(DiscountsJsonString, new TypeToken<List<Discount>>() {}.getType());
+        for (Discount discount : discounts) {
+            try {
+                instance.addDiscount(discount);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
     public Map<String, User> getUsers() {
         return users;
@@ -142,6 +144,13 @@ public class Baloot {
 
     public Map<Integer, Commodity> getCommodities() {
         return commodities;
+    }
+
+    public Map<String, Discount> getDiscounts() { return discounts; }
+
+    public void addDiscount(Discount discount) throws Exception {
+//        if (!Discount.isValidDiscount()) throw new InvalidDiscount();
+        discounts.put(discount.getDiscountCode(), discount);
     }
 
     public void addUser(User user) throws Exception {
