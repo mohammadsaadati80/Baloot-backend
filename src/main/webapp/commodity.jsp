@@ -77,7 +77,7 @@
         for(Comment comment : comments){
     %>
     <tr>
-        <td>@<%=comment.getUsername()%></td>
+        <td><%=comment.getUsername()%></td>
         <td><%=comment.getText()%></td>
         <td><%=comment.getDate()%></td>
         <td>
