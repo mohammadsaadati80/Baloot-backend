@@ -35,6 +35,7 @@ public class CommoditiesController extends HttpServlet {
             String searched_name = request.getParameter("search");
             String submit_button = request.getParameter("action");
             String hidden_search = request.getParameter("hidden_search");
+            String hidden_search_type = request.getParameter("hidden_search_type");
             String hidden_sort_by_id = request.getParameter("hidden_sort_by_id");
             request.setAttribute("searched_commodity", "false");
             request.setAttribute("search_by_category", "false");
@@ -45,38 +46,28 @@ public class CommoditiesController extends HttpServlet {
                 switch (submit_button) {
                     case "search_by_category":
                         if (!searched_name.isBlank()) {
-                            request.setAttribute("searched_movie", searched_name);
+                            request.setAttribute("searched_commodity", searched_name);
+                            request.setAttribute("search_by_category", "true");
+                            request.setAttribute("searched_type", submit_button);
                         }
-//                        if((!Objects.equals(hidden_sort_by_id, "")) && (!hidden_sort_by_id.equals("false"))) {
-//                            request.setAttribute("sort_by_date", "true");
-//                        }
-//                        else {
-//                            request.setAttribute("sort_by_imdb", "true");
-//                        }
-//                        break;
+                        break;
                     case "search_by_name":
                         if (!searched_name.isBlank()) {
-                            request.setAttribute("searched_movie", searched_name);
+                            request.setAttribute("searched_commodity", searched_name);
+                            request.setAttribute("search_by_name", "true");
+                            request.setAttribute("searched_type", submit_button);
                         }
-//                        if((!Objects.equals(hidden_sort_by_id, "")) && (!hidden_sort_by_id.equals("false"))) {
-//                            request.setAttribute("sort_by_date", "true");
-//                        }
-//                        else {
-//                            request.setAttribute("sort_by_imdb", "true");
-//                        }
-//                        break;
+                        break;
                     case "clear":
-//                        if((!Objects.equals(hidden_sort_by_id, "")) && (!hidden_sort_by_id.equals("false"))) {
-//                            request.setAttribute("sort_by_date", "true");
-//                        }
-//                        else {
-//                            request.setAttribute("sort_by_imdb", "true");
-//                        }
                         request.setAttribute("clear", "true");
                         break;
                     case "sort_by_rate":
                         if(!Objects.equals(hidden_search, "")) {
-                            request.setAttribute("searched_movie", hidden_search);
+                            request.setAttribute("searched_commodity", hidden_search);
+                            if (hidden_search_type.equals("search_by_category"))
+                                request.setAttribute("search_by_category", "true");
+                            else if (hidden_search_type.equals("search_by_name"))
+                                request.setAttribute("search_by_name", "true");
                         }
                         request.setAttribute("sort_by_rate", "true");
                         break;

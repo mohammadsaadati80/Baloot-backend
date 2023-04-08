@@ -16,6 +16,10 @@
     <meta charset="UTF-8">
     <title>Commodities</title>
     <style>
+        table{
+            width: 100%;
+            text-align: center;
+        }
         li, td, th {
             padding: 5px;
         }
@@ -36,10 +40,11 @@
 <br><br>
 <form action="commodities" method="POST">
     <label>Sort By:</label>
+    <input type="hidden" name="hidden_search_type" value="<%= (String) request.getAttribute("searched_type") %>" >
     <input type="hidden" name="hidden_search" value="<%= (String) request.getAttribute("searched_commodity") %>" >
     <button type="submit" name="action" value="sort_by_rate">Rate</button>
 </form>
-<br>
+<br><br>
 <table>
     <tr>
         <th>Id</th>

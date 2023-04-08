@@ -12,13 +12,9 @@
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/commodities.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/commodities.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,6 +186,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Smart Tomcat.Unnamed" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.73" />
     </list>
   </component>
@@ -204,6 +201,7 @@
       <workItem from="1680846717124" duration="6844000" />
       <workItem from="1680866583635" duration="225000" />
       <workItem from="1680867073056" duration="6392000" />
+      <workItem from="1680929349185" duration="3049000" />
     </task>
     <servers />
   </component>
@@ -225,24 +223,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="14" />
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
