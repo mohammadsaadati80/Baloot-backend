@@ -41,7 +41,7 @@
 <br><br>
 <form action="<%= "/commodities/" + commodity.getId()%>" method="POST">
     <label>Add Your Comment:</label>
-    <input type="text" name="comment" value="">
+    <input type="text" name="comment" value="" required>
     <input type="hidden" name="action" value="comment">
     <input type="hidden" name="commodity_id" value="<%=commodity.getId()%>">
     <button type="submit">submit</button>
@@ -50,7 +50,7 @@
 <h3>Rate This Commodity!</h3>
 <form action="<%= "/commodities/" + commodity.getId()%>" method="POST">
     <label>Rate(between 1 and 10):</label>
-    <input type="number" name="quantity" min="1" max="10">
+    <input type="number" name="quantity" min="1" max="10" required>
     <input type="hidden" name="action" value="rate">
     <input type="hidden" name="commodity_id" value="<%=commodity.getId()%>">
     <button type="submit">Rate</button>

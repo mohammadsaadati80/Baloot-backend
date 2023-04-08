@@ -55,7 +55,7 @@
 <br><br>
 <form action="/buylist" method="POST">
     <label>Add Discount Code:</label>
-    <input type="text" name="discount" value="">
+    <input type="text" name="discount" value="" required>
     <input type="hidden" name="action" value="discount">
     <input type="hidden" name="user_id" value="<%= logged_in_user.getUsername() %>">
     <button type="submit">submit</button>
