@@ -502,7 +502,7 @@ public class Baloot {
         else {
             if (!users.containsKey(username))
                 throw new UserNotFoundError();
-            else if (discounts.containsKey(discountCode))
+            else if (!discounts.containsKey(discountCode))
                 throw new DiscountCodeNotFoundError();
             else if (users.get(username).isUsedDiscountCode(discountCode))
                 throw new DiscountCodeUsedError();

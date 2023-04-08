@@ -60,10 +60,7 @@ public class User {
     }
 
     public boolean haveEnoughCredit() {
-        Integer totalPrice = 0;
-        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet())
-            totalPrice += entry.getValue().getPrice();
-        return (credit >= totalPrice);
+        return (credit >= applyDiscountOnBuyListPrice());
     }
 
     public void buyListPayment() {
@@ -108,11 +105,13 @@ public class User {
     }
 
     public Integer applyDiscountOnBuyListPrice() {
-        Integer totalPrice = getCurrentBuyListPrice();
+        float totalPrice = getCurrentBuyListPrice();
         if(currentDiscount != null) {
-            totalPrice *= (100 - currentDiscount.getDiscount())/100;
+            float x = (100 - currentDiscount.getDiscount());
+            float y = 100;
+            totalPrice *= (x/y);
         }
-        return totalPrice;
+        return (int) totalPrice;
     }
 
     public boolean isUsedDiscountCode(String discountCode) {

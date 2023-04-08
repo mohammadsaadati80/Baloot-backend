@@ -15,7 +15,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BuyList</title>
+    <title>User</title>
     <style>
         li {
             padding: 5px
@@ -53,7 +53,7 @@
     </li>
 </ul>
 <br><br>
-<form action="<%= "/buylist/"%>" method="POST">
+<form action="/buylist" method="POST">
     <label>Add Discount Code:</label>
     <input type="text" name="discount" value="">
     <input type="hidden" name="action" value="discount">
@@ -105,6 +105,49 @@
                 <button type="submit">Remove</button>
             </form>
         </td>
+    </tr>
+    <%
+        }
+    %>
+</table>
+<br><br>
+<table>
+    <caption>
+        <h2>Purchased List</h2>
+    </caption>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Provider Name</th>
+        <th>Price</th>
+        <th>Categories</th>
+        <th>Rating</th>
+        <th>In Stock</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <%
+        Map<Integer, Commodity> purchaseList = new HashMap<>();
+        try {
+            purchaseList = Baloot.getInstance().getUserById(logged_in_user.getUsername()).getPurchasedList();
+        } catch (Exception ignored) {}
+        for (Map.Entry<Integer, Commodity> entry : purchaseList.entrySet()) {
+            Commodity commodity = entry.getValue();
+    %>
+    <tr>
+        <td><%= String.valueOf(commodity.getId()) %></td>
+        <td><%= commodity.getName() %></td>
+        <td><%= Baloot.getInstance().getProviderById(commodity.getProviderId()).getName() %></td>
+        <td><%= String.valueOf(commodity.getPrice()) %></td>
+        <td><%= Baloot.getInstance().convertListOfStringsToString(commodity.getCategories()) %></td>
+        <%
+            String rating;
+            try { rating = String.valueOf(commodity.getRating()); }
+            catch (ArithmeticException e) { rating = "null"; }
+        %>
+        <td><%= rating%></td>
+        <td><%= String.valueOf(commodity.getInStock()) %></td>
+        <td><a href="<%= "/commodities/" + commodity.getId()%>">Link</a></td>
     </tr>
     <%
         }

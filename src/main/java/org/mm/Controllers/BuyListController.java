@@ -29,20 +29,8 @@ public class BuyListController extends HttpServlet {
         } else {
             String submit_button = request.getParameter("action");
             String username = request.getParameter("user_id");
-            Integer commodity_id = Integer.parseInt(request.getParameter("commodity_id"));
             String discount = request.getParameter("discount");
 
-            try {
-                request.setAttribute("commodity", baloot.getCommodityById(commodity_id));
-            } catch (CommodityNotFoundError e) {
-                HttpSession session = request.getSession(false);
-                session.setAttribute("errorText", e.getMessage());
-                response.sendRedirect("/error");
-            } catch (Exception e) {
-                HttpSession session = request.getSession(false);
-                session.setAttribute("errorText", e.getMessage());
-                response.sendRedirect("/error");
-            }
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/buylist.jsp");
 
             if (submit_button != null) {
@@ -56,6 +44,7 @@ public class BuyListController extends HttpServlet {
                             session.setAttribute("errorText", e.getMessage());
                             response.sendRedirect("/error");
                         }
+                        break;
                     case "payment":
                         try {
                             baloot.userBuyListPayment(username);
@@ -65,8 +54,10 @@ public class BuyListController extends HttpServlet {
                             session.setAttribute("errorText", e.getMessage());
                             response.sendRedirect("/error");
                         }
+                        break;
                     case "remove":
                         try {
+                            Integer commodity_id = Integer.parseInt(request.getParameter("commodity_id"));
                             baloot.removeFromBuyList(username, commodity_id);
                             request.getRequestDispatcher("buylist.jsp").forward(request, response);
                         } catch (Exception e) {
@@ -74,6 +65,7 @@ public class BuyListController extends HttpServlet {
                             session.setAttribute("errorText", e.getMessage());
                             response.sendRedirect("/error");
                         }
+                        break;
                 }
             }
         }
