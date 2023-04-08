@@ -10,11 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/commodities.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/commodities.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/commodity.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/commodity.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/CommodityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/CommodityController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/commodity.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/Baloot/commodity.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommodityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommodityController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +207,8 @@
       <workItem from="1680846717124" duration="6844000" />
       <workItem from="1680866583635" duration="225000" />
       <workItem from="1680867073056" duration="6392000" />
-      <workItem from="1680929349185" duration="3049000" />
+      <workItem from="1680929349185" duration="4366000" />
+      <workItem from="1680951501349" duration="1229000" />
     </task>
     <servers />
   </component>
@@ -226,6 +233,36 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java</url>
           <line>63</line>
           <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java</url>
+          <line>373</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/mm/Baloot/Comment.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

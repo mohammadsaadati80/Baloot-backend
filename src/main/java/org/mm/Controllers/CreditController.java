@@ -30,7 +30,7 @@ public class CreditController extends HttpServlet {
         String username = baloot.getLoginUsername();
         try {
             baloot.addCredit(username, credit);
-            response.sendRedirect("/");
+            response.sendRedirect("/buylist");
 
         } catch (UserNotFoundError | InvalidCreditValue e) {
             HttpSession session = request.getSession(false);

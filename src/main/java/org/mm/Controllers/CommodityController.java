@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.*;
 import java.util.Objects;
 
 @WebServlet(name = "CommodityPage", value = "/commodities/*")
@@ -102,7 +103,7 @@ public class CommodityController extends HttpServlet {
                         break;
                     case "comment":
                         try {
-                            Comment comment = new Comment(baloot.getLoginUsername(), commodity_id, comment_txt);
+                            Comment comment = new Comment(baloot.getUserById(baloot.getLoginUsername()).getEmail(), commodity_id, comment_txt, new Date());
                             baloot.addComment(comment);
                             requestDispatcher.forward(request, response);
                         } catch (CommodityNotFoundError e) {

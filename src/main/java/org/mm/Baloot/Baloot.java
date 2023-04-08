@@ -195,6 +195,7 @@ public class Baloot {
 
     public void addComment(Comment comment) throws Exception {
         boolean isUserFound = false;
+        String username = "";
         if (!comment.isValidCommand())
             throw new InvalidCommandError();
         else if (!commodities.containsKey(comment.getCommodityId()))
@@ -203,6 +204,7 @@ public class Baloot {
             for (Map.Entry<String, User> entry : users.entrySet()) {
                 if (entry.getValue().getEmail().equals(comment.getUserEmail())) {
                     isUserFound = true;
+                    username = entry.getValue().getUsername();
                     break;
                 }
             }
@@ -210,6 +212,7 @@ public class Baloot {
         if (isUserFound) {
             Integer key = comments.size();
             comment.addId(key+1);
+            comment.addUsername(username);
             comments.put(comment.getId(), comment);
         }
         else

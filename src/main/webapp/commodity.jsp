@@ -14,10 +14,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Movie</title>
+    <title>Commodity</title>
     <style>
         li, td, th {
             padding: 5px;
+        }
+        table {
+            width: 100%;
+            text-align: center;
         }
     </style>
 </head>
@@ -73,7 +77,7 @@
         for(Comment comment : comments){
     %>
     <tr>
-        <td>@<%=comment.getUserEmail()%></td>
+        <td>@<%=comment.getUsername()%></td>
         <td><%=comment.getText()%></td>
         <td><%=comment.getDate()%></td>
         <td>

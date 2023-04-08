@@ -5,6 +5,7 @@ import java.util.*;
 public class Comment {
     private Integer id;
     private String userEmail;
+    private String username;
     private Integer commodityId;
     private String text;
     private Date date;
@@ -13,10 +14,11 @@ public class Comment {
     private Integer like=0;
     private Integer dislike=0;
 
-    public Comment(String _userEmail, Integer _commodityId, String _text) {
+    public Comment(String _userEmail, Integer _commodityId, String _text, Date _date) {
         userEmail = _userEmail;
         commodityId = _commodityId;
         text = _text;
+        date = _date;
     }
 
     public void update(Comment updatedComment) {
@@ -36,6 +38,8 @@ public class Comment {
     public void addId(Integer _id) { id = _id;}
     
     public void addVote(String username, Integer vote) {
+        if (usersVote == null)
+            usersVote = new HashMap<>();
         if (usersVote.containsKey(username)) {
             usersVote.replace(username, vote);
         } else {
@@ -52,6 +56,8 @@ public class Comment {
         }
     }
 
+    public void addUsername(String _username) {username = _username;}
+
     public Integer getId() { return id;}
 
     public String getUserEmail() { return userEmail;}
@@ -62,8 +68,18 @@ public class Comment {
 
     public Date getDate() { return date;}
 
-    public Integer getLike() { return like;}
+    public Integer getLike() {
+        if(like == null)
+            like = 0;
+        return like;
+    }
 
-    public Integer getDislike() {return dislike;}
+    public Integer getDislike() {
+        if(dislike == null)
+            dislike = 0;
+        return dislike;
+    }
+
+    public String getUsername() {return username;}
 
 }
