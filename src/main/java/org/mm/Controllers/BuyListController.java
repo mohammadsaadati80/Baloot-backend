@@ -43,7 +43,7 @@ public class BuyListController  {
 
     @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
     @RequestMapping(value = "/buylist/remove_from_buylist",method = RequestMethod.POST)
-    public void removeFromWatchList(@RequestBody Map<String, String> user_info){
+    public void removeFromWatchList(@RequestBody Map<String, String> body){
         int commodity_id = Integer.parseInt(body.get("commodityId"));
         try {
             baloot.removeFromBuyList(baloot.getLoginUsername(), commodity_id);

@@ -1,45 +1,31 @@
 package org.mm.Controllers;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import javax.servlet.ServletException;
-import java.io.IOException;
-
 import org.mm.Baloot.*;
-import org.mm.Baloot.Exceptions.InvalidCreditValue;
-import org.mm.Baloot.Exceptions.UserNotFoundError;
-import org.mm.Baloot.Exceptions.UserPasswordIncorrect;
 
-@WebServlet(name = "CreditPage", urlPatterns = "/credit")
-public class CreditController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if(baloot.isLogin()){
-            request.getRequestDispatcher("credit.jsp").forward(request, response);
-        }
-        else {
-            response.sendRedirect("/login");
-        }
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class CreditController  {
+    private Baloot baloot;
+
+    public CreditController(){
+        baloot = Baloot.getInstance();
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer credit = Integer.valueOf(request.getParameter("credit"));
-        Baloot baloot = Baloot.getInstance();
-        String username = baloot.getLoginUsername();
+    @ResponseStatus(value = HttpStatus.OK,reason = "اعتبار کاربر با موفقیت افزایش یافت.")
+    @RequestMapping(value = "/addcredit/",method = RequestMethod.POST)
+    public void likeComment (@RequestBody Map<String, String> credit){
         try {
-            baloot.addCredit(username, credit);
-            response.sendRedirect("/buylist");
-
-        } catch (UserNotFoundError | InvalidCreditValue e) {
-            HttpSession session = request.getSession(false);
-            session.setAttribute("errorText", e.getMessage());
-            response.sendRedirect("/error");
-        } catch (Exception e) {
-            HttpSession session = request.getSession(false);
-            session.setAttribute("errorText", e.getMessage());
-            response.sendRedirect("/error");
+            baloot.addCredit(baloot.getLoginUsername(), Integer.valueOf(credit.get("creditValue")));
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
+
 }
