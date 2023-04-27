@@ -1,123 +1,78 @@
 package org.mm.Controllers;
 
-import org.mm.Baloot.*;
-import org.mm.Baloot.Exceptions.*;
+import org.mm.Baloot.Baloot;
+import org.mm.Baloot.Commodity;
+import org.mm.Baloot.Comment;
+import org.mm.Baloot.Rate;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.io.IOException;
 import java.util.*;
 import java.util.Objects;
 
-@WebServlet(name = "CommodityPage", value = "/commodities/*")
-public class CommodityController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if(!baloot.isLogin()){
-            response.sendRedirect("/login");
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class CommodityController {
+    private Baloot baloot;
+
+    public CommodityController(){
+        baloot = Baloot.getInstance();
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/commodity/{id}", method = RequestMethod.GET)
+    public Commodity getCommodity(@PathVariable("id") String id){
+        int commodity_id = Integer.parseInt(id);
+        try {
+            return baloot.getCommodityById(commodity_id);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
-        else {
-            String[] split_url = request.getRequestURI().split("/");
-            try {
-                int commodity_id = Integer.parseInt(split_url[2]);
-                request.setAttribute("commodity",baloot.getCommodityById(commodity_id));
-                RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/commodity.jsp");
-                requestDispatcher.forward(request, response);
-            } catch (Exception e) {
-                HttpSession session = request.getSession(false);
-                session.setAttribute("errorText", e.getMessage());
-                response.sendRedirect("/error");
-            }
+        return null;
+    }
+
+    @ResponseStatus(value = HttpStatus.OK,reason = "کامنت با موفقیت به کامنت ها اضافه شد.")
+    @RequestMapping(value = "/commodity/add_comment",method = RequestMethod.POST)
+    public void addComment(@RequestBody Map<String, String> comment_info) {
+        int commodity_id = Integer.parseInt(comment_info.get("commodityId"));
+        try{
+            Comment newComment = new Comment(baloot.getUserById(baloot.getLoginUsername()).getEmail(), commodity_id,
+                    comment_info.get("text"), new Date());
+            baloot.addComment(newComment);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if (!baloot.isLogin()) {
-            response.sendRedirect("/login");
-        } else {
-            String submit_button = request.getParameter("action");
-            String score = request.getParameter("quantity");
-            Integer commodity_id = Integer.parseInt(request.getParameter("commodity_id"));
-            String comment_id = request.getParameter("comment_id");
-            String comment_txt = request.getParameter("comment");
-
-            try {
-                request.setAttribute("commodity", baloot.getCommodityById(commodity_id));
-            } catch (CommodityNotFoundError e) {
-                HttpSession session = request.getSession(false);
-                session.setAttribute("errorText", e.getMessage());
-                response.sendRedirect("/error");
-            } catch (Exception e) {
-                HttpSession session = request.getSession(false);
-                session.setAttribute("errorText", e.getMessage());
-                response.sendRedirect("/error");
-            }
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/commodity.jsp");
-
-            if (submit_button != null) {
-                switch (submit_button) {
-                    case "rate":
-                        try {
-                            Rate rate = new Rate(baloot.getLoginUsername(), commodity_id, Integer.parseInt(score));
-                            baloot.rateCommodity(rate);
-                            requestDispatcher.forward(request, response);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                    case "add":
-                        try {
-                            baloot.addToBuyList(baloot.getLoginUsername(), commodity_id);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        response.sendRedirect("/buylist");
-                        break;
-                    case "like":
-                        try {
-                            baloot.voteComment(baloot.getLoginUsername(), Integer.valueOf(comment_id),1);
-                            requestDispatcher.forward(request, response);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                    case "dislike":
-                        try {
-                            baloot.voteComment(baloot.getLoginUsername(), Integer.valueOf(comment_id),-1);
-                            requestDispatcher.forward(request, response);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                    case "comment":
-                        try {
-                            Comment comment = new Comment(baloot.getUserById(baloot.getLoginUsername()).getEmail(), commodity_id, comment_txt, new Date());
-                            baloot.addComment(comment);
-                            requestDispatcher.forward(request, response);
-                        } catch (CommodityNotFoundError e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                }
-            }
+    @ResponseStatus(value = HttpStatus.OK,reason = "امتیاز با موفقیت داده شد.")
+    @RequestMapping(value = "/commodity/rate",method = RequestMethod.POST)
+    public void rateCommodity(@RequestBody Map<String, String> body){
+        int commodity_id = Integer.parseInt(body.get("commodityId"));
+        String user_name = body.get("username");
+        float score = Float.parseFloat(body.get("score"));
+        try {
+            Rate newRate = new Rate(user_name, commodity_id, score);
+            baloot.rateCommodity(newRate);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
+
+    @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
+    @RequestMapping(value = "/commodity/add_to_watchlist",method = RequestMethod.POST)
+    public void addToBuyList(@RequestBody Map<String, String> commodityId){
+        int commodity_id = Integer.parseInt(commodityId.get("commodityId"));
+        try {
+            baloot.addToBuyList(baloot.getLoginUsername(), commodity_id);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

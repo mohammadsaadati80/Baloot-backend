@@ -1,45 +1,42 @@
 package org.mm.Controllers;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import javax.servlet.ServletException;
-import java.io.IOException;
+import org.mm.Baloot.Baloot;
+import org.mm.Baloot.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import org.mm.Baloot.*;
-import org.mm.Baloot.Exceptions.UserNotFoundError;
-import org.mm.Baloot.Exceptions.UserPasswordIncorrect;
 
-@WebServlet(name = "LoginPage", urlPatterns = "/login")
-public class LoginController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if(!baloot.isLogin()){
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        }
-        else {
-            response.sendRedirect("/");
-        }
-    }
+import java.util.Map;
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class LoginController {
+    @ResponseStatus(value = HttpStatus.OK,reason = "کاربر با موفقیت لاگین شد.")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    protected void login(@RequestBody Map<String, String> user_info){
         Baloot baloot = Baloot.getInstance();
         try {
-            baloot.login(username, password);
-            request.setAttribute("username", username);
-            response.sendRedirect("/");
-
-        } catch (UserNotFoundError | UserPasswordIncorrect e) {
-            HttpSession session = request.getSession(false);
-            session.setAttribute("errorText", e.getMessage());
-            response.sendRedirect("/error");
-        } catch (Exception e) {
-            HttpSession session = request.getSession(false);
-            session.setAttribute("errorText", e.getMessage());
-            response.sendRedirect("/error");
+            baloot.login(user_info.get("username"), user_info.get("password"));
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
+    }
+    @ResponseStatus(value = HttpStatus.OK,reason = "کاربر با موفقیت از سامانه خارج شد.")
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
+    protected void logout(){
+        Baloot baloot = Baloot.getInstance();
+        baloot.logout();
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/login/user",method = RequestMethod.GET)
+    protected User getLoggedInUser(){
+        Baloot baloot = Baloot.getInstance();
+        try {
+            return baloot.getUserById(baloot.getLoginUsername());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

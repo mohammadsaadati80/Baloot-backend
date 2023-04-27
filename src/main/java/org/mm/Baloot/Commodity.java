@@ -11,6 +11,7 @@ public class Commodity {
     private String name;
     private Integer providerId;
     private Integer price;
+    private String image;
     private String[] categories;
     private float rating;
     private Integer inStock;
@@ -37,6 +38,7 @@ public class Commodity {
         categories = commodity.getCategories();
         rating = commodity.getRating();
         inStock = commodity.getInStock();
+        image = commodity.getImage();
     }
 
     public boolean isValidCommand() {
@@ -111,4 +113,6 @@ public class Commodity {
     }
 
     public float getScore() { return score;}
+
+    public String getImage() {return image;}
 }
