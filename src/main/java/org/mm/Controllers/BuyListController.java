@@ -1,73 +1,55 @@
 package org.mm.Controllers;
 
 import org.mm.Baloot.*;
-import org.mm.Baloot.Exceptions.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
-@WebServlet(name = "BuyListPage", value = "/buylist")
-public class BuyListController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if(baloot.isLogin()){
-            request.getRequestDispatcher("buylist.jsp").forward(request, response);
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class BuyListController  {
+    private Baloot baloot;
+
+    public BuyListController(){
+        baloot = Baloot.getInstance();
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/buylist", method = RequestMethod.GET)
+    public List<Commodity> getBuyList(){
+        try {
+            return baloot.getBuyList(baloot.getLoginUsername());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
-        else {
-            response.sendRedirect("/login");
+        return null;
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/buylist/suggestion", method = RequestMethod.GET)
+    public List<Commodity> getSuggestedCommodities(@RequestBody Map<String, String> body){
+        int commodity_id = Integer.parseInt(body.get("commodityId"));
+        try {
+            return baloot.getSuggestedCommodities(baloot.getCommodityById(commodity_id));
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
+    @RequestMapping(value = "/buylist/remove_from_buylist",method = RequestMethod.POST)
+    public void removeFromWatchList(@RequestBody Map<String, String> user_info){
+        int commodity_id = Integer.parseInt(body.get("commodityId"));
+        try {
+            baloot.removeFromBuyList(baloot.getLoginUsername(), commodity_id);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if (!baloot.isLogin()) {
-            response.sendRedirect("/login");
-        } else {
-            String submit_button = request.getParameter("action");
-            String username = request.getParameter("user_id");
-            String discount = request.getParameter("discount");
-
-            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/buylist.jsp");
-
-            if (submit_button != null) {
-                switch (submit_button) {
-                    case "discount":
-                        try {
-                            baloot.applyDiscountCode(username, discount);
-                            requestDispatcher.forward(request, response);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                    case "payment":
-                        try {
-                            baloot.userBuyListPayment(username);
-                            requestDispatcher.forward(request, response);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                    case "remove":
-                        try {
-                            Integer commodity_id = Integer.parseInt(request.getParameter("commodity_id"));
-                            baloot.removeFromBuyList(username, commodity_id);
-                            request.getRequestDispatcher("buylist.jsp").forward(request, response);
-                        } catch (Exception e) {
-                            HttpSession session = request.getSession(false);
-                            session.setAttribute("errorText", e.getMessage());
-                            response.sendRedirect("/error");
-                        }
-                        break;
-                }
-            }
-        }
-    }
 }

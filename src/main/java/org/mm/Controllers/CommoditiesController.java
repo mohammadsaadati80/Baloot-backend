@@ -1,79 +1,78 @@
 package org.mm.Controllers;
 
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.util.*;
-
 import org.mm.Baloot.*;
 
-@WebServlet(name = "Commodities", urlPatterns = "/commodities")
-public class CommoditiesController extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if(!baloot.isLogin())
-            response.sendRedirect("/login");
-        else {
-            request.setAttribute("searched_commodity", "false");
-            request.setAttribute("search_by_category", "false");
-            request.setAttribute("search_by_name", "false");
-            request.setAttribute("clear", "false");
-            request.setAttribute("sort_by_rate", "false");
-            request.getRequestDispatcher("commodities.jsp").forward(request, response);
-        }
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.*;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+public class CommoditiesController  {
+    private Baloot baloot;
+
+    public CommoditiesController(){
+        baloot = Baloot.getInstance();
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Baloot baloot = Baloot.getInstance();
-        if(!baloot.isLogin()){
-            response.sendRedirect("/login");
-        }
-        else {
-            String searched_name = request.getParameter("search");
-            String submit_button = request.getParameter("action");
-            String hidden_search = request.getParameter("hidden_search");
-            String hidden_search_type = request.getParameter("hidden_search_type");
-            String hidden_sort_by_id = request.getParameter("hidden_sort_by_id");
-            request.setAttribute("searched_commodity", "false");
-            request.setAttribute("search_by_category", "false");
-            request.setAttribute("search_by_name", "false");
-            request.setAttribute("clear", "false");
-            request.setAttribute("sort_by_rate", "false");
-            if(submit_button != null){
-                switch (submit_button) {
-                    case "search_by_category":
-                        if (!searched_name.isBlank()) {
-                            request.setAttribute("searched_commodity", searched_name);
-                            request.setAttribute("search_by_category", "true");
-                            request.setAttribute("searched_type", submit_button);
-                        }
-                        break;
-                    case "search_by_name":
-                        if (!searched_name.isBlank()) {
-                            request.setAttribute("searched_commodity", searched_name);
-                            request.setAttribute("search_by_name", "true");
-                            request.setAttribute("searched_type", submit_button);
-                        }
-                        break;
-                    case "clear":
-                        request.setAttribute("clear", "true");
-                        break;
-                    case "sort_by_rate":
-                        if(!Objects.equals(hidden_search, "")) {
-                            request.setAttribute("searched_commodity", hidden_search);
-                            if (hidden_search_type.equals("search_by_category"))
-                                request.setAttribute("search_by_category", "true");
-                            else if (hidden_search_type.equals("search_by_name"))
-                                request.setAttribute("search_by_name", "true");
-                        }
-                        request.setAttribute("sort_by_rate", "true");
-                        break;
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/commodities", method = RequestMethod.GET)
+    public Map<Integer, Commodity> getCommodities(){
+        return baloot.getCommodities();
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/commodities/sort",method = RequestMethod.GET)
+    public List<Commodity> sortCommodities(
+            @RequestParam("sortMethod") String sort_method,
+            @RequestParam(value = "searchMethod", required = false) String search_method,
+            @RequestParam(value = "searchedTxt", required = false) String searched_txt){
+        List<Commodity> commoditiesList = new ArrayList<>();
+
+        try {
+            if(search_method != null && !searched_txt.equals("")) {
+                if (search_method.equals("commodityName")) {
+                    commoditiesList = baloot.getCommoditiesByName(searched_txt);
+                } else if (search_method.equals("category")) {
+                    commoditiesList = baloot.getCommoditiesByCategory(searched_txt)
                 }
             }
-            request.getRequestDispatcher("commodities.jsp").forward(request, response);
+            else {
+                commoditiesList = baloot.getCommoditiesList();
+            }
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
         }
+
+        if(sort_method.equals("sort_by_price")) {
+            commoditiesList = commoditiesList.stream().sorted(Comparator.comparing(Commodity::getPrice).reversed()).toList();
+        }
+
+        return commoditiesList;
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/commodities/search",method = RequestMethod.GET)
+    public List<Commodity> searchCommodities(
+            @RequestParam(value = "searchMethod", required = false) String search_method,
+            @RequestParam(value = "searchedTxt", required = false) String searched_txt){
+        List<Commodity> commoditiesList = new ArrayList<>();
+        try {
+            if(search_method == null || searched_txt.equals("")) {
+                return baloot.getCommoditiesList();
+            }
+            if(search_method.equals("commodityName")) {
+                commoditiesList = baloot.getCommoditiesByName(searched_txt);
+            } else if (search_method.equals("category")) {
+                commoditiesList = baloot.getCommoditiesByCategory(searched_txt)
+            }
+            return commoditiesList;
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return commoditiesList;
     }
 }
