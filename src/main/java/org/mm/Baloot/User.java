@@ -40,6 +40,15 @@ public class User {
         credit = updatedUser.getCredit();
     }
 
+    public void updateValue(String _username, String _password, String _email, Date _birthDate, String _address) {
+        username = _username;
+        password = _password;
+        email = _email;
+        birthDate = _birthDate;
+        address = _address;
+        credit = 0;
+    }
+
     public boolean isValidCommand() {
         if (username==null || password==null || email==null || birthDate==null || address==null || credit==null)
             return false;

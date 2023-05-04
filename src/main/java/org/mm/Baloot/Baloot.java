@@ -511,4 +511,10 @@ public class Baloot {
             }
         }
     }
+
+    public void registerUser(String _username, String _password, String _email, Date _birthDate, String _address) throws Exception {
+        User newUser = new User();
+        newUser.updateValue(_username, _password, _email, _birthDate, _address);
+        addUser(newUser);
+    }
 }
