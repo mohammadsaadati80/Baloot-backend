@@ -37,7 +37,7 @@ public class CommoditiesController  {
                 if (search_method.equals("commodityName")) {
                     commoditiesList = baloot.getCommoditiesByName(searched_txt);
                 } else if (search_method.equals("category")) {
-                    commoditiesList = baloot.getCommoditiesByCategory(searched_txt)
+                    commoditiesList = baloot.getCommoditiesByCategory(searched_txt);
                 }
             }
             else {
@@ -67,7 +67,7 @@ public class CommoditiesController  {
             if(search_method.equals("commodityName")) {
                 commoditiesList = baloot.getCommoditiesByName(searched_txt);
             } else if (search_method.equals("category")) {
-                commoditiesList = baloot.getCommoditiesByCategory(searched_txt)
+                commoditiesList = baloot.getCommoditiesByCategory(searched_txt);
             }
             return commoditiesList;
         } catch(Exception e) {

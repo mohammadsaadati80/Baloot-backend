@@ -46,7 +46,7 @@ public class LoginController {
 
     @ResponseStatus(value = HttpStatus.OK,reason = "کاربر با موفقیت ثبت نام شد.")
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    protected void login(@RequestBody Map<String, String> user_info){
+    protected void registerUser(@RequestBody Map<String, String> user_info){
         Baloot baloot = Baloot.getInstance();
         Date date = new Date(user_info.get("birthDate"));
         try {
