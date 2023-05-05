@@ -14,9 +14,9 @@ public class User {
     private String address;
     private Integer credit;
 
-    private HashMap<Integer, Commodity> buyList = new HashMap<>();
+    private List<Commodity> buyList = new ArrayList<>();
 
-    private HashMap<Integer, Commodity> purchasedList = new HashMap<>();
+    private List<Commodity> purchasedList = new ArrayList<>();
 
     private Map<String, Discount> usedDiscounts = new HashMap<>();
 
@@ -56,11 +56,11 @@ public class User {
             return true;
     }
 
-    public boolean isInBuyList(Integer commodityId) {
-        if (buyList.containsKey(commodityId))
-            return true;
-        return false;
-    }
+//    public boolean isInBuyList(Integer commodityId) {
+//        if (buyList.containsKey(commodityId))
+//            return true;
+//        return false;
+//    }
 
     public boolean haveSpecialCharacter() {
         Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
@@ -74,8 +74,8 @@ public class User {
 
     public void buyListPayment() {
         Integer totalPrice = applyDiscountOnBuyListPrice();
-        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet()) {
-            purchasedList.put(entry.getKey(), entry.getValue());
+        for (Commodity entry : buyList) {
+            purchasedList.add(entry);
         }
         credit -= totalPrice;
         if(currentDiscount != null) {
@@ -83,33 +83,33 @@ public class User {
             currentDiscount = null;
         }
         buyList.clear();
-        buyList = new HashMap<>();
+        buyList = new ArrayList<>();
     }
 
     public void addToBuyList(Commodity commodity) {
-        buyList.put(commodity.getId(), commodity);
+        buyList.add(commodity);
     }
 
     public void addCredit(Integer newCredit) { credit += newCredit;}
 
     public void addDiscountCode(Discount discount) {currentDiscount = discount;}
 
-    public HashMap<Integer, Commodity> getBuyList() {
+    public List<Commodity> getBuyList() {
         return buyList;
     }
 
-    public HashMap<Integer, Commodity> getPurchasedList() {
+    public List<Commodity> getPurchasedList() {
         return purchasedList;
     }
 
-    public void removeFromBuyList(Integer commodityId) {
-        buyList.remove(commodityId);
+    public void removeFromBuyList(Commodity commodity) {
+        buyList.remove(commodity);
     }
 
     public Integer getCurrentBuyListPrice() {
         Integer totalPrice = 0;
-        for (Map.Entry<Integer, Commodity> entry : buyList.entrySet())
-            totalPrice += entry.getValue().getPrice();
+        for (Commodity entry : buyList)
+            totalPrice += entry.getPrice();
         return totalPrice;
     }
 

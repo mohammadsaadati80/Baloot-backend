@@ -270,11 +270,7 @@ public class Baloot {
             else if (commodities.get(commodityId).getInStock() == 0)
                 throw new CommodityNotInStuckError();
             else {
-                if (users.get(username).isInBuyList((commodityId)))
-                    throw new CommodityAlreadyInBuyListError();
-                else {
                     users.get(username).addToBuyList(commodities.get(commodityId));
-                }
             }
         }
     }
@@ -288,11 +284,7 @@ public class Baloot {
             else if (!commodities.containsKey(commodityId))
                 throw new CommodityNotFoundError();
             else {
-                if (! users.get(username).isInBuyList((commodityId)))
-                    throw new CommodityIsNotInBuyListError();
-                else {
-                    users.get(username).removeFromBuyList(commodityId);
-                }
+                users.get(username).removeFromBuyList(commodities.get(commodityId));
             }
         }
     }
@@ -330,12 +322,8 @@ public class Baloot {
             if (!users.containsKey(username))
                 throw new UserNotFoundError();
             else {
-                HashMap<Integer, Commodity> userBuyList = users.get(username).getBuyList();
-                List<Commodity> buyList = new ArrayList<>();
-                for (Map.Entry<Integer, Commodity> entry : userBuyList.entrySet()) {
-                    buyList.add(entry.getValue());
-                }
-                return buyList;
+                List<Commodity> userBuyList = users.get(username).getBuyList();
+                return userBuyList;
             }
         }
     }
@@ -409,9 +397,9 @@ public class Baloot {
             else if (!users.get(username).haveEnoughCredit())
                 throw new UserNotHaveEnoughCreditError();
             else {
-                HashMap<Integer, Commodity> userBuyList = users.get(username).getBuyList();
-                for (Map.Entry<Integer, Commodity> entry : userBuyList.entrySet())
-                    commodities.get(entry.getValue().getId()).buy(1);
+                List<Commodity> userBuyList = users.get(username).getBuyList();
+                for (Commodity entry : userBuyList)
+                    commodities.get(entry.getId()).buy(1);
                 users.get(username).buyListPayment();
             }
         }

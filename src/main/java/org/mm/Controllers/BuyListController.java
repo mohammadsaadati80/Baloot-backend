@@ -43,7 +43,7 @@ public class BuyListController  {
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/purchasedlist", method = RequestMethod.GET)
-    public HashMap<Integer, Commodity> getPurchasedList(){
+    public List<Commodity> getPurchasedList(){
         try {
             return baloot.getUserById(baloot.getLoginUsername()).getPurchasedList();
         } catch(Exception e) {
