@@ -83,4 +83,26 @@ public class BuyListController  {
         }
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/buylist/total_price",method = RequestMethod.GET)
+    public Integer buyListTotalPrice(){
+        try {
+            baloot.getUserById(baloot.getLoginUsername()).getCurrentBuyListPrice();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/buylist/total_price_with_discount",method = RequestMethod.GET)
+    public Integer buyListTotalPriceAfterDiscount(){
+        try {
+            baloot.getUserById(baloot.getLoginUsername()).applyDiscountOnBuyListPrice();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 }
