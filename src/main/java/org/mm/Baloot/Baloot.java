@@ -284,7 +284,11 @@ public class Baloot {
             else if (!commodities.containsKey(commodityId))
                 throw new CommodityNotFoundError();
             else {
-                users.get(username).removeFromBuyList(commodities.get(commodityId));
+                if (! users.get(username).isInBuyList((commodityId)))
+                    throw new CommodityIsNotInBuyListError();
+                else {
+                    users.get(username).removeFromBuyList(commodityId);
+                }
             }
         }
     }

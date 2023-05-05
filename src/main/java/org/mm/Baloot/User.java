@@ -56,11 +56,13 @@ public class User {
             return true;
     }
 
-//    public boolean isInBuyList(Integer commodityId) {
-//        if (buyList.containsKey(commodityId))
-//            return true;
-//        return false;
-//    }
+    public boolean isInBuyList(Integer commodityId) {
+        for(Commodity entry : buyList) {
+            if (entry.getId().equals(commodityId))
+                return true;
+        }
+        return false;
+    }
 
     public boolean haveSpecialCharacter() {
         Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
@@ -102,8 +104,13 @@ public class User {
         return purchasedList;
     }
 
-    public void removeFromBuyList(Commodity commodity) {
-        buyList.remove(commodity);
+    public void removeFromBuyList(Integer commodityId) {
+        for(Integer i=0; i < buyList.size(); i++) {
+            if (buyList.get(i).getId().equals(commodityId)) {
+                buyList.remove(i);
+                break;
+            }
+        }
     }
 
     public Integer getCurrentBuyListPrice() {
