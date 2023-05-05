@@ -52,7 +52,7 @@ public class BuyListController  {
         return null;
     }
 
-    @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
+    @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت از لیست خرید حذف شد.")
     @RequestMapping(value = "/buylist/remove_from_buylist",method = RequestMethod.POST)
     public void removeFromBuyList(@RequestBody Map<String, String> body){
         int commodity_id = Integer.parseInt(body.get("commodityId"));

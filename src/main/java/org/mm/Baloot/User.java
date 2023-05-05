@@ -105,9 +105,9 @@ public class User {
     }
 
     public void removeFromBuyList(Integer commodityId) {
-        for(Integer i=0; i < buyList.size(); i++) {
-            if (buyList.get(i).getId().equals(commodityId)) {
-                buyList.remove(i);
+        for(Commodity entry: buyList) {
+            if (entry.getId().equals(commodityId)) {
+                buyList.remove(entry);
                 break;
             }
         }
