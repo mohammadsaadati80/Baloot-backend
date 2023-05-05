@@ -16,6 +16,16 @@ public class CommentController {
         baloot = Baloot.getInstance();
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/comment",method = RequestMethod.POST)
+    public void getComments (@RequestBody Map<String, String> body){
+        try {
+            baloot.getCommentByCommodity(Integer.valueOf(body.get("commodityId")));
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     @ResponseStatus(value = HttpStatus.OK,reason = "کامنت با موفقیت لایک شد.")
     @RequestMapping(value = "/comment/like",method = RequestMethod.POST)
     public void likeComment (@RequestBody Map<String, String> commentId){

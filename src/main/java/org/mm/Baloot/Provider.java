@@ -10,6 +10,7 @@ public class Provider {
     private String name;
     private Date registryDate;
     private String text;
+    private String image;
 
     private Map<Integer, Commodity> commodities = new HashMap<>();
 
@@ -26,7 +27,8 @@ public class Provider {
         id = provider.getId();
         name = provider.getName();
         registryDate = provider.getRegistryDate();
-        text = provider.getText();;
+        text = provider.getText();
+        image = provider.getImage();
     }
 
     public boolean isValidCommand() {
@@ -61,6 +63,8 @@ public class Provider {
     }
 
     public String getText() { return text;}
+
+    public String getImage() { return image;}
 
     public float getAverageCommoditiesRates() {
         updateAverageCommoditiesRates();

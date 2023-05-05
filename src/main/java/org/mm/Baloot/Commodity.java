@@ -115,4 +115,6 @@ public class Commodity {
     public float getScore() { return score;}
 
     public String getImage() {return image;}
+
+    public Map<String, Integer> getRates() {return rates;}
 }
