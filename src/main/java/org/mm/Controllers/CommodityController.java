@@ -65,7 +65,7 @@ public class CommodityController {
     }
 
     @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
-    @RequestMapping(value = "/commodity/add_to_watchlist",method = RequestMethod.POST)
+    @RequestMapping(value = "/commodity/add_to_buylist",method = RequestMethod.POST)
     public void addToBuyList(@RequestBody Map<String, String> commodityId){
         int commodity_id = Integer.parseInt(commodityId.get("commodityId"));
         try {

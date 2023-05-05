@@ -43,10 +43,30 @@ public class BuyListController  {
 
     @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
     @RequestMapping(value = "/buylist/remove_from_buylist",method = RequestMethod.POST)
-    public void removeFromWatchList(@RequestBody Map<String, String> body){
+    public void removeFromBuyList(@RequestBody Map<String, String> body){
         int commodity_id = Integer.parseInt(body.get("commodityId"));
         try {
             baloot.removeFromBuyList(baloot.getLoginUsername(), commodity_id);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/buylist/discount",method = RequestMethod.POST)
+    public void applyDiscount(@RequestBody Map<String, String> body){
+        try {
+            baloot.applyDiscountCode(baloot.getLoginUsername(), body.get("discount"));
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/buylist/payment",method = RequestMethod.POST)
+    public void buyListPayment(@RequestBody Map<String, String> body){
+        try {
+            baloot.userBuyListPayment(baloot.getLoginUsername());
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
