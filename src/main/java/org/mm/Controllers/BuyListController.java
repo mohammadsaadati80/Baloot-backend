@@ -41,6 +41,17 @@ public class BuyListController  {
         return null;
     }
 
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/purchasedlist", method = RequestMethod.GET)
+    public HashMap<Integer, Commodity> getPurchasedList(){
+        try {
+            return baloot.getUserById(baloot.getLoginUsername()).getPurchasedList();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     @ResponseStatus(value = HttpStatus.OK,reason = "کالا با موفقیت به لیست خرید اضافه شد.")
     @RequestMapping(value = "/buylist/remove_from_buylist",method = RequestMethod.POST)
     public void removeFromBuyList(@RequestBody Map<String, String> body){

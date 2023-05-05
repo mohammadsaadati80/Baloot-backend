@@ -2,9 +2,11 @@ package org.mm.Controllers;
 
 import org.mm.Baloot.Baloot;
 
+import org.mm.Baloot.Comment;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -18,12 +20,13 @@ public class CommentController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
-    public void getComments (@RequestBody Map<String, String> body){
+    public List<Comment> getComments (@RequestBody Map<String, String> body){
         try {
-            baloot.getCommentByCommodity(Integer.valueOf(body.get("commodityId")));
+            return baloot.getCommentByCommodity(Integer.valueOf(body.get("commodityId")));
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
+        return null;
     }
 
     @ResponseStatus(value = HttpStatus.OK,reason = "کامنت با موفقیت لایک شد.")
