@@ -11,10 +11,10 @@ public class Commodity {
     private String name;
     private Integer providerId;
     private Integer price;
-    private String image;
     private String[] categories;
     private float rating;
     private Integer inStock;
+    private String image;
 
     private Map<String, Integer> rates = new HashMap<>();
 

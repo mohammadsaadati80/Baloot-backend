@@ -24,7 +24,7 @@ public class Baloot {
 
     private static Baloot instance = null;
     static final String USERS_URL = "http://5.253.25.110:5000/api/users";
-    static final String COMMODITIES_URL = "http://5.253.25.110:5000/api/commodities";
+    static final String COMMODITIES_URL = "http://5.253.25.110:5000/api/v2/commodities";
     static final String PROVIDERS_URL = "http://5.253.25.110:5000/api/providers";
     static final String COMMENTS_URL = "http://5.253.25.110:5000/api/comments";
     static final String DISCOUNT_URL = "http://5.253.25.110:5000/api/discount";
@@ -60,7 +60,7 @@ public class Baloot {
                 importCommoditiesFromWeb(COMMODITIES_URL);
                 System.out.println("Importing Comments...");
                 importCommentsFromWeb(COMMENTS_URL);
-                System.out.println("Importing Discounts..."); // TODO
+                System.out.println("Importing Discounts...");
                 importDiscountsFromWeb(DISCOUNT_URL);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
@@ -111,6 +111,7 @@ public class Baloot {
     private static void importCommentsFromWeb(String commentsUrl) throws Exception{
         String CommentsJsonString = HTTPRequestHandler.getRequest(commentsUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        CommentsJsonString = CommentsJsonString.replaceAll("\"\"", "2024-01-01"); // TODO
         List<Comment> comments = gson.fromJson(CommentsJsonString, new TypeToken<List<Comment>>() {}.getType());
         for (Comment comment : comments) {
             try {
@@ -121,7 +122,7 @@ public class Baloot {
         }
     }
 
-    private static void importDiscountsFromWeb(String discountsUrl) throws Exception{ // TODO
+    private static void importDiscountsFromWeb(String discountsUrl) throws Exception{
         String DiscountsJsonString = HTTPRequestHandler.getRequest(discountsUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Discount> discounts = gson.fromJson(DiscountsJsonString, new TypeToken<List<Discount>>() {}.getType());
