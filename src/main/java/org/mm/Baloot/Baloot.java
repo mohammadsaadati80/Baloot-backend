@@ -25,7 +25,7 @@ public class Baloot {
     private static Baloot instance = null;
     static final String USERS_URL = "http://5.253.25.110:5000/api/users";
     static final String COMMODITIES_URL = "http://5.253.25.110:5000/api/v2/commodities";
-    static final String PROVIDERS_URL = "http://5.253.25.110:5000/api/providers";
+    static final String PROVIDERS_URL = "http://5.253.25.110:5000/api/v2/providers";
     static final String COMMENTS_URL = "http://5.253.25.110:5000/api/comments";
     static final String DISCOUNT_URL = "http://5.253.25.110:5000/api/discount";
     private ObjectMapper mapper;

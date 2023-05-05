@@ -30,7 +30,7 @@ public class BuyListController  {
     }
 
     @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(value = "/buylist/suggestion", method = RequestMethod.GET)
+    @RequestMapping(value = "/buylist/suggestion", method = RequestMethod.POST)
     public List<Commodity> getSuggestedCommodities(@RequestBody Map<String, String> body){
         int commodity_id = Integer.parseInt(body.get("commodityId"));
         try {
