@@ -75,7 +75,7 @@ public class BuyListController  {
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/buylist/payment",method = RequestMethod.POST)
-    public void buyListPayment(@RequestBody Map<String, String> body){
+    public void buyListPayment(){
         try {
             baloot.userBuyListPayment(baloot.getLoginUsername());
         } catch(Exception e) {
@@ -87,7 +87,7 @@ public class BuyListController  {
     @RequestMapping(value = "/buylist/total_price",method = RequestMethod.GET)
     public Integer buyListTotalPrice(){
         try {
-            baloot.getUserById(baloot.getLoginUsername()).getCurrentBuyListPrice();
+           return baloot.getUserById(baloot.getLoginUsername()).getCurrentBuyListPrice();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
@@ -98,7 +98,7 @@ public class BuyListController  {
     @RequestMapping(value = "/buylist/total_price_with_discount",method = RequestMethod.GET)
     public Integer buyListTotalPriceAfterDiscount(){
         try {
-            baloot.getUserById(baloot.getLoginUsername()).applyDiscountOnBuyListPrice();
+           return baloot.getUserById(baloot.getLoginUsername()).applyDiscountOnBuyListPrice();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
