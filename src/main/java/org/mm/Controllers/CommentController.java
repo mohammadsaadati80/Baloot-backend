@@ -19,7 +19,7 @@ public class CommentController {
     }
 
     @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(value = "/comment",method = RequestMethod.POST)
+    @RequestMapping(value = "/comments",method = RequestMethod.POST)
     public List<Comment> getComments (@RequestBody Map<String, String> body){
         try {
             return baloot.getCommentByCommodity(Integer.valueOf(body.get("commodityId")));
