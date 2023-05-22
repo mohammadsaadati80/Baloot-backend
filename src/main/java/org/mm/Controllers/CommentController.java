@@ -1,8 +1,8 @@
 package org.mm.Controllers;
 
-import org.mm.Baloot.Baloot;
+import org.mm.Service.Baloot;
 
-import org.mm.Baloot.Comment;
+import org.mm.Entity.Comment;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
