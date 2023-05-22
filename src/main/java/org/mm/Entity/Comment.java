@@ -33,7 +33,7 @@ public class Comment {
     @JsonIgnore
     @OneToMany
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Vote> usersVote = new HashMap<>();
+    private Set<Vote> usersVote = new HashSet<>();
 
     public Comment(String _userEmail, Integer _commodityId, String _text, Date _date) {
         userEmail = _userEmail;

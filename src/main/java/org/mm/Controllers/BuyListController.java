@@ -3,6 +3,7 @@ package org.mm.Controllers;
 import org.mm.Entity.*;
 
 import org.mm.Service.Baloot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
@@ -12,11 +13,9 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class BuyListController  {
+    @Autowired
     private Baloot baloot;
 
-    public BuyListController(){
-        baloot = Baloot.getInstance();
-    }
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/buylist", method = RequestMethod.GET)
@@ -45,7 +44,7 @@ public class BuyListController  {
     @RequestMapping(value = "/purchasedlist", method = RequestMethod.GET)
     public List<Commodity> getPurchasedList(){
         try {
-            return baloot.getUserById(baloot.getLoginUsername()).getPurchasedList();
+            return (List<Commodity>) baloot.getUserById(baloot.getLoginUsername()).getPurchasedList();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

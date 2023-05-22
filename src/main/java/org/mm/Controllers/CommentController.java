@@ -3,6 +3,7 @@ package org.mm.Controllers;
 import org.mm.Service.Baloot;
 
 import org.mm.Entity.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CommentController {
+    @Autowired
     private Baloot baloot;
 
 

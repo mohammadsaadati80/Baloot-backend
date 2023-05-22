@@ -5,6 +5,7 @@ import org.mm.Entity.Commodity;
 import org.mm.Entity.Comment;
 import org.mm.Entity.Rate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
@@ -15,6 +16,7 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CommodityController {
+    @Autowired
     private Baloot baloot;
 
 

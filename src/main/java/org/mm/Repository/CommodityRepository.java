@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public class CommodityRepository extends JpaRepository<Commodity, Integer> {
+public interface CommodityRepository extends JpaRepository<Commodity, Integer> {
 
     List<Commodity> findByProviders(Provider provider);
 

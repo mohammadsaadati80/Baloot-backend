@@ -3,6 +3,7 @@ package org.mm.Controllers;
 import org.mm.Entity.*;
 
 import org.mm.Service.Baloot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
@@ -12,6 +13,7 @@ import java.util.*;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CommoditiesController  {
+    @Autowired
     private Baloot baloot;
 
 

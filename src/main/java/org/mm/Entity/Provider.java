@@ -23,7 +23,7 @@ public class Provider {
     private Date registryDate;
     private String text;
     private String image;
-
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private Map<Integer, Commodity> commodities = new HashMap<>();
 
     private float averageCommoditiesRates = 0;

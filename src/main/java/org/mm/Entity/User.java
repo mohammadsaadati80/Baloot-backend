@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
+
 //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
 @Entity
@@ -26,14 +28,16 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "buyList", joinColumns = @JoinColumn(name = "USER_ID"),inverseJoinColumns = @JoinColumn(name = "COMMODITY_ID"))
-    private Set<Commodity> buyList = new ArrayList<>();
+    private Set<Commodity> buyList = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "purchasedList", joinColumns = @JoinColumn(name = "USER_ID"),inverseJoinColumns = @JoinColumn(name = "COMMODITY_ID"))
-    private Set<Commodity> purchasedList = new ArrayList<>();
+    private Set<Commodity> purchasedList = new HashSet<>();
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private Map<String, Discount> usedDiscounts = new HashMap<>();
 
+    @SuppressWarnings("JpaAttributeTypeInspection")
     private Discount currentDiscount = null;
 
 //    public User(String _username, String _password, String _email, Date _birthDate, String _address, Integer _credit) {
