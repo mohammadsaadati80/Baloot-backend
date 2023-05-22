@@ -10,17 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Vote.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/VoteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Response.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommodityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommodityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/DiscountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/DiscountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ProviderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ProviderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/RateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/RateRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ResponeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Commodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Commodity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Discount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Provider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Rate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Rate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Vote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Vote.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,7 +285,7 @@
       <workItem from="1683238347576" duration="1846000" />
       <workItem from="1683240234302" duration="6762000" />
       <workItem from="1683274446605" duration="328000" />
-      <workItem from="1684732826344" duration="6774000" />
+      <workItem from="1684732826344" duration="10908000" />
     </task>
     <servers />
   </component>

@@ -4,9 +4,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
+@Entity
+@Table(name = "user")
 public class User {
+    @Id
     private String username;
     private String password;
     private String email;
@@ -14,9 +24,13 @@ public class User {
     private String address;
     private Integer credit;
 
-    private List<Commodity> buyList = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "buyList", joinColumns = @JoinColumn(name = "USER_ID"),inverseJoinColumns = @JoinColumn(name = "COMMODITY_ID"))
+    private Set<Commodity> buyList = new ArrayList<>();
 
-    private List<Commodity> purchasedList = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "purchasedList", joinColumns = @JoinColumn(name = "USER_ID"),inverseJoinColumns = @JoinColumn(name = "COMMODITY_ID"))
+    private Set<Commodity> purchasedList = new ArrayList<>();
 
     private Map<String, Discount> usedDiscounts = new HashMap<>();
 
@@ -85,7 +99,7 @@ public class User {
             currentDiscount = null;
         }
         buyList.clear();
-        buyList = new ArrayList<>();
+        buyList = new HashSet<Commodity>();
     }
 
     public void addToBuyList(Commodity commodity) {
@@ -96,11 +110,11 @@ public class User {
 
     public void addDiscountCode(Discount discount) {currentDiscount = discount;}
 
-    public List<Commodity> getBuyList() {
+    public Set<Commodity> getBuyList() {
         return buyList;
     }
 
-    public List<Commodity> getPurchasedList() {
+    public Set<Commodity> getPurchasedList() {
         return purchasedList;
     }
 

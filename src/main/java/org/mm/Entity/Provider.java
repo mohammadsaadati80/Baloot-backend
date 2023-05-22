@@ -4,8 +4,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "provider")
 public class Provider {
 
+    @Id
     private Integer id;
     private String name;
     private Date registryDate;

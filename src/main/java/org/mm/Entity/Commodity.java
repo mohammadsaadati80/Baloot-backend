@@ -6,17 +6,41 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
+import java.util.*;
+@Entity
+@Table(name = "commodity")
 public class Commodity {
+    @Id
     private Integer id;
     private String name;
-    private Integer providerId;
+
+    @Column
+    @ElementCollection(targetClass=String.class)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Integer price;
     private String[] categories;
     private float rating;
     private Integer inStock;
     private String image;
 
-    private Map<String, Integer> rates = new HashMap<>();
+    @ManyToMany
+    @JoinTable(name="commodity_provider", joinColumns = @JoinColumn(name = "COMMODITY_ID"), inverseJoinColumns = @JoinColumn(name = "PROVIDER_ID"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Integer providerId;
+
+    @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Rate> rates = new HashSet<>();
+
+    @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Comment> comments;
 
     private float score;
 
@@ -61,10 +85,8 @@ public class Commodity {
     }
 
     public void addRate(Rate rate) {
-        if (rates.size() == 0)
-            rates.put("", (int) rating);
-        rates.put(rate.getUsername(), (int) rate.getScore());
-        rating = (float) rates.values().stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+        rates.add(rate);
+        rating = (float) rates.stream().mapToDouble(Rate::getScore).average().orElse(0);
     }
 
     public boolean isInCategory(String inputCategory) {
@@ -90,6 +112,9 @@ public class Commodity {
         score = 11 * is_in_similar_category + rating;
     }
 
+    public void addComment(Comment comment) {comments.add(comment);}
+
+
     public void buy(Integer number) {
         inStock -= number;
     }
@@ -108,13 +133,17 @@ public class Commodity {
 
     public Integer getInStock() { return inStock;}
 
-    public Integer getUserRate(String username) {
-        return rates.get(username);
-    }
+//    public Integer getUserRate(String username) {
+//        return rates.get(username);
+//    }
 
     public float getScore() { return score;}
 
     public String getImage() {return image;}
 
-    public Map<String, Integer> getRates() {return rates;}
+    public Set<Rate> getRates() {return rates;}
+
+    public Set<Comment> getComments() {return comments;}
+
+    public void setProviderId(Integer _providerId) {providerId = _providerId;}
 }

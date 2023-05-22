@@ -1,8 +1,14 @@
 package org.mm.Entity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "rate")
 public class Rate {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String username;
     private Integer commodityId;
     private float score;
@@ -42,5 +48,17 @@ public class Rate {
     }
     public float getScore() {
         return score;
+    }
+
+    public void setScore(int _score) {
+        score = _score;
+    }
+
+    public void setCommodityId(int _commodityId) {
+        commodityId = _commodityId;
+    }
+
+    public void setUsername(String _username) {
+        username = _username;
     }
 }

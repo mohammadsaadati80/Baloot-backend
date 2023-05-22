@@ -1,6 +1,19 @@
 package org.mm.Entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "discount")
 public class Discount {
+    @Id
+    private Integer id;
     private String discountCode;
     private Integer discount;
     public Discount (String _discountCode, Integer _discount) {
@@ -30,4 +43,6 @@ public class Discount {
     public String getDiscountCode() {
         return discountCode;
     }
+
+    public Integer getId() { return  id;}
 }
