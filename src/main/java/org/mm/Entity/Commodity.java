@@ -28,11 +28,12 @@ public class Commodity {
     private float rating;
     private Integer inStock;
     private String image;
+    private Integer providerId;
 
     @ManyToMany
     @JoinTable(name="commodity_provider", joinColumns = @JoinColumn(name = "COMMODITY_ID"), inverseJoinColumns = @JoinColumn(name = "PROVIDER_ID"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Integer providerId;
+    private Provider provider;
 
     @OneToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -146,4 +147,6 @@ public class Commodity {
     public Set<Comment> getComments() {return comments;}
 
     public void setProviderId(Integer _providerId) {providerId = _providerId;}
+
+    public void setProvider(Provider _provider) {provider = _provider;}
 }

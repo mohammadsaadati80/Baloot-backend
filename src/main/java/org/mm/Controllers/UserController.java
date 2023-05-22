@@ -15,9 +15,6 @@ public class UserController {
 
     private Baloot baloot;
 
-    public UserController(){
-        baloot = Baloot.getInstance();
-    }
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/users", method = RequestMethod.GET)

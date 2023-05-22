@@ -17,9 +17,6 @@ import java.util.*;
 public class CommodityController {
     private Baloot baloot;
 
-    public CommodityController(){
-        baloot = Baloot.getInstance();
-    }
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/commodity/{id}", method = RequestMethod.GET)

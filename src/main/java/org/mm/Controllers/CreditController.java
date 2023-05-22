@@ -11,9 +11,6 @@ import java.util.Map;
 public class CreditController  {
     private Baloot baloot;
 
-    public CreditController(){
-        baloot = Baloot.getInstance();
-    }
 
     @ResponseStatus(value = HttpStatus.OK,reason = "اعتبار کاربر با موفقیت افزایش یافت.")
     @RequestMapping(value = "/addcredit/",method = RequestMethod.POST)

@@ -14,9 +14,6 @@ import java.util.Map;
 public class CommentController {
     private Baloot baloot;
 
-    public CommentController(){
-        baloot = Baloot.getInstance();
-    }
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/comments",method = RequestMethod.POST)

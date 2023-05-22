@@ -3,19 +3,35 @@ package org.mm.Service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.mm.Entity.*;
-import org.mm.Exceptions.*;
+
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import org.mm.Exceptions.*;
 import org.mm.HTTPRequestHandler.HTTPRequestHandler;
+import org.mm.Entity.*;
+import org.mm.Repository.*;
 
 import java.text.SimpleDateFormat;
+import java.io.IOException;
 import java.util.*;
 
 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
+@Service
 public class Baloot {
 
     private static Baloot instance = null;
@@ -32,7 +48,19 @@ public class Baloot {
     private Map<String, Discount> discounts;
     private String loginUsername;
 
-    public Baloot() {
+    private User loginUser;
+
+    private ProviderRepository providerRepository;
+    private CommodityRepository commodityRepository;
+    private CommentRepository commentRepository;
+    private RateRepository rateRepository;
+    private VoteRepository voteRepository;
+    private UserRepository userRepository;
+
+    private DiscountRepository discountRepository;
+
+    public Baloot(ProviderRepository provider_rep, CommodityRepository commodity_rep, VoteRepository vote_repo,
+                  CommentRepository comment_rep, RateRepository rate_rep, UserRepository user_rep, DiscountRepository discount_repo) {
         mapper = new ObjectMapper();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         mapper.setDateFormat(df);
@@ -42,93 +70,86 @@ public class Baloot {
         comments = new HashMap<>();
         discounts = new HashMap<>();
         loginUsername = "";
+
+        providerRepository = provider_rep;
+        commodityRepository = commodity_rep;
+        commentRepository = comment_rep;
+        rateRepository = rate_rep;
+        userRepository = user_rep;
+        voteRepository = vote_repo;
+        discountRepository = discount_repo;
+        setDB();
     }
 
-    public static Baloot getInstance() {
-        if (instance == null) {
-            instance = new Baloot();
-            try {
-                System.out.println("Importing Users...");
-                importUsersFromWeb(USERS_URL);
-                System.out.println("Importing Providers...");
-                importProvidersFromWeb(PROVIDERS_URL);
-                System.out.println("Importing Commodities...");
-                importCommoditiesFromWeb(COMMODITIES_URL);
-                System.out.println("Importing Comments...");
-                importCommentsFromWeb(COMMENTS_URL);
-                System.out.println("Importing Discounts...");
-                importDiscountsFromWeb(DISCOUNT_URL);
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
+    public void setDB() {
+        if (!commodityRepository.findAll().isEmpty())
+            return;
+        try {
+            System.out.println("Importing Users...");
+            List<User> users = importUsersFromWeb(USERS_URL);
+            System.out.println("Importing Providers...");
+            List<Provider> providers = importProvidersFromWeb(PROVIDERS_URL);
+            System.out.println("Importing Commodities...");
+            List<Commodity> commodities = importCommoditiesFromWeb(COMMODITIES_URL);
+            System.out.println("Importing Comments...");
+            List<Comment> comments = importCommentsFromWeb(COMMENTS_URL);
+            System.out.println("Importing Discounts...");
+            List<Discount> discounts = importDiscountsFromWeb(DISCOUNT_URL);
+
+            for (Commodity commodity : commodities) {
+                Integer providerId = commodity.getProviderId();
+                for (Provider provider : providers) {
+                    if (providerId.equals(provider.getId())) {
+                        commodity.setProvider(provider);
+                    }
+                }
             }
+            providerRepository.saveAll(providers);
+            commodityRepository.saveAll(commodities);
+            for (User user : users) {
+                userRepository.save(user);
+            }
+            commentRepository.saveAll(comments);
+            discountRepository.saveAll(discounts);
+        } catch (Exception ignored) {
+            System.out.print(ignored.getMessage());
         }
-        return instance;
     }
 
-    private static void importUsersFromWeb(String usersUrl) throws Exception{
+    private static List<User> importUsersFromWeb(String usersUrl) throws Exception{
         String UsersJsonString = HTTPRequestHandler.getRequest(usersUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<User> users = gson.fromJson(UsersJsonString, new TypeToken<List<User>>() {}.getType());
-        for (User user : users) {
-            try {
-                instance.addUser(user);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return users;
     }
 
-    private static void importCommoditiesFromWeb(String commoditiesUrl) throws Exception{
+    private static List<Commodity> importCommoditiesFromWeb(String commoditiesUrl) throws Exception{
         String CommoditiesJsonString = HTTPRequestHandler.getRequest(commoditiesUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Commodity> commodities = gson.fromJson(CommoditiesJsonString, new TypeToken<List<Commodity>>() {}.getType());
-        for (Commodity commodity : commodities) {
-            try {
-                instance.addCommodity(commodity);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return commodities;
     }
 
-    private static void importProvidersFromWeb(String providersUrl) throws Exception{
+    private static List<Provider> importProvidersFromWeb(String providersUrl) throws Exception{
         String ProvidersJsonString = HTTPRequestHandler.getRequest(providersUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Provider> providers = gson.fromJson(ProvidersJsonString, new TypeToken<List<Provider>>() {}.getType());
-        for (Provider provider : providers) {
-            try {
-                instance.addProvider(provider);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return providers;
     }
 
-    private static void importCommentsFromWeb(String commentsUrl) throws Exception{
+    private static List<Comment> importCommentsFromWeb(String commentsUrl) throws Exception{
         String CommentsJsonString = HTTPRequestHandler.getRequest(commentsUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         CommentsJsonString = CommentsJsonString.replaceAll("\"\"", "2024-01-01"); // TODO
         List<Comment> comments = gson.fromJson(CommentsJsonString, new TypeToken<List<Comment>>() {}.getType());
-        for (Comment comment : comments) {
-            try {
-                instance.addComment(comment);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return comments;
     }
 
-    private static void importDiscountsFromWeb(String discountsUrl) throws Exception{
+    private static List<Discount> importDiscountsFromWeb(String discountsUrl) throws Exception{
         String DiscountsJsonString = HTTPRequestHandler.getRequest(discountsUrl);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<Discount> discounts = gson.fromJson(DiscountsJsonString, new TypeToken<List<Discount>>() {}.getType());
-        for (Discount discount : discounts) {
-            try {
-                instance.addDiscount(discount);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        return discounts;
     }
 
     public Map<String, User> getUsers() {
@@ -191,29 +212,11 @@ public class Baloot {
     }
 
     public void addComment(Comment comment) throws Exception {
-        boolean isUserFound = false;
-        String username = "";
-        if (!comment.isValidCommand())
-            throw new InvalidCommandError();
-        else if (!commodities.containsKey(comment.getCommodityId()))
-            throw new CommodityNotFoundError();
-        else {
-            for (Map.Entry<String, User> entry : users.entrySet()) {
-                if (entry.getValue().getEmail().equals(comment.getUserEmail())) {
-                    isUserFound = true;
-                    username = entry.getValue().getUsername();
-                    break;
-                }
-            }
-        }
-        if (isUserFound) {
-            Integer key = comments.size();
-            comment.addId(key+1);
-            comment.addUsername(username);
-            comments.put(comment.getId(), comment);
-        }
-        else
-            throw new UserNotFoundError();
+        comment.setUsername(getLoginUsername());
+        commentRepository.save(comment);
+        Commodity commodity = getCommodityById(comment.getCommodityId());
+        commodity.addComment(comment);
+        commodityRepository.save(commodity);
     }
 
     public void addDiscount(Discount discount) throws Exception {
@@ -230,102 +233,70 @@ public class Baloot {
     }
 
     public List<Commodity> getCommoditiesList() throws Exception {
-        List<Commodity> commodityList = new ArrayList<>();
-        for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-            commodityList.add(entry.getValue());
-        }
-        return commodityList;
+        return commodityRepository.findAll();;
     }
 
     public void rateCommodity(Rate rate) throws Exception {
-        if (rate==null || !rate.isValidCommand())
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(rate.getUsername()))
-                throw new UserNotFoundError();
-            else if (!commodities.containsKey(rate.getCommodityId()))
-                throw new CommodityNotFoundError();
-            else if (!rate.isValidScoreRange())
-                throw new InvalidRateScoreError();
-            else if (!rate.isValidScoreType())
-                throw new InvalidRateScoreError();
-            else {
-                commodities.get(rate.getCommodityId()).addRate(rate);
-            }
+        Rate _rate = rateRepository.findByUserIdAndCommodityId(getLoginUsername(), rate.getCommodityId());
+        Optional<Commodity> m = commodityRepository.findById(rate.getCommodityId());
+        Commodity commodity = m.get();
+        if (_rate == null) {
+            rateRepository.save(rate);
+            commodity.addRate(rate);
+            commodityRepository.save(commodity);
+        } else {
+            rateRepository.save(rate);
         }
+
     }
 
     public void addToBuyList(String username, Integer commodityId) throws Exception {
-        if (username==null || commodityId==null || commodityId==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else if (!commodities.containsKey(commodityId))
-                throw new CommodityNotFoundError();
-            else if (commodities.get(commodityId).getInStock() == 0)
-                throw new CommodityNotInStuckError();
-            else {
-                    users.get(username).addToBuyList(commodities.get(commodityId));
-            }
+        Optional<Commodity> m = commodityRepository.findById(commodityId);
+        Commodity commodity;
+        try {
+            commodity = m.get();
+        } catch (Exception e) {
+            return;
         }
+        Optional<User> u = userRepository.findById(username);
+        User user;
+        try {
+            user = u.get();
+        } catch (Exception e) {
+            return;
+        }
+        user.addToBuyList(commodity);
+        userRepository.save(user);
     }
 
     public void removeFromBuyList(String username, Integer commodityId) throws Exception {
-        if (username==null || commodityId==null || commodityId==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else if (!commodities.containsKey(commodityId))
-                throw new CommodityNotFoundError();
-            else {
-                if (! users.get(username).isInBuyList((commodityId)))
-                    throw new CommodityIsNotInBuyListError();
-                else {
-                    users.get(username).removeFromBuyList(commodityId);
-                }
-            }
-        }
+        Optional<User> user_DAO = userRepository.findById(username);
+        Optional<Commodity> commodity_DAO = commodityRepository.findById(commodityId);
+        User user = user_DAO.get();
+        Commodity commodity = commodity_DAO.get();
+        user.removeFromBuyList(commodity);
+        userRepository.save(user);
     }
 
     public Commodity getCommodityById(Integer id) throws Exception {
-        if (id==null || id==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (!commodities.containsKey(id))
-                throw new CommodityNotFoundError();
-            else {
-                return commodities.get(id);
-            }
+        Optional<Commodity> m = commodityRepository.findById(id);
+        Commodity commodity;
+        try {
+            commodity = m.get();
+            return commodity;
+        } catch (Exception e) {
+            return null;
         }
     }
 
     public List<Commodity> getCommoditiesByCategory(String category) throws Exception {
-        if (category==null || category=="")
-            throw new InvalidCommandError();
-        else {
-            List<Commodity> commoditiesList = new ArrayList<>();
-            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-                if (entry.getValue().isInCategory(category)) {
-                    commoditiesList.add(entry.getValue());
-                }
-            }
-            return commoditiesList;
-        }
+        return commodityRepository.findByCategories(category);
     }
 
     public List<Commodity> getBuyList(String username) throws Exception {
-        if (username==null)
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else {
-                List<Commodity> userBuyList = users.get(username).getBuyList();
-                return userBuyList;
-            }
-        }
+        Optional<User> user = userRepository.findById(username);
+
+        return (List<Commodity>) user.get().getBuyList();
     }
 
     public void addCredit(String username, Integer credit) throws Exception {
@@ -342,36 +313,25 @@ public class Baloot {
         }
     }
 
-    public List<Commodity> getCommoditiesByPrice(Integer startPrice, Integer endPrice) throws Exception {
-        if (startPrice==null || startPrice==0.0f || endPrice==null || endPrice==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (endPrice < startPrice)
-                throw new InvalidPriceRangeError();
-            else {
-                List<Commodity> commoditiesList = new ArrayList<>();
-                for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-                    if (entry.getValue().isPriceInRange(startPrice, endPrice))
-                        commoditiesList.add(entry.getValue());
-                }
-                return commoditiesList;
-            }
-        }
-    }
+//    public List<Commodity> getCommoditiesByPrice(Integer startPrice, Integer endPrice) throws Exception {
+//        return commodityRepository.findByPriceLike(startPrice + "/%");
+//    }
 
-    public void voteComment(String username, Integer commentId, Integer vote) throws Exception {
-        if (username==null || commentId==null || commentId==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else if (!comments.containsKey(commentId))
-                throw new CommentNotFound();
-            else if (!(vote==-1 || vote==0 || vote==1))
-                throw new InvalidVoteScoreError();
-            else
-                comments.get(commentId).addVote(username, vote);
-        }
+    public void voteComment(String username, Integer commentId, Integer vote) throws Exception { //TODO
+//        if (username==null || commentId==null || commentId==0.0f)
+//            throw new InvalidCommandError();
+//        else {
+//            if (!users.containsKey(username))
+//                throw new UserNotFoundError();
+//            else if (!comments.containsKey(commentId))
+//                throw new CommentNotFound();
+//            else if (!(vote==-1 || vote==0 || vote==1))
+//                throw new InvalidVoteScoreError();
+//            else
+//                comments.get(commentId).addVote(username, vote);
+//        }
+
+
     }
 
     public List<Comment> getCommentByCommodity(Integer commodityId) throws Exception {
@@ -418,15 +378,9 @@ public class Baloot {
     }
 
     public Provider getProviderById(Integer id) throws Exception {
-        if (id==null || id==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (!providers.containsKey(id))
-                throw new ProviderNotFoundError();
-            else {
-                return providers.get(id);
-            }
-        }
+        Optional<Provider> provider = Provider.findById(id);
+
+        return provider.get();
     }
 
     public boolean isLogin() {
@@ -434,12 +388,13 @@ public class Baloot {
     }
 
     public void login(String username, String password) throws Exception{
-        if (!users.containsKey(username))
-            throw new UserNotFoundError();
-        else if (!users.get(username).getPassword().equals(password))
-            throw new UserPasswordIncorrect();
-        else
-            loginUsername = username;
+        Optional<User> user = userRepository.findById(username);
+
+        if (password.equals(user.get().getPassword())) {
+            loginUser = user.get();
+            loginUsername = loginUser.getUsername();
+        }
+
     }
 
     public String getLoginUsername() {
@@ -451,17 +406,31 @@ public class Baloot {
     }
 
     public List<Commodity> getCommoditiesByName(String name) throws Exception {
-        if (name==null || name=="")
-            throw new InvalidCommandError();
-        else {
-            List<Commodity> commoditiesList = new ArrayList<>();
-            for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-                if (entry.getValue().getName().contains(name)) {
-                    commoditiesList.add(entry.getValue());
-                }
-            }
-            return commoditiesList;
-        }
+        return commodityRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Commodity> getCommoditiesByNameSortPrice(String name) {
+        return commodityRepository.findByNameContainingIgnoreCaseOrderByPriceDesc(name);
+    }
+
+    public List<Commodity> getCommoditiesByNameSortByName(String name) {
+        return commodityRepository.findByNameContainingIgnoreCaseOrderByNameDesc(name);
+    }
+
+    public List<Commodity> getCommoditiesByCategoriesSortByName(String genre) {
+        return commodityRepository.findByCategoriesOrderByNameDesc(genre);
+    }
+
+    public List<Commodity> getCommoditiesByCategoriesSortByPrice(String genre) {
+        return commodityRepository.findByCategoriesOrderByPriceDesc(genre);
+    }
+
+    public List<Commodity> getCommoditiesOrderByName() {
+        return commodityRepository.findByOrderByNameDesc();
+    }
+
+    public List<Commodity> getCommoditiesOrderByPrice() {
+        return commodityRepository.findByOrderByPriceDesc();
     }
 
     public String convertListOfStringsToString(String[] listOfItems) {
@@ -473,7 +442,7 @@ public class Baloot {
         return itemsStr.toString();
     }
 
-    public List<Commodity> getSuggestedCommodities(Commodity currentCommodity) throws Exception {
+    public List<Commodity> getSuggestedCommodities(Commodity currentCommodity) throws Exception { //TODO
         List<Commodity> commoditiesList = new ArrayList<>();
         for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
             if (!Objects.equals(entry.getValue().getId(), currentCommodity.getId())) {

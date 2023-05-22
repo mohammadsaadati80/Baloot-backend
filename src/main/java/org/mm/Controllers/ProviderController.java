@@ -14,9 +14,6 @@ public class ProviderController {
 
     private Baloot baloot;
 
-    public ProviderController(){
-        baloot = Baloot.getInstance();
-    }
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/providers", method = RequestMethod.GET)
