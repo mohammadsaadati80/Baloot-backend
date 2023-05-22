@@ -1,4 +1,4 @@
-package org.mm.HTTPRequestHandler;
+package org.mm.Utils;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
