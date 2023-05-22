@@ -14,10 +14,6 @@ import java.util.Map;
 public class BuyListController  {
     private Baloot baloot;
 
-    public BuyListController(){
-        baloot = Baloot.getInstance();
-    }
-
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/buylist", method = RequestMethod.GET)
     public List<Commodity> getBuyList(){
