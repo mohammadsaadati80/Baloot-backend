@@ -59,6 +59,7 @@ public class Baloot {
 
     private DiscountRepository discountRepository;
 
+    @Autowired
     public Baloot(ProviderRepository provider_rep, CommodityRepository commodity_rep, VoteRepository vote_repo,
                   CommentRepository comment_rep, RateRepository rate_rep, UserRepository user_rep, DiscountRepository discount_repo) {
         mapper = new ObjectMapper();
