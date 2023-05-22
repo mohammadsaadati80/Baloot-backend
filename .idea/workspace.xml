@@ -10,47 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Vote.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/VoteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Commodity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Commodity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Discount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Discount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/CommentNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommentNotFound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/CommodityAlreadyInBuyListError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommodityAlreadyInBuyListError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/CommodityIsNotInBuyListError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommodityIsNotInBuyListError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/CommodityNotFoundError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommodityNotFoundError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/CommodityNotInStuckError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommodityNotInStuckError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/DiscountCodeNotFoundError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/DiscountCodeNotFoundError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/DiscountCodeUsedError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/DiscountCodeUsedError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/InvalidCommandError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidCommandError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/InvalidCreditValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidCreditValue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/InvalidDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidDiscount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/InvalidPriceRangeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidPriceRangeError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/InvalidRateScoreError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidRateScoreError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/InvalidVoteScoreError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidVoteScoreError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/ProviderNotFoundError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/ProviderNotFoundError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/UserBuyListIsEmptyError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UserBuyListIsEmptyError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/UserNotFoundError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UserNotFoundError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/UserNotHaveEnoughCreditError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UserNotHaveEnoughCreditError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/UserPasswordIncorrect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UserPasswordIncorrect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Exceptions/UsernameShouldNotContainSpecialCharactersError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UsernameShouldNotContainSpecialCharactersError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Provider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Rate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Rate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Baloot/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/BalootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/BalootApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/ProviderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/ProviderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Response.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommodityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommodityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/DiscountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/DiscountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ProviderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ProviderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/RateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/RateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ResponeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +288,7 @@
       <workItem from="1683238347576" duration="1846000" />
       <workItem from="1683240234302" duration="6762000" />
       <workItem from="1683274446605" duration="328000" />
-      <workItem from="1684732826344" duration="1434000" />
+      <workItem from="1684732826344" duration="6774000" />
     </task>
     <servers />
   </component>
