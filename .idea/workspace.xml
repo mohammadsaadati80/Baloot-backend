@@ -10,70 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommoditiesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CommodityController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/CreditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/ProviderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/ProviderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Provider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/Provider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommodityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/CommodityRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/DiscountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/DiscountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ProviderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/ProviderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/RateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/RateRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Repository/VoteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Repository/VoteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Baloot.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Comment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Commodity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Discount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/CommentNotFound.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/CommodityAlreadyInBuyListError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/CommodityIsNotInBuyListError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/CommodityNotFoundError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/CommodityNotInStuckError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/DiscountCodeNotFoundError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/DiscountCodeUsedError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/InvalidCommandError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/InvalidCreditValue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/InvalidDiscount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/InvalidPriceRangeError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/InvalidRateScoreError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/InvalidVoteScoreError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/ProviderNotFoundError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/UserBuyListIsEmptyError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/UserNotFoundError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/UserNotHaveEnoughCreditError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/UserPasswordIncorrect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Exceptions/UsernameShouldNotContainSpecialCharactersError.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Provider.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Rate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/Response.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Baloot/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/BalootApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/BalootApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/BuyListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/BuyListController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommoditiesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommoditiesController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommodityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommodityController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CreditController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CreditController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/ProviderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/ProviderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/org/mm/BalootApplicationTests.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +27,18 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
