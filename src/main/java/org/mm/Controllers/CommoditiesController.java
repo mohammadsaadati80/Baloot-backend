@@ -19,8 +19,9 @@ public class CommoditiesController  {
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/commodities", method = RequestMethod.GET)
-    public Map<Integer, Commodity> getCommodities(){
-        return baloot.getCommodities();
+    public List<Commodity> getCommodities(){
+         List<Commodity> x = baloot.getCommoditiesList();
+         return x;
     }
 
     @ResponseStatus(value = HttpStatus.OK)

@@ -93,13 +93,19 @@ public class Baloot {
                     }
                 }
             }
-            providerRepository.saveAll(providers);
-            commodityRepository.saveAll(commodities);
+            for (Provider provider: providers) {
+                if (!provider.getId().equals(6))
+                providerRepository.save(provider);
+            }
+            for (Commodity commodity: commodities)
+            commodityRepository.save(commodity);
             for (User user : users) {
                 userRepository.save(user);
             }
-            commentRepository.saveAll(comments);
-            discountRepository.saveAll(discounts);
+            for (Comment comment: comments)
+            commentRepository.save(comment);
+            for (Discount discount:discounts)
+            discountRepository.save(discount);
         } catch (Exception ignored) {
             System.out.print(ignored.getMessage());
         }
@@ -221,8 +227,20 @@ public class Baloot {
         }
     }
 
-    public List<Commodity> getCommoditiesList() throws Exception {
+    public List<Commodity> getCommoditiesList()  {
         return commodityRepository.findAll();
+//        List<Commodity> c1 = new ArrayList<>();
+//        Optional <Commodity> m = commodityRepository.findById(1);
+//        Commodity commodity;
+//        try {
+//            commodity = m.get();
+//            c1.add(commodity);
+//            return c1;
+//        } catch (Exception e) {
+//            return null;
+//        }
+
+//        return c1.add(commodityRepository.findById(1).get());
     }
 
     public void rateCommodity(Rate rate) throws Exception {
@@ -268,7 +286,7 @@ public class Baloot {
     }
 
     public Commodity getCommodityById(Integer id) throws Exception {
-        Optional<Commodity> m = commodityRepository.findById(id);
+        Optional <Commodity> m = commodityRepository.findById(id);
         Commodity commodity;
         try {
             commodity = m.get();
