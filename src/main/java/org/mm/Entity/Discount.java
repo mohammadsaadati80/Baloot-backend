@@ -21,6 +21,10 @@ public class Discount {
         discount = _discount;
     }
 
+    public Discount() {
+
+    }
+
     public boolean isValidCommand() {
         if (discountCode==null || discount==null)
             return false;

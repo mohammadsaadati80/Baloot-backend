@@ -42,6 +42,10 @@ public class Comment {
         date = _date;
     }
 
+    public Comment() {
+
+    }
+
     public void update(Comment updatedComment) {
         userEmail = updatedComment.getUserEmail();
         date = updatedComment.getDate();

@@ -19,6 +19,10 @@ public class Rate {
          score = _score;
      }
 
+    public Rate() {
+
+    }
+
     public boolean isValidScoreRange() throws JsonProcessingException {
         if (score < 1 || score > 10)
             return false;
