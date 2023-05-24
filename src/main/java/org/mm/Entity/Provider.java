@@ -1,17 +1,15 @@
 package org.mm.Entity;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "provider")
@@ -24,7 +22,12 @@ public class Provider {
     private String text;
     private String image;
     @SuppressWarnings("JpaAttributeTypeInspection")
-    private Map<Integer, Commodity> commodities = new HashMap<>();
+//    private Map<Integer, Commodity> commodities = new HashMap<>();
+
+    @ManyToMany
+    @JoinTable(name="provider_commodities", joinColumns = @JoinColumn(name = "PROVIDER_ID"), inverseJoinColumns = @JoinColumn(name = "COMMODITY_ID"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private final Set<Commodity> commodities = new HashSet<>();
 
     private float averageCommoditiesRates = 0;
 
@@ -51,14 +54,14 @@ public class Provider {
     }
 
     public void addCommodity(Commodity commodity) {
-        commodities.put(commodity.getId(), commodity);
+        commodities.add(commodity);
         updateAverageCommoditiesRates();
     }
 
     public void updateAverageCommoditiesRates() {
         averageCommoditiesRates = 0;
-        for (Map.Entry<Integer, Commodity> set : commodities.entrySet())
-            averageCommoditiesRates += set.getValue().getRating();
+        for (Commodity set : commodities)
+            averageCommoditiesRates += set.getRating();
         averageCommoditiesRates /= commodities.size();
     }
 
@@ -83,5 +86,5 @@ public class Provider {
         return averageCommoditiesRates;
     }
 
-    public Map<Integer, Commodity> getCommodities() {return commodities;}
+    public Set<Commodity> getCommodities() {return commodities;}
 }

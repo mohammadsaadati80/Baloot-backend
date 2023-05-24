@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,11 +36,15 @@ public class User {
     @JoinTable(name = "purchasedList", joinColumns = @JoinColumn(name = "USER_ID"),inverseJoinColumns = @JoinColumn(name = "COMMODITY_ID"))
     private Set<Commodity> purchasedList = new HashSet<>();
 
-    @SuppressWarnings("JpaAttributeTypeInspection")
-    private Map<String, Discount> usedDiscounts = new HashMap<>();
+    @ManyToMany
+    @JoinTable(name="used_discount", joinColumns = @JoinColumn(name = "DISCOUNT_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Discount> usedDiscounts = new HashSet<>();
 
-    @SuppressWarnings("JpaAttributeTypeInspection")
-    private Discount currentDiscount = null;
+    @ManyToOne
+    @JoinTable(name="current_discount", joinColumns = @JoinColumn(name = "DISCOUNT_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Discount currentDiscount;
 
 //    public User(String _username, String _password, String _email, Date _birthDate, String _address, Integer _credit) {
 //        username = _username;
@@ -99,7 +105,7 @@ public class User {
         }
         credit -= totalPrice;
         if(currentDiscount != null) {
-            usedDiscounts.put(currentDiscount.getDiscountCode(), currentDiscount);
+            usedDiscounts.add(currentDiscount);
             currentDiscount = null;
         }
         buyList.clear();
@@ -149,7 +155,7 @@ public class User {
     }
 
     public boolean isUsedDiscountCode(String discountCode) {
-        if (usedDiscounts.containsKey(discountCode))
+        if (usedDiscounts.contains(discountCode))
             return true;
         return false;
     }

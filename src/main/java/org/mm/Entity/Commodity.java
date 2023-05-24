@@ -23,14 +23,14 @@ public class Commodity {
     @Column
     @ElementCollection(targetClass=String.class)
     @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<String> categories;
     private Integer price;
-    private String[] categories;
     private float rating;
     private Integer inStock;
     private String image;
     private Integer providerId;
 
-    @ManyToMany
+    @OneToOne
     @JoinTable(name="commodity_provider", joinColumns = @JoinColumn(name = "COMMODITY_ID"), inverseJoinColumns = @JoinColumn(name = "PROVIDER_ID"))
     @LazyCollection(LazyCollectionOption.FALSE)
     private Provider provider;
@@ -40,8 +40,9 @@ public class Commodity {
     private Set<Rate> rates = new HashSet<>();
 
     @OneToMany
+    @JoinTable(name="commodity_comments", joinColumns = @JoinColumn(name = "COMMODITY_ID"), inverseJoinColumns = @JoinColumn(name = "COMMENT_ID"))
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Comment> comments;
+    private Set<Comment> comments = new HashSet<>();
 
     private float score;
 
@@ -101,9 +102,9 @@ public class Commodity {
         return ((startPrice <= price) && (price <= endPrice));
     }
 
-    public void updateScore(String[] similarCategories) {
+    public void updateScore(Set<String> similarCategories) {
         score = 0;
-        ArrayList<String> tempCategories = new ArrayList<>(Arrays.asList(categories));
+        Set<String> tempCategories = categories;
         Integer is_in_similar_category = 0;
         for(String category : similarCategories)
             if (tempCategories.contains(category)) {
@@ -128,7 +129,7 @@ public class Commodity {
 
     public Integer getPrice() { return price;}
 
-    public String[] getCategories() { return categories;}
+    public Set<String> getCategories() { return categories;}
 
     public float getRating() { return rating;}
 

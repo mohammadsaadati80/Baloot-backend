@@ -12,7 +12,7 @@ import java.util.Set;
 @Repository
 public interface CommodityRepository extends JpaRepository<Commodity, Integer> {
 
-    List<Commodity> findByProviders(Provider provider);
+//    List<Commodity> findByProviders(Provider provider); Todo
 
     List<Commodity> findByNameContainingIgnoreCase(String name);
 

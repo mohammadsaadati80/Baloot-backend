@@ -226,7 +226,7 @@ public class Baloot {
     }
 
     public void rateCommodity(Rate rate) throws Exception {
-        Rate _rate = rateRepository.findByUserIdAndCommodityId(getLoginUsername(), rate.getCommodityId());
+        Rate _rate = rateRepository.findByUsernameAndCommodityId(getLoginUsername(), rate.getCommodityId());
         Optional<Commodity> m = commodityRepository.findById(rate.getCommodityId());
         Commodity commodity = m.get();
         if (_rate == null) {

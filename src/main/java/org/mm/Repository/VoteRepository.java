@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VoteRepository extends JpaRepository<Vote, String> {
-    Vote findByUserIdAndCommentId(String user_id, Integer comment_id);
+//    Vote findByUserIdAndCommentId(String user_id, Integer comment_id); Todo
 }
