@@ -102,8 +102,23 @@ public class Baloot {
             for (User user : users) {
                 userRepository.save(user);
             }
-            for (Comment comment: comments)
-            commentRepository.save(comment);
+            for (Comment comment: comments) {
+                boolean isUserFound = false;
+                String username = "";
+                for (User entry : users) {
+                    if (entry.getEmail().equals(comment.getUserEmail())) {
+                        isUserFound = true;
+                        username = entry.getUsername();
+                        break;
+                    }
+                }
+                if (isUserFound) {
+                    Integer key = comments.size();
+                    comment.addId(key + 1);
+                    comment.addUsername(username);
+                }
+                commentRepository.save(comment);
+            }
             for (Discount discount:discounts)
             discountRepository.save(discount);
         } catch (Exception ignored) {
@@ -228,17 +243,17 @@ public class Baloot {
     }
 
     public List<Commodity> getCommoditiesList()  {
-        return commodityRepository.findAll();
-//        List<Commodity> c1 = new ArrayList<>();
-//        Optional <Commodity> m = commodityRepository.findById(1);
-//        Commodity commodity;
-//        try {
-//            commodity = m.get();
-//            c1.add(commodity);
-//            return c1;
-//        } catch (Exception e) {
-//            return null;
-//        }
+//        return commodityRepository.findAll();
+        List<Commodity> c1 = new ArrayList<>();
+        Optional <Commodity> m = commodityRepository.findById(1);
+        Commodity commodity;
+        try {
+            commodity = m.get();
+            c1.add(commodity);
+            return c1;
+        } catch (Exception e) {
+            return null;
+        }
 
 //        return c1.add(commodityRepository.findById(1).get());
     }

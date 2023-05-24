@@ -62,7 +62,7 @@ public class Comment {
 
     public void addId(Integer _id) { id = _id;}
     
-//    public void addVote(String username, Integer vote) {
+//    public void addVote(String username, Integer vote) { Todo
 //        if (usersVote == null)
 //            usersVote = new HashSet<>();
 //        if (usersVote.containsKey(username)) {
