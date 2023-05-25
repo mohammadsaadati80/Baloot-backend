@@ -25,12 +25,12 @@ public class Comment {
     private String text;
     private Date date;
 
-    @JsonProperty("likes")
+//    @JsonProperty("likes")
     private Integer like=0;
-    @JsonProperty("dislikes")
+//    @JsonProperty("dislikes")
     private Integer dislike=0;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Vote> usersVote = new HashSet<>();

@@ -39,10 +39,10 @@ public class Commodity {
     @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Rate> rates = new HashSet<>();
 
-    @OneToMany
-    @JoinTable(name="commodity_comments", joinColumns = @JoinColumn(name = "COMMODITY_ID"), inverseJoinColumns = @JoinColumn(name = "COMMENT_ID"))
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Comment> comments = new HashSet<>();
+//    @OneToMany TODO
+//    @JoinTable(name="commodity_comments", joinColumns = @JoinColumn(name = "COMMODITY_ID"), inverseJoinColumns = @JoinColumn(name = "COMMENT_ID"))
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    private Set<Comment> comments = new HashSet<>();
 
     private float score;
 
@@ -114,7 +114,7 @@ public class Commodity {
         score = 11 * is_in_similar_category + rating;
     }
 
-    public void addComment(Comment comment) {comments.add(comment);}
+//    public void addComment(Comment comment) {comments.add(comment);} TODO
 
 
     public void buy(Integer number) {
@@ -145,7 +145,7 @@ public class Commodity {
 
     public Set<Rate> getRates() {return rates;}
 
-    public Set<Comment> getComments() {return comments;}
+//    public Set<Comment> getComments() {return comments;} TODO
 
     public void setProviderId(Integer _providerId) {providerId = _providerId;}
 

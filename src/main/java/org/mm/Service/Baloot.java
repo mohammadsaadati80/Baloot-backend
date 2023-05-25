@@ -94,7 +94,6 @@ public class Baloot {
                 }
             }
             for (Provider provider: providers) {
-                if (!provider.getId().equals(6))
                 providerRepository.save(provider);
             }
             for (Commodity commodity: commodities)
@@ -113,11 +112,16 @@ public class Baloot {
                     }
                 }
                 if (isUserFound) {
-                    Integer key = comments.size();
-                    comment.addId(key + 1);
+//                    Integer key = comments.size();
+//                    comment.addId(key);
                     comment.addUsername(username);
                 }
-                commentRepository.save(comment);
+                try {
+                    commentRepository.save(comment);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
             for (Discount discount:discounts)
             discountRepository.save(discount);
@@ -221,12 +225,12 @@ public class Baloot {
         }
     }
 
-    public void addComment(Comment comment) throws Exception {
-        comment.setUsername(getLoginUsername());
-        commentRepository.save(comment);
-        Commodity commodity = getCommodityById(comment.getCommodityId());
-        commodity.addComment(comment);
-        commodityRepository.save(commodity);
+    public void addComment(Comment comment) throws Exception { // TODO
+//        comment.setUsername(getLoginUsername());
+//        commentRepository.save(comment);
+//        Commodity commodity = getCommodityById(comment.getCommodityId());
+//        commodity.addComment(comment);
+//        commodityRepository.save(commodity);
     }
 
     public void addDiscount(Discount discount) throws Exception {
@@ -243,17 +247,22 @@ public class Baloot {
     }
 
     public List<Commodity> getCommoditiesList()  {
-//        return commodityRepository.findAll();
-        List<Commodity> c1 = new ArrayList<>();
-        Optional <Commodity> m = commodityRepository.findById(1);
-        Commodity commodity;
-        try {
-            commodity = m.get();
-            c1.add(commodity);
-            return c1;
-        } catch (Exception e) {
-            return null;
-        }
+        return commodityRepository.findAll();
+
+//        try {
+//            Optional <Discount> d = discountRepository.findById(2);
+//            List<Commodity> c1 = new ArrayList<>();
+//            Optional <Commodity> m = commodityRepository.findById(2);
+//
+//            Commodity commodity;
+////            Commodity commodity = commodityRepository.getById(2);
+//            commodity = m.get();
+//            c1.add(commodity);
+//            return c1;
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
 
 //        return c1.add(commodityRepository.findById(1).get());
     }
@@ -357,15 +366,16 @@ public class Baloot {
     }
 
     public List<Comment> getCommentByCommodity(Integer commodityId) throws Exception {
-        if (commodityId==null || commodityId==0.0f)
-            throw new InvalidCommandError();
-        else {
-            List<Comment> commentList = new ArrayList<>();
-            for (Map.Entry<Integer, Comment> entry : comments.entrySet())
-                if (entry.getValue().getCommodityId().equals(commodityId))
-                    commentList.add(entry.getValue());
-            return commentList;
-        }
+//        if (commodityId==null || commodityId==0.0f) TODO
+//            throw new InvalidCommandError();
+//        else {
+//            List<Comment> commentList = new ArrayList<>();
+//            for (Map.Entry<Integer, Comment> entry : comments.entrySet())
+//                if (entry.getValue().getCommodityId().equals(commodityId))
+//                    commentList.add(entry.getValue());
+//            return commentList;
+//        }
+        return new ArrayList<Comment>();
     }
 
     public void userBuyListPayment(String username) throws Exception { //Todo
