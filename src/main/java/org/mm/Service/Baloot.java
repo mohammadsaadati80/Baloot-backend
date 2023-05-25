@@ -181,18 +181,7 @@ public class Baloot {
     public Map<String, Discount> getDiscounts() { return discounts; }
 
     public void addUser(User user) throws Exception {
-        if (!user.isValidCommand())
-            throw new InvalidCommandError();
-        else if (user.haveSpecialCharacter())
-            throw new UsernameShouldNotContainSpecialCharactersError();
-        else {
-            if (users.containsKey(user.getUsername())) {
-                users.get(user.getUsername()).update(user);
-            }
-            else {
-                users.put(user.getUsername(), user);
-            }
-        }
+        userRepository.save(user);
     }
 
     public void addProvider(Provider provider) throws Exception {
@@ -248,23 +237,6 @@ public class Baloot {
 
     public List<Commodity> getCommoditiesList()  {
         return commodityRepository.findAll();
-
-//        try {
-//            Optional <Discount> d = discountRepository.findById(2);
-//            List<Commodity> c1 = new ArrayList<>();
-//            Optional <Commodity> m = commodityRepository.findById(2);
-//
-//            Commodity commodity;
-////            Commodity commodity = commodityRepository.getById(2);
-//            commodity = m.get();
-//            c1.add(commodity);
-//            return c1;
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            return null;
-//        }
-
-//        return c1.add(commodityRepository.findById(1).get());
     }
 
     public void rateCommodity(Rate rate) throws Exception {
@@ -331,17 +303,10 @@ public class Baloot {
     }
 
     public void addCredit(String username, Integer credit) throws Exception {
-        if (username==null || credit==null || credit==0.0f)
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else if (credit < 0)
-                throw new InvalidCreditValue();
-            else {
-                users.get(username).addCredit(credit);
-            }
-        }
+        Optional<User> u = userRepository.findById(username);
+        User user = u.get();
+        user.addCredit(credit);
+        userRepository.save(user);
     }
 
 //    public List<Commodity> getCommoditiesByPrice(Integer startPrice, Integer endPrice) throws Exception {
@@ -398,15 +363,8 @@ public class Baloot {
     }
 
     public User getUserById(String username) throws Exception {
-        if (username==null)
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else {
-                return users.get(username);
-            }
-        }
+        Optional<User> u = userRepository.findById(username);
+        return u.get();
     }
 
     public Provider getProviderById(Integer id) throws Exception {
@@ -476,10 +434,11 @@ public class Baloot {
 
     public List<Commodity> getSuggestedCommodities(Commodity currentCommodity) throws Exception { //TODO
         List<Commodity> commoditiesList = new ArrayList<>();
-        for (Map.Entry<Integer, Commodity> entry : commodities.entrySet()) {
-            if (!Objects.equals(entry.getValue().getId(), currentCommodity.getId())) {
-                entry.getValue().updateScore(currentCommodity.getCategories());
-                commoditiesList.add(entry.getValue());
+        List<Commodity> _commodities = getCommoditiesList();
+        for (Commodity entry : _commodities) {
+            if (!Objects.equals(entry.getId(), currentCommodity.getId())) {
+                entry.updateScore(currentCommodity.getCategories());
+                commoditiesList.add(entry);
             }
         }
         commoditiesList = commoditiesList.stream().sorted(Comparator.comparing(Commodity::getScore).reversed()).toList();
@@ -487,19 +446,18 @@ public class Baloot {
     }
 
     public void applyDiscountCode(String username, String discountCode) throws Exception {
-        if (username==null || discountCode==null || username=="" || discountCode=="")
-            throw new InvalidCommandError();
-        else {
-            if (!users.containsKey(username))
-                throw new UserNotFoundError();
-            else if (!discounts.containsKey(discountCode))
-                throw new DiscountCodeNotFoundError();
-            else if (users.get(username).isUsedDiscountCode(discountCode))
-                throw new DiscountCodeUsedError();
-            else {
-                users.get(username).addDiscountCode(discounts.get(discountCode));
-            }
+        try {
+            Optional<User> u = userRepository.findById(username);
+            User user = u.get();
+            Discount d = discountRepository.findByDiscountCode(discountCode);
+            user.addDiscountCode(d);
+            userRepository.save(user);
+
+        } catch (Exception ignored) {
+            System.out.print(ignored.getMessage());
         }
+
+
     }
 
     public void registerUser(String _username, String _password, String _email, Date _birthDate, String _address) throws Exception {
