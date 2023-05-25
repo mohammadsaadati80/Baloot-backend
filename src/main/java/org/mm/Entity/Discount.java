@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "discount")
 public class Discount {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String discountCode;
     private Integer discount;

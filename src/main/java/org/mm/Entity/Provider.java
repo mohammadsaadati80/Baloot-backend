@@ -20,6 +20,7 @@ public class Provider {
     private String name;
     private Date registryDate;
     private String text;
+    @Column(name = "image", columnDefinition = "text")
     private String image;
     @SuppressWarnings("JpaAttributeTypeInspection")
 //    private Map<Integer, Commodity> commodities = new HashMap<>();
