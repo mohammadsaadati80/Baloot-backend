@@ -24,9 +24,9 @@ public interface CommodityRepository extends JpaRepository<Commodity, Integer> {
 
     List<Commodity> findByNameContainingIgnoreCaseOrderByNameDesc(String name);
 
-    List<Commodity> findByCategoriesOrderByPriceDesc(String genre);
+    List<Commodity> findByCategoriesOrderByPriceDesc(String categories);
 
-    List<Commodity> findByCategoriesOrderByNameDesc(String genre);
+    List<Commodity> findByCategoriesOrderByNameDesc(String categories);
 
     List<Commodity> findByOrderByPriceDesc();
 

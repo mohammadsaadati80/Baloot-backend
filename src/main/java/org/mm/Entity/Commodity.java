@@ -80,7 +80,7 @@ public class Commodity {
         commodity.put("providerId", providerId);
         commodity.put("price", price);
         ArrayNode categoryArrayNode = mapper.valueToTree(getCategories());
-        commodity.putArray("genres").addAll(categoryArrayNode);
+        commodity.putArray("categories").addAll(categoryArrayNode);
         commodity.put("rating", rating);
         if (all)
             commodity.put("inStock", inStock);

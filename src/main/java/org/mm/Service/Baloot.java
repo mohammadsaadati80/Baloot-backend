@@ -407,12 +407,12 @@ public class Baloot {
         return commodityRepository.findByNameContainingIgnoreCaseOrderByNameDesc(name);
     }
 
-    public List<Commodity> getCommoditiesByCategoriesSortByName(String genre) {
-        return commodityRepository.findByCategoriesOrderByNameDesc(genre);
+    public List<Commodity> getCommoditiesByCategoriesSortByName(String categories) {
+        return commodityRepository.findByCategoriesOrderByNameDesc(categories);
     }
 
-    public List<Commodity> getCommoditiesByCategoriesSortByPrice(String genre) {
-        return commodityRepository.findByCategoriesOrderByPriceDesc(genre);
+    public List<Commodity> getCommoditiesByCategoriesSortByPrice(String categories) {
+        return commodityRepository.findByCategoriesOrderByPriceDesc(categories);
     }
 
     public List<Commodity> getCommoditiesOrderByName() {
