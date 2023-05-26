@@ -166,12 +166,12 @@ public class Baloot {
         return discounts;
     }
 
-    public Map<String, User> getUsers() {
-        return users;
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
-    public Map<Integer, Provider> getProviders() {
-        return providers;
+    public List<Provider> getProviders() {
+        return providerRepository.findAll();
     }
 
     public Map<Integer, Commodity> getCommodities() {
@@ -299,7 +299,7 @@ public class Baloot {
     public List<Commodity> getBuyList(String username) throws Exception {
         Optional<User> user = userRepository.findById(username);
 
-        return (List<Commodity>) user.get().getBuyList();
+        return (new ArrayList<>(user.get().getBuyList())) ;
     }
 
     public void addCredit(String username, Integer credit) throws Exception {
@@ -360,6 +360,15 @@ public class Baloot {
 //                users.get(username).buyListPayment();
 //            }
 //        }
+        try {
+            Optional<User> u = userRepository.findById(username);
+            User user = u.get();
+            user.buyListPayment();
+            userRepository.save(user);
+        }
+        catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     public User getUserById(String username) throws Exception {
@@ -432,7 +441,7 @@ public class Baloot {
         return itemsStr.toString();
     }
 
-    public List<Commodity> getSuggestedCommodities(Commodity currentCommodity) throws Exception { //TODO
+    public List<Commodity> getSuggestedCommodities(Commodity currentCommodity) throws Exception {
         List<Commodity> commoditiesList = new ArrayList<>();
         List<Commodity> _commodities = getCommoditiesList();
         for (Commodity entry : _commodities) {

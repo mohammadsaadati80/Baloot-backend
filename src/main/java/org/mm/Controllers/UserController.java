@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,7 +20,7 @@ public class UserController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public Map<String, User> getUsers(){
+    public List<User> getUsers(){
         try {
             return baloot.getUsers();
         } catch(Exception e) {

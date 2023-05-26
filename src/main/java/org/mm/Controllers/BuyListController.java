@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class BuyListController  {
     @RequestMapping(value = "/purchasedlist", method = RequestMethod.GET)
     public List<Commodity> getPurchasedList(){
         try {
-            return (List<Commodity>) baloot.getUserById(baloot.getLoginUsername()).getPurchasedList();
+            return (new ArrayList<>(baloot.getUserById(baloot.getLoginUsername()).getPurchasedList())) ;
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
