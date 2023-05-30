@@ -19,6 +19,7 @@ import io.jsonwebtoken.Jwts;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -399,7 +400,7 @@ public class Baloot {
         return provider.get();
     }
 
-    public void updateUser(String username, String email, String password, String birth_date) {
+    public void updateUser(String username, String email, String password, Date birthDate, String address) {
         Optional<User> existingUser = userRepository.findById(username);
 
         String hashedPassword = String.valueOf(password.hashCode());
@@ -407,6 +408,8 @@ public class Baloot {
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
+        user.setAddress(address);
+        user.setBirthDate(birthDate);
         userRepository.save(user);
     }
 
@@ -457,7 +460,7 @@ public class Baloot {
 
     public User getLoginUser() { return loginUser;}
 
-    public void signup(String username, String email, String password, String birthDate) throws UserAlreadyExistsError {
+    public void signup(String username, String email, String password, Date birthDate, String address) throws UserAlreadyExistsError {
         Optional<User> existingUser = userRepository.findById(username);
 
         if (existingUser.stream().findFirst().isPresent())
@@ -467,6 +470,8 @@ public class Baloot {
         newUser.setUsername(username);
         newUser.setEmail(email);
         newUser.setPassword(hashedPassword);
+        newUser.setBirthDate(birthDate);
+        newUser.setAddress(address);
         userRepository.save(newUser);
     }
 

@@ -173,6 +173,10 @@ public class User {
 
     public void setEmail(String _email) {email = _email;}
 
+    public void setAddress(String _address) { address = _address;}
+
+    public void setBirthDate(Date _birthDate) { birthDate = _birthDate;}
+
     public Integer getCredit() {
         return credit;
     }
