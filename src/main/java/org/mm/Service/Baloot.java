@@ -226,7 +226,7 @@ public class Baloot {
         if (!discount.isValidCommand())
             throw new InvalidCommandError();
         else if (!discount.isValidDiscount())
-            throw new InvalidDiscount();
+            throw new InvalidDiscountError();
         else {
             if (discounts.containsKey(discount.getDiscountCode()))
                 discounts.get(discount.getDiscountCode()).update(discount);

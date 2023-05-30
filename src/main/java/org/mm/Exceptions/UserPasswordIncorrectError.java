@@ -1,6 +1,6 @@
 package org.mm.Exceptions;
 
-public class UserPasswordIncorrect extends Exception {
+public class UserPasswordIncorrectError extends Exception {
     public String getMessage() {
         return "User password is incorrect";
     }
