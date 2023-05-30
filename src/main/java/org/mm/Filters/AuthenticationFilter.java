@@ -52,21 +52,18 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
-        String sign_key = "---------------Baloot2023---------------";
+        String sign_key = "-----------Baloot2023-----------";
 
         SecretKey signature_type = new SecretKeySpec(sign_key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         Jws<Claims> claimsJws;
         try {
-            claimsJws = Jwts.parserBuilder()
-                    .setSigningKey(signature_type)
-                    .build()
-                    .parseClaimsJws(jwt);
+            claimsJws = Jwts.parserBuilder().setSigningKey(signature_type).build().parseClaimsJws(jwt);
             if(claimsJws.getBody().getExpiration().before(Date.from(Instant.now()))) {
                 throw new JwtException("Token is expired");
             }
-            req.setAttribute("userEmail", claimsJws.getBody().get("userEmail"));
+            req.setAttribute("username", claimsJws.getBody().get("username"));
             if(baloot.getLoginUser() == null) {
-                baloot.loginWithJwtToken(claimsJws.getBody().get("userEmail").toString());
+                baloot.loginWithJwtToken(claimsJws.getBody().get("username").toString());
             }
         }
         catch (JwtException je) {
