@@ -14,6 +14,8 @@ import org.mm.Utils.HTTPRequestHandler;
 import org.mm.Entity.*;
 import org.mm.Repository.*;
 
+import io.jsonwebtoken.Jwts;
+
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
@@ -398,12 +400,13 @@ public class Baloot {
     }
 
     public void updateUser(String username, String email, String password, String birth_date) {
-        Optional<User> existing_user = userRepository.findById(username);
+        Optional<User> existingUser = userRepository.findById(username);
 
         String hashedPassword = String.valueOf(password.hashCode());
-        User user = existing_user.get();
-        user.setusername(username);
+        User user = existingUser.get();
+        user.setUsername(username);
         user.setPassword(password);
+        user.setEmail(email);
         userRepository.save(user);
     }
 
