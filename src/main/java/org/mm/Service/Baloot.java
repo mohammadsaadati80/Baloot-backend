@@ -14,7 +14,12 @@ import org.mm.Utils.HTTPRequestHandler;
 import org.mm.Entity.*;
 import org.mm.Repository.*;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -101,6 +106,7 @@ public class Baloot {
             for (User user : users) {
                 userRepository.save(user);
             }
+            hashUsersPasswords();
             for (Comment comment: comments) {
                 boolean isUserFound = false;
                 String username = "";
@@ -127,6 +133,15 @@ public class Baloot {
             discountRepository.save(discount);
         } catch (Exception ignored) {
             System.out.print(ignored.getMessage());
+        }
+    }
+
+    private void hashUsersPasswords() {
+        List<User> users = userRepository.findAll();
+        for (User user: users) {
+            String hashedPassword = String.valueOf(user.getPassword().hashCode());
+            user.setPassword(hashedPassword);
+            userRepository.save(user);
         }
     }
 
@@ -382,18 +397,55 @@ public class Baloot {
         return provider.get();
     }
 
+    public void updateUser(String username, String email, String password, String birth_date) {
+        Optional<User> existing_user = userRepository.findById(username);
+
+        String hashedPassword = String.valueOf(password.hashCode());
+        User user = existing_user.get();
+        user.setusername(username);
+        user.setPassword(password);
+        userRepository.save(user);
+    }
+
     public boolean isLogin() {
         return (loginUsername != null && loginUsername != "");
     }
 
-    public void login(String username, String password) throws Exception{
+    public String login(String username, String password) throws Exception{
         Optional<User> user = userRepository.findById(username);
 
-        if (password.equals(user.get().getPassword())) {
+        String hashedPassword = String.valueOf(password.hashCode());
+        if (user.stream().findFirst().isEmpty())
+            throw new UserNotFoundError();
+        if (hashedPassword.equals(user.get().getPassword())) {
             loginUser = user.get();
             loginUsername = loginUser.getUsername();
-        }
+        } else
+            throw new UserNotFoundError();
+        return createJwtToken(username);
+    }
 
+    public void loginWithJwtToken(String username) {
+        Optional<User> user = userRepository.findById(username);
+        this.loginUser = user.get();
+    }
+
+    public String createJwtToken(String username) {
+        String signKey = "-----------Baloot2023-----------";
+
+//        Key hmacKey = new SecretKeySpec(Base64.getDecoder().decode(hmac_secret_key), SignatureAlgorithm.HS256.getJcaName());
+
+        SecretKey signature_type = new SecretKeySpec(signKey.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+
+        String jwt_token = Jwts.builder()
+                .claim("username", username)
+                .setId(UUID.randomUUID().toString())
+                .setIssuer("BALOOT_SYSTEM")                                                      // iss claim
+                .setIssuedAt(Date.from(Instant.now()))                                          // iat claim
+                .setExpiration(Date.from(Instant.now().plus(24, ChronoUnit.HOURS))) // exp claim
+                .signWith(signature_type)
+                .compact();
+        return jwt_token;
     }
 
     public String getLoginUsername() {
@@ -402,8 +454,22 @@ public class Baloot {
 
     public User getLoginUser() { return loginUser;}
 
+    public void signup(String username, String email, String password, String birthDate) throws UserAlreadyExistsError {
+        Optional<User> existingUser = userRepository.findById(username);
+
+        if (existingUser.stream().findFirst().isPresent())
+            throw new UserAlreadyExistsError();
+        User newUser = new User();
+        String hashedPassword = String.valueOf(password.hashCode());
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(hashedPassword);
+        userRepository.save(newUser);
+    }
+
     public void logout() {
         loginUsername = "";
+        loginUser = null;
     }
 
     public List<Commodity> getCommoditiesByName(String name) throws Exception {

@@ -167,6 +167,12 @@ public class User {
             return 0;
     }
 
+    public void setUsername(String _username) { username = _username;}
+
+    public void setPassword(String _password) { password = _password;}
+
+    public void setEmail(String _email) {email = _email;}
+
     public Integer getCredit() {
         return credit;
     }
