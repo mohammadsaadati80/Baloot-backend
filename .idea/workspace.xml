@@ -12,11 +12,7 @@
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/BuyListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/ProviderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/ProviderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/BalootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/BalootApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,6 +313,7 @@
       <workItem from="1684992696752" duration="15071000" />
       <workItem from="1685020639076" duration="12384000" />
       <workItem from="1685040854695" duration="472000" />
+      <workItem from="1685424853380" duration="733000" />
     </task>
     <servers />
   </component>
