@@ -10,12 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommodityAlreadyExistsError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommentNotFound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/CommentNotFoundError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidCreditValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidCreditValueError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/InvalidDiscountError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UserPasswordIncorrect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Exceptions/UserPasswordIncorrectError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Filters/AuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/mm/Filters/CorsFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +313,7 @@
       <workItem from="1684992696752" duration="15071000" />
       <workItem from="1685020639076" duration="12384000" />
       <workItem from="1685040854695" duration="472000" />
-      <workItem from="1685424853380" duration="1087000" />
+      <workItem from="1685424853380" duration="2222000" />
     </task>
     <servers />
   </component>

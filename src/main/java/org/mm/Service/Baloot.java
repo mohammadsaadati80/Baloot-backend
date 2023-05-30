@@ -400,6 +400,8 @@ public class Baloot {
         return loginUsername;
     }
 
+    public User getLoginUser() { return loginUser;}
+
     public void logout() {
         loginUsername = "";
     }
