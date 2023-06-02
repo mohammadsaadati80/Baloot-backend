@@ -126,7 +126,7 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/callback",method = RequestMethod.GET)
+    @RequestMapping(value = "/callback",method = RequestMethod.POST)
     protected ResponseEntity<Void> callbackLogin(@RequestParam(value = "code", required = true) String code) throws IOException, InterruptedException, ParseException {
         if(baloot.getLoginUser() != null) {
             String jwt_token = baloot.createJwtToken(baloot.getLoginUser().getUsername());
@@ -135,8 +135,8 @@ public class LoginController {
             map.add("username",baloot.getLoginUser().getUsername());
             return new ResponseEntity<>(map,HttpStatus.OK);
         }
-        String client_id = "4e1a1049c6dea3c2480a";
-        String client_secret = "f69a0287390d805292b630f778e102aa4192fa64";
+        String client_id = "3e057dd17148426a419e";
+        String client_secret = "11fea6c722a8208114a9bdc747f16e232df22344";
         String access_token_url = String.format(
                 "https://github.com/login/oauth/access_token?client_id=%s&client_secret=%s&code=%s",
                 client_id, client_secret, code
