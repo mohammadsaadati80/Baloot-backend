@@ -36,7 +36,17 @@ public class LoginController {
     @Autowired
     private Baloot baloot;
 
-    @ResponseStatus(value = HttpStatus.OK,reason = "کاربر با موفقیت لاگین شد.")
+
+    @RequestMapping(value = "/get_userss", method = RequestMethod.GET)
+    public String getUsername(){
+        try {
+            return baloot.getLoginUsername();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     protected ResponseEntity<Void> login(@RequestBody Map<String, String> user_info){
         try {
@@ -44,8 +54,10 @@ public class LoginController {
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("token", jwtToken);
             map.add("username",user_info.get("username"));
+//            ResponseEntity<Void> x = new ResponseEntity<>(map,HttpStatus.OK);
             return new ResponseEntity<>(map,HttpStatus.OK);
         } catch (UserNotFoundError ignored) {
+            System.out.println(ignored.getMessage());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch(Exception e) {
             System.out.println(e.getMessage());
