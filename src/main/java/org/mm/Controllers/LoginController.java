@@ -160,8 +160,8 @@ public class LoginController {
         HttpResponse<String> user_data_result = client.send(request,HttpResponse.BodyHandlers.ofString());
         HashMap data_body = mapper.readValue(user_data_result.body(),HashMap.class);
         String email = (String) data_body.get("email");
-        String username = (String) data_body.get("username");
-        String address = (String) data_body.get("address");
+        String username = (String) data_body.get("login");
+        String address = "";
         String bday = (String) data_body.get("created_at");
         Calendar cal = parseDateTime(bday);
         cal.add(Calendar.YEAR, -18);
