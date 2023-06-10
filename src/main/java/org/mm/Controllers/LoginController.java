@@ -36,7 +36,17 @@ public class LoginController {
     @Autowired
     private Baloot baloot;
 
-    @ResponseStatus(value = HttpStatus.OK,reason = "کاربر با موفقیت لاگین شد.")
+
+    @RequestMapping(value = "/get_userss", method = RequestMethod.GET)
+    public String getUsername(){
+        try {
+            return baloot.getLoginUsername();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     protected ResponseEntity<Void> login(@RequestBody Map<String, String> user_info){
         try {
@@ -44,8 +54,10 @@ public class LoginController {
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("token", jwtToken);
             map.add("username",user_info.get("username"));
+//            ResponseEntity<Void> x = new ResponseEntity<>(map,HttpStatus.OK);
             return new ResponseEntity<>(map,HttpStatus.OK);
         } catch (UserNotFoundError ignored) {
+            System.out.println(ignored.getMessage());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -114,7 +126,7 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value = "/callback",method = RequestMethod.GET)
+    @RequestMapping(value = "/callback",method = RequestMethod.POST)
     protected ResponseEntity<Void> callbackLogin(@RequestParam(value = "code", required = true) String code) throws IOException, InterruptedException, ParseException {
         if(baloot.getLoginUser() != null) {
             String jwt_token = baloot.createJwtToken(baloot.getLoginUser().getUsername());
@@ -123,8 +135,8 @@ public class LoginController {
             map.add("username",baloot.getLoginUser().getUsername());
             return new ResponseEntity<>(map,HttpStatus.OK);
         }
-        String client_id = "4e1a1049c6dea3c2480a";
-        String client_secret = "f69a0287390d805292b630f778e102aa4192fa64";
+        String client_id = "3e057dd17148426a419e";
+        String client_secret = "11fea6c722a8208114a9bdc747f16e232df22344";
         String access_token_url = String.format(
                 "https://github.com/login/oauth/access_token?client_id=%s&client_secret=%s&code=%s",
                 client_id, client_secret, code
@@ -148,8 +160,8 @@ public class LoginController {
         HttpResponse<String> user_data_result = client.send(request,HttpResponse.BodyHandlers.ofString());
         HashMap data_body = mapper.readValue(user_data_result.body(),HashMap.class);
         String email = (String) data_body.get("email");
-        String username = (String) data_body.get("username");
-        String address = (String) data_body.get("address");
+        String username = (String) data_body.get("login");
+        String address = "";
         String bday = (String) data_body.get("created_at");
         Calendar cal = parseDateTime(bday);
         cal.add(Calendar.YEAR, -18);

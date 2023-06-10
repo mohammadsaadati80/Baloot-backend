@@ -361,23 +361,7 @@ public class Baloot {
         return new ArrayList<Comment>();
     }
 
-    public void userBuyListPayment(String username) throws Exception { //Todo
-//        if (username==null)
-//            throw new InvalidCommandError();
-//        else {
-//            if (!users.containsKey(username))
-//                throw new UserNotFoundError();
-//            else if (users.get(username).getBuyList().size() == 0)
-//                throw new UserBuyListIsEmptyError();
-//            else if (!users.get(username).haveEnoughCredit())
-//                throw new UserNotHaveEnoughCreditError();
-//            else {
-//                List<Commodity> userBuyList = users.get(username).getBuyList();
-//                for (Commodity entry : userBuyList)
-//                    commodities.get(entry.getId()).buy(1);
-//                users.get(username).buyListPayment();
-//            }
-//        }
+    public void userBuyListPayment(String username) throws Exception {
         try {
             Optional<User> u = userRepository.findById(username);
             User user = u.get();
