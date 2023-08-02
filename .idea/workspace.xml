@@ -10,11 +10,134 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf17f82-3575-466c-9f22-e564f687e558" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/mm/Service/Baloot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/404.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Baloot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Comment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Commodity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Discount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/CommentNotFound.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/CommodityAlreadyInBuyListError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/CommodityIsNotInBuyListError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/CommodityNotFoundError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/CommodityNotInStuckError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/DiscountCodeNotFoundError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/DiscountCodeUsedError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/InvalidCommandError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/InvalidCreditValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/InvalidDiscount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/InvalidPriceRangeError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/InvalidRateScoreError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/InvalidVoteScoreError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/ProviderNotFoundError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/UserBuyListIsEmptyError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/UserNotFoundError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/UserNotHaveEnoughCreditError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/UserPasswordIncorrect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Exceptions/UsernameShouldNotContainSpecialCharactersError.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Provider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Rate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/Response.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Baloot/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/BuyListController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/CommoditiesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/CommodityController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/CreditController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/ErrorController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/HomeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/Controllers/LogoutController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/classes/org/mm/HTTPRequestHandler/HTTPRequestHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/commons-codec-1.11.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/commons-io-2.6.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/commons-lang3-3.8.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/commons-logging-1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/gson-2.8.9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/guava-10.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/httpclient-4.5.13.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/httpcore-4.4.13.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/jackson-annotations-2.12.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/jackson-core-2.12.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/jackson-databind-2.12.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/javalin-3.7.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/jsr305-1.3.9.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/lib/slf4j-api-1.7.28.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/buylist.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/commodities.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/commodity.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/credit.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/error.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/home.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Baloot/login.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/BalootApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/BalootApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/BuyListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/BuyListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommoditiesController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommoditiesController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommodityController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CommodityController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CreditController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/CreditController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/ProviderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/ProviderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/Commodity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/Commodity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/Discount.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/Discount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/Provider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/Provider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/Rate.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/Rate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Entity/Vote.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Entity/Vote.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommentNotFound.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommentNotFoundError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommentNotFoundError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityAlreadyInBuyListError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityAlreadyInBuyListError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityIsNotInBuyListError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityIsNotInBuyListError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityNotFoundError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityNotFoundError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityNotInStuckError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/CommodityNotInStuckError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/DiscountCodeNotFoundError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/DiscountCodeNotFoundError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/DiscountCodeUsedError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/DiscountCodeUsedError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidCommandError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidCommandError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidCreditValue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidCreditValueError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidCreditValueError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidDiscount.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidDiscountError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidDiscountError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidPriceRangeError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidPriceRangeError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidRateScoreError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidRateScoreError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidVoteScoreError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/InvalidVoteScoreError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/ProviderNotFoundError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/ProviderNotFoundError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserAlreadyExistsError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserAlreadyExistsError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserBuyListIsEmptyError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserBuyListIsEmptyError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserNotFoundError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserNotFoundError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserNotHaveEnoughCreditError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserNotHaveEnoughCreditError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserPasswordIncorrect.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserPasswordIncorrectError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UserPasswordIncorrectError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UsernameShouldNotContainSpecialCharactersError.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Exceptions/UsernameShouldNotContainSpecialCharactersError.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Filters/AuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Filters/AuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Filters/CorsFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Filters/CorsFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/CommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/CommodityRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/CommodityRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/DiscountRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/DiscountRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/ProviderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/ProviderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/RateRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/RateRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Repository/VoteRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Repository/VoteRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot$5.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Service/Baloot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/mm/Utils/HTTPRequestHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/mm/Utils/HTTPRequestHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/mm/BalootApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/mm/BalootApplicationTests.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,40 +191,42 @@
     <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2O3mgAYVjDs1hz6xdoDzW4GjekQ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/SAADATI-PC/Documents/IntelliJ IDEA 2021.2.3/IE_Spring_02/Baloot-frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15722656&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.26334107&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;3a2e2ec9435805b6ced0fc44abba7cb2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/SAADATI-PC/Documents/IntelliJ IDEA 2021.2.3/IE_Spring_02/Baloot-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15722656",
+    "project.structure.side.proportion": "0.26334107",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "spring.configuration.checksum": "3a2e2ec9435805b6ced0fc44abba7cb2",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Properties&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Properties"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
@@ -258,8 +383,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="containerName" value="" />
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.BalootApplication" />
+      <item itemvalue="Docker.Dockerfile" />
       <item itemvalue="JUnit.BalootApplicationTests" />
       <item itemvalue="Smart Tomcat.Unnamed" />
       <item itemvalue="Spring Boot.BalootApplication" />
@@ -268,8 +403,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.BalootApplication" />
-        <item itemvalue="Application.BalootApplication" />
         <item itemvalue="JUnit.BalootApplicationTests" />
+        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="Application.BalootApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -319,6 +455,20 @@
       <workItem from="1685434251916" duration="488000" />
       <workItem from="1685693051458" duration="12062000" />
       <workItem from="1685728951022" duration="7909000" />
+      <workItem from="1687094325631" duration="5210000" />
+      <workItem from="1687110903633" duration="102000" />
+      <workItem from="1687371714644" duration="6037000" />
+      <workItem from="1687378191499" duration="199000" />
+      <workItem from="1687378413439" duration="2700000" />
+      <workItem from="1687381182597" duration="1242000" />
+      <workItem from="1687382555463" duration="453000" />
+      <workItem from="1687417764775" duration="75000" />
+      <workItem from="1687417872024" duration="3000" />
+      <workItem from="1687418160669" duration="3458000" />
+      <workItem from="1688884604510" duration="411000" />
+      <workItem from="1688885053393" duration="55000" />
+      <workItem from="1689164452157" duration="614000" />
+      <workItem from="1690976895755" duration="307000" />
     </task>
     <servers />
   </component>
