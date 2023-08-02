@@ -220,6 +220,7 @@
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "spring.configuration.checksum": "3a2e2ec9435805b6ced0fc44abba7cb2",
     "vue.rearranger.settings.migration": "true"
+
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
@@ -453,6 +454,7 @@
       <workItem from="1685040854695" duration="472000" />
       <workItem from="1685424853380" duration="6313000" />
       <workItem from="1685434251916" duration="488000" />
+      <workItem from="1686427440215" duration="639000" />
       <workItem from="1685693051458" duration="12062000" />
       <workItem from="1685728951022" duration="7909000" />
       <workItem from="1687094325631" duration="5210000" />
@@ -485,6 +487,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
